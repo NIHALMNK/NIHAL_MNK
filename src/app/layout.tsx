@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { ThemeProvider } from "@/components/providers/theme-provider";
+import { PortfolioShell } from "@/components/ui/portfolio-shell";
 import { constructMetadata } from "@/lib/utils/metadata";
 import "@/styles/globals.css";
 
@@ -32,11 +33,11 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <div className="relative flex min-h-screen flex-col">
-            <main id="main-content" className="flex-1">
+          <PortfolioShell>
+            <main id="main-content" className="flex-1 flex flex-col">
               {children}
             </main>
-          </div>
+          </PortfolioShell>
         </ThemeProvider>
       </body>
     </html>
