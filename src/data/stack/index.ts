@@ -1,0 +1,60 @@
+import { StackItem } from "@/types/stack";
+
+export const stackData: StackItem[] = [
+  {
+    id: "st-1",
+    name: "TypeScript",
+    category: "languages",
+    description: "Primary programming language for type-safe applications, APIs, and components.",
+    proficiencyLevel: "expert",
+    yearsOfExperience: 5,
+  },
+  {
+    id: "st-2",
+    name: "React & Next.js",
+    category: "frameworks",
+    description: "Core framework stack for SSR, SSG, Server Components, and interactive UIs.",
+    proficiencyLevel: "expert",
+    yearsOfExperience: 5,
+  },
+  {
+    id: "st-3",
+    name: "Tailwind CSS",
+    category: "design",
+    description: "Utility-first design engine paired with CSS custom design token variables.",
+    proficiencyLevel: "expert",
+    yearsOfExperience: 4,
+  },
+  {
+    id: "st-4",
+    name: "Node.js",
+    category: "languages",
+    description: "Server-side runtime for asynchronous backend endpoints and Data Access Layers.",
+    proficiencyLevel: "proficient",
+    yearsOfExperience: 4,
+  },
+  {
+    id: "st-5",
+    name: "PostgreSQL",
+    category: "infrastructure",
+    description: "Relational database engine for structured schemas, indices, and queries.",
+    proficiencyLevel: "proficient",
+    yearsOfExperience: 3,
+  },
+  {
+    id: "st-6",
+    name: "Docker & Vercel",
+    category: "infrastructure",
+    description: "Deployment pipeline, containerization, and automated CI/CD hosting platforms.",
+    proficiencyLevel: "proficient",
+    yearsOfExperience: 4,
+  },
+  {
+    id: "st-7",
+    name: "Sanity CMS",
+    category: "tools",
+    description: "Headless content management system with structured GROQ queries.",
+    proficiencyLevel: "proficient",
+    yearsOfExperience: 3,
+  },
+];
