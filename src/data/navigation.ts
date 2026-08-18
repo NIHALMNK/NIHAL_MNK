@@ -4,7 +4,7 @@ export const navigationConfigData: NavigationConfig = {
   mainNav: [
     { title: "Home", href: "/" },
     { title: "Projects", href: "/projects" },
-    { title: "Blog", href: "/blog" },
+    { title: "Blog", href: "/blogs" },
     { title: "Craft", href: "/craft" },
     { title: "Stack", href: "/stack" },
     { title: "Contact", href: "/contact" },

@@ -6,6 +6,7 @@ import { EngineeringActivityData, ProviderActivityData } from "@/types/activity"
 import { CalendarYearHeatmap } from "@/components/home/calendar-year-heatmap";
 import { cn } from "@/lib/utils/cn";
 import { ExternalLink } from "lucide-react";
+import { SectionCtaButton } from "@/components/ui/section-cta-button";
 
 interface EngineeringActivitySectionProps {
   data: EngineeringActivityData;
@@ -89,16 +90,14 @@ export function EngineeringActivitySection({ data }: EngineeringActivitySectionP
         </div>
 
         {/* Bottom External Profile CTA */}
-        <div className="mt-6 text-center">
-          <a
+        <div className="mt-6 flex justify-center">
+          <SectionCtaButton
             href={activeProvider.profileUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-lg border border-border/60 bg-muted/20 px-4 py-2 text-xs font-medium text-foreground hover:bg-muted/50 hover:border-border transition-colors shadow-sm"
+            icon={ExternalLink}
+            isExternal
           >
-            <span>{activeProvider.ctaText}</span>
-            <ExternalLink className="h-3.5 w-3.5 text-muted-foreground" />
-          </a>
+            {activeProvider.ctaText}
+          </SectionCtaButton>
         </div>
       </Container>
     </section>

@@ -1,12 +1,12 @@
 "use client";
 
 import * as React from "react";
-import Link from "next/link";
 import { Container } from "@/components/ui/container";
 import { ResolvedProject } from "@/types/project";
 import { ProjectCard } from "@/components/home/project-card";
 import { ProjectOverviewModal } from "@/components/home/project-overview-modal";
 import { ArrowRight } from "lucide-react";
+import { SectionCtaButton } from "@/components/ui/section-cta-button";
 
 interface ProofOfWorkSectionProps {
   projects: ResolvedProject[];
@@ -40,14 +40,10 @@ export function ProofOfWorkSection({ projects }: ProofOfWorkSectionProps) {
         </div>
 
         {/* Bottom CTA to View All Projects */}
-        <div className="mt-10 text-center">
-          <Link
-            href="/projects"
-            className="inline-flex items-center gap-2 rounded-lg border border-border/60 bg-muted/20 px-5 py-2.5 text-xs font-semibold text-foreground hover:bg-muted/50 hover:border-border transition-colors shadow-sm"
-          >
-            <span>Show all Projects</span>
-            <ArrowRight className="h-3.5 w-3.5" />
-          </Link>
+        <div className="mt-10 flex justify-center">
+          <SectionCtaButton href="/projects" icon={ArrowRight}>
+            Show all Projects
+          </SectionCtaButton>
         </div>
       </Container>
 

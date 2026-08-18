@@ -12,13 +12,20 @@ export interface BlogSEO {
   ogImage?: MediaItem;
 }
 
+export interface BlogHeading {
+  id: string;
+  text: string;
+  level: number;
+}
+
 export interface BlogPost {
   id: string;
   title: string;
   slug: string;
   excerpt: string;
+  introCallout?: string;
   content: string;
-  coverImage: MediaItem;
+  coverImage?: MediaItem;
   publishedAt: string;
   readingTime: string;
   tags: string[];
