@@ -7,6 +7,12 @@ export interface GitHubContributionDay {
 export interface GitHubActivity {
   username: string;
   totalContributions: number;
+  totalCommits?: number;
+  pullRequests?: number;
+  publicRepos?: number;
+  followers?: number;
   days: GitHubContributionDay[];
   isAvailable: boolean;
+  isCalendarAvailable: boolean;
+  calendarUnavailableReason?: string;
 }
