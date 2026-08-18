@@ -1,4 +1,5 @@
 import { MediaItem } from "./media";
+import { Technology } from "./stack";
 
 export type ProjectPriority = 1 | 2 | 3 | 4;
 
@@ -15,6 +16,7 @@ export interface Project {
   shortDescription: string;
   description: string;
   coverImage: MediaItem;
+  videoUrl?: string;
   gallery?: MediaItem[];
   technologies: string[];
   features?: string[];
@@ -23,5 +25,10 @@ export interface Project {
   caseStudy?: string;
   publishedAt: string;
   priority?: ProjectPriority;
+  status?: "Operational" | "In Development" | "Archived";
   seo?: ProjectSEO;
+}
+
+export interface ResolvedProject extends Omit<Project, "technologies"> {
+  technologies: Technology[];
 }

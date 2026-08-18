@@ -56,12 +56,26 @@
     color-scheme: light dark;
     scroll-behavior: smooth;
     background-color: hsl(var(--background));
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+    overflow-x: hidden;
+  }
+
+  html::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
   }
 
   body {
     @apply bg-background text-foreground antialiased selection:bg-muted selection:text-foreground;
     font-feature-settings: "rlig" 1, "calt" 1;
     min-height: 100vh;
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+    overflow-x: hidden;
+  }
+
+  body::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
   }
 
   /* High contrast focus ring for keyboard accessibility */
@@ -96,3 +110,15 @@
     scroll-behavior: auto !important;
   }
 }
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.no-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+

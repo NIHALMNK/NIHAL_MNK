@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { SectionShell } from "@/components/ui/section-shell";
 import { getProjectBySlug, getAllProjects } from "@/lib/data/projects";
+import { TechIcon } from "@/components/ui/tech-icon";
 import Link from "next/link";
 
 export async function generateStaticParams() {
@@ -33,8 +34,9 @@ export default async function ProjectDetailPage({ params }: { params: { slug: st
       <div className="space-y-6 max-w-3xl">
         <div className="flex flex-wrap gap-2">
           {project.technologies.map((tech) => (
-            <span key={tech} className="rounded-full bg-muted px-3 py-1 text-xs font-medium text-muted-foreground">
-              {tech}
+            <span key={tech.id} className="inline-flex items-center gap-1.5 rounded-full bg-muted px-3 py-1 text-xs font-medium text-muted-foreground">
+              <TechIcon technology={tech} className="h-3.5 w-3.5 shrink-0" />
+              <span>{tech.name}</span>
             </span>
           ))}
         </div>
