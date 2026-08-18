@@ -4,6 +4,7 @@ import { EngineeringActivitySection } from "@/components/home/engineering-activi
 import { ProofOfWorkSection } from "@/components/home/proof-of-work-section";
 import { AchievementsSection } from "@/components/home/achievements-section";
 import { WritingThoughtsSection } from "@/components/home/writing-thoughts-section";
+import { ContactCtaSection } from "@/components/home/contact-cta-section";
 import { getSiteSettings } from "@/lib/data/site";
 import { getEngineeringActivity } from "@/lib/data/activity";
 import { getFeaturedProjects } from "@/lib/data/projects";
@@ -30,6 +31,7 @@ export default async function HomePage() {
       <AchievementsSection achievements={achievements} />
       <WritingThoughtsSection posts={latestPosts} />
       <AboutSection siteSettings={siteSettings} allTechnologies={allTechnologies} />
+      <ContactCtaSection />
     </div>
   );
 }
