@@ -1,4 +1,5 @@
 import * as React from "react";
+import { Navbar } from "@/components/navigation/navbar";
 
 interface PortfolioShellProps {
   children: React.ReactNode;
@@ -19,6 +20,7 @@ export function PortfolioShell({ children }: PortfolioShellProps) {
 
         {/* Center Editorial Content Surface */}
         <div className="flex-1 min-w-0 flex flex-col min-h-screen bg-background">
+          <Navbar />
           {children}
         </div>
 

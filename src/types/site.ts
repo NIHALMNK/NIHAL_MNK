@@ -9,6 +9,8 @@ export interface SiteSettings {
   location: string;
   availableForHire: boolean;
   email: string;
+  resumeUrl?: string;
+  featuredSkills?: string[];
   socials: {
     github: string;
     linkedin: string;
@@ -21,3 +23,4 @@ export interface SiteSettings {
     ogImage: MediaItem;
   };
 }
+
