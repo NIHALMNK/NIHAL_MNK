@@ -6,6 +6,8 @@ import { MapPin, FileText, Send, Github, Linkedin, Twitter, Mail } from "lucide-
 import { Container } from "@/components/ui/container";
 import { SiteSettings } from "@/types/site";
 import { cn } from "@/lib/utils/cn";
+import { getTechnologiesByIdsSync } from "@/lib/data/stack";
+import { TechIcon } from "@/components/ui/tech-icon";
 
 interface IntroSectionProps {
   siteSettings: SiteSettings;
@@ -13,25 +15,24 @@ interface IntroSectionProps {
 
 export function IntroSection({ siteSettings }: IntroSectionProps) {
   const [isPlaying, setIsPlaying] = React.useState(false);
+  const [imageError, setImageError] = React.useState(false);
 
   const handleDoubleClick = () => {
     setIsPlaying(true);
     setTimeout(() => setIsPlaying(false), 1000);
   };
 
-  const skillsList = siteSettings.featuredSkills ?? [
-    "TypeScript",
-    "React",
-    "Next.js",
-    "Node.js",
-    "Express.js",
-    "MongoDB",
-    "PostgreSQL",
-    "Docker",
-    "GitHub",
-    "Tailwind CSS",
-    "Redux",
-  ];
+  // URL-driven profile image source from data layer
+  const avatarUrl = siteSettings.profileImage || siteSettings.avatar?.url;
+  const avatarAlt = siteSettings.avatar?.alt || siteSettings.name;
+
+  // Authoritative technology stack resolved from central stack dataset via DAL
+  const rawSkills = siteSettings.featuredSkills || [];
+  const resolvedTechnologies = getTechnologiesByIdsSync(rawSkills);
+
+  const maxVisible = 10;
+  const visibleTechnologies = resolvedTechnologies.slice(0, maxVisible);
+  const remainingCount = Math.max(resolvedTechnologies.length - maxVisible, 0);
 
   const resumeHref = siteSettings.resumeUrl || "/resume.pdf";
 
@@ -51,14 +52,21 @@ export function IntroSection({ siteSettings }: IntroSectionProps) {
               )}
               title="Double click to play"
             >
-              <Image
-                src={siteSettings.avatar.url}
-                alt={siteSettings.avatar.alt}
-                width={76}
-                height={76}
-                priority
-                className="w-full h-full object-cover rounded-2xl"
-              />
+              {avatarUrl && !imageError ? (
+                <Image
+                  src={avatarUrl}
+                  alt={avatarAlt}
+                  width={512}
+                  height={512}
+                  priority
+                  onError={() => setImageError(true)}
+                  className="w-full h-full object-cover rounded-2xl"
+                />
+              ) : (
+                <div className="w-full h-full flex items-center justify-center bg-amber-500/20 text-amber-600 dark:text-amber-300 font-mono font-bold text-xl rounded-2xl select-none">
+                  {siteSettings.name ? siteSettings.name.charAt(0) : "N"}
+                </div>
+              )}
               {/* Online Green Status Dot */}
               <span
                 aria-label="Online status"
@@ -100,16 +108,39 @@ export function IntroSection({ siteSettings }: IntroSectionProps) {
           that users love over getting lost in technical details.
         </p>
 
-        {/* Tech Stack Chips */}
-        <div className="mt-5 sm:mt-6 flex flex-wrap gap-2">
-          {skillsList.map((skill) => (
-            <span
-              key={skill}
-              className="inline-flex items-center rounded-md border border-border/50 bg-secondary/30 px-2.5 py-1 text-[11px] sm:text-xs font-mono text-muted-foreground hover:border-border/80 hover:text-foreground transition-colors select-none"
-            >
-              {skill}
-            </span>
+        {/* Tech Stack Chips (Max 10 visible + N counter pill + subtle hover tooltips) */}
+        <div className="mt-5 sm:mt-6 flex flex-wrap items-center gap-2">
+          {visibleTechnologies.map((tech) => (
+            <div key={tech.id} className="group relative inline-flex">
+              <span className="inline-flex items-center gap-1.5 rounded-md border border-border/50 bg-secondary/30 px-2.5 py-1 text-[11px] sm:text-xs font-mono text-muted-foreground hover:border-border/80 hover:text-foreground transition-colors select-none cursor-pointer">
+                <TechIcon technology={tech} className="h-3.5 w-3.5 shrink-0" />
+                <span>{tech.name}</span>
+              </span>
+
+              {/* Subtle Hover Tooltip */}
+              <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-1.5 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-150 z-20 pointer-events-none whitespace-nowrap">
+                <div className="rounded bg-black/90 dark:bg-zinc-900 border border-white/10 px-2 py-0.5 text-[10px] font-mono text-white shadow-md">
+                  {tech.name}
+                </div>
+              </div>
+            </div>
           ))}
+
+          {/* Remaining Technologies Counter Pill (+N) */}
+          {remainingCount > 0 && (
+            <div className="group relative inline-flex">
+              <span className="inline-flex items-center rounded-md border border-border/40 bg-muted/20 px-2.5 py-1 text-[11px] sm:text-xs font-mono font-medium text-muted-foreground/80 hover:border-border/80 hover:text-foreground transition-colors select-none cursor-pointer">
+                +{remainingCount}
+              </span>
+
+              {/* Tooltip for Counter Pill */}
+              <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-1.5 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-150 z-20 pointer-events-none whitespace-nowrap">
+                <div className="rounded bg-black/90 dark:bg-zinc-900 border border-white/10 px-2 py-0.5 text-[10px] font-mono text-white shadow-md">
+                  +{remainingCount} more technologies
+                </div>
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Action Buttons & Social Links */}

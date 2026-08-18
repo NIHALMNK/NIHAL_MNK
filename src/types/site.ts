@@ -6,6 +6,7 @@ export interface SiteSettings {
   headline: string;
   bio: string;
   avatar: MediaItem;
+  profileImage?: string;
   location: string;
   availableForHire: boolean;
   email: string;
@@ -23,4 +24,3 @@ export interface SiteSettings {
     ogImage: MediaItem;
   };
 }
-
