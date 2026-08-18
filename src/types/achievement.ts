@@ -6,6 +6,9 @@ export interface Achievement {
   issuer: string;
   date: string;
   description: string;
+  shortDescription?: string;
+  credentialId?: string; // Preserved in data model for CMS/DB identity
+  skills?: string[]; // Skills Acquired
   credentialUrl?: string;
-  image?: MediaItem;
+  logo?: MediaItem;
 }
