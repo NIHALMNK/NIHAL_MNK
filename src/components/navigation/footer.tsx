@@ -93,17 +93,9 @@ export function Footer() {
                   rel="noopener noreferrer"
                   className="underline underline-offset-4 hover:text-foreground transition-colors"
                 >
-                  Next.js App Framework
+                  Next.js
                 </a>{" "}
-                &amp;{" "}
-                <a
-                  href="https://tailwindcss.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="underline underline-offset-4 hover:text-foreground transition-colors"
-                >
-                  Tailwind CSS Framework
-                </a>
+
               </p>
             </div>
 
