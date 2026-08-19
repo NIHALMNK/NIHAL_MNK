@@ -2,7 +2,6 @@
 
 import * as React from "react";
 import Image from "next/image";
-import Link from "next/link";
 import {
   MapPin,
   Mail,
@@ -18,17 +17,18 @@ import {
   CheckCircle2,
 } from "lucide-react";
 import { AboutData } from "@/types/about";
+import { Technology } from "@/types/stack";
 import { Container } from "@/components/ui/container";
 import { TechIcon } from "@/components/ui/tech-icon";
 import { useStaggerReveal } from "@/lib/animation/hooks";
 import { onGlassMouseMove } from "@/lib/utils/glass-glow";
-import { Technology } from "@/types/stack";
 
 interface AboutViewProps {
   data: AboutData;
+  allTechnologies: Technology[];
 }
 
-export function AboutView({ data }: AboutViewProps) {
+export function AboutView({ data, allTechnologies }: AboutViewProps) {
   const pageRef = useStaggerReveal<HTMLElement>({
     itemSelector: "[data-animate-item]",
     y: 24,
@@ -36,8 +36,49 @@ export function AboutView({ data }: AboutViewProps) {
     stagger: 0.07,
   });
 
-  const { profile, summary, education, skillCategories, experience } = data;
+  const { profile, summary, education, experience } = data;
   const [imageError, setImageError] = React.useState(false);
+
+  // Derive the four technical skill groups dynamically from authoritative stack data
+  const designTools = allTechnologies.filter(
+    (tech) => tech.category === "design-tools" || tech.category === "design"
+  );
+  const editingTools = allTechnologies.filter(
+    (tech) => tech.category === "editing-tools"
+  );
+  const languages = allTechnologies.filter(
+    (tech) => tech.category === "languages"
+  );
+  const aiTools = allTechnologies.filter(
+    (tech) => tech.category === "ai-tools"
+  );
+
+  const skillCategories = [
+    {
+      id: "cat-design-tools",
+      category: "Design Tools",
+      description: "UI/UX wireframing, component design systems, and rapid prototyping.",
+      skills: designTools,
+    },
+    {
+      id: "cat-editing-tools",
+      category: "Editing / Development Tools",
+      description: "Integrated development environments, AI-augmented editors, and coding toolchains.",
+      skills: editingTools,
+    },
+    {
+      id: "cat-languages",
+      category: "Languages",
+      description: "Core programming and database query languages used across production stacks.",
+      skills: languages,
+    },
+    {
+      id: "cat-ai-tools",
+      category: "AI Tools",
+      description: "Generative intelligence platforms and developer assistant workflows.",
+      skills: aiTools,
+    },
+  ].filter((cat) => cat.skills.length > 0);
 
   return (
     <main ref={pageRef} className="flex-1 py-8 sm:py-12 md:py-16">
@@ -269,7 +310,7 @@ export function AboutView({ data }: AboutViewProps) {
           </div>
         </div>
 
-        {/* Technical Skills Section (Dynamic, 4 Categories: Design Tools, Editing/Development Tools, Languages, AI Tools) */}
+        {/* Technical Skills Section (Dynamic, Filtered from authoritative Stack Data) */}
         <div className="space-y-4">
           <div data-animate-item className="space-y-1">
             <div className="flex items-center gap-2">
@@ -279,7 +320,7 @@ export function AboutView({ data }: AboutViewProps) {
               </h2>
             </div>
             <p className="text-xs sm:text-sm font-mono text-muted-foreground">
-              Core toolchains, development environments, programming languages, and AI systems.
+              Design tools, editing environments, programming languages, and AI systems derived from Stack data.
             </p>
           </div>
 
@@ -305,26 +346,14 @@ export function AboutView({ data }: AboutViewProps) {
                   )}
                 </div>
 
-                {/* Skills Badges with Icons */}
+                {/* Skills Badges with Icons directly from Stack */}
                 <div className="flex flex-wrap gap-2 pt-1">
                   {category.skills.map((skill) => (
                     <span
                       key={skill.id}
                       className="glass-pill inline-flex items-center gap-2 rounded-lg px-3 py-1.5 text-xs font-mono text-foreground select-none"
                     >
-                      <TechIcon
-                        technology={{
-                          id: skill.id,
-                          name: skill.name,
-                          slug: skill.slug || skill.name.toLowerCase().replace(/\s+/g, "-"),
-                          category: "tools",
-                          description: skill.name,
-                          proficiencyLevel: "proficient",
-                          yearsOfExperience: 3,
-                          icon: skill.icon,
-                        } as Technology}
-                        className="h-4 w-4 shrink-0"
-                      />
+                      <TechIcon technology={skill} className="h-4 w-4 shrink-0" />
                       <span>{skill.name}</span>
                     </span>
                   ))}

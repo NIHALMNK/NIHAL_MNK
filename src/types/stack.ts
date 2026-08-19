@@ -1,6 +1,14 @@
 import { MediaItem } from "./media";
 
-export type StackCategory = "languages" | "frameworks" | "tools" | "infrastructure" | "design";
+export type StackCategory =
+  | "languages"
+  | "frameworks"
+  | "tools"
+  | "infrastructure"
+  | "design"
+  | "design-tools"
+  | "editing-tools"
+  | "ai-tools";
 
 export interface Technology {
   id: string;

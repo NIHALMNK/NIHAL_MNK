@@ -1,5 +1,3 @@
-import { Technology } from "@/types/stack";
-
 export interface AboutProfile {
   name: string;
   role: string;
@@ -24,23 +22,6 @@ export interface EducationItem {
   description?: string;
 }
 
-export interface SkillItem {
-  id: string;
-  name: string;
-  slug?: string;
-  icon?: {
-    url: string;
-    alt?: string;
-  };
-}
-
-export interface SkillCategory {
-  id: string;
-  category: string;
-  description?: string;
-  skills: SkillItem[];
-}
-
 export interface ExperienceItem {
   id: string;
   role: string;
@@ -60,6 +41,5 @@ export interface AboutData {
     highlights: { label: string; value: string }[];
   };
   education: EducationItem[];
-  skillCategories: SkillCategory[];
   experience: ExperienceItem[];
 }
