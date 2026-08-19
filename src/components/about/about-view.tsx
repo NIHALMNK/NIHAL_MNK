@@ -40,17 +40,17 @@ export function AboutView({ data, allTechnologies }: AboutViewProps) {
   const [imageError, setImageError] = React.useState(false);
 
   // Derive the four technical skill groups dynamically from authoritative stack data
-  const designTools = allTechnologies.filter(
-    (tech) => tech.category === "design-tools" || tech.category === "design"
+  const designTools = allTechnologies.filter((tech) =>
+    ["figma", "adobe-xd"].includes(tech.slug)
   );
-  const editingTools = allTechnologies.filter(
-    (tech) => tech.category === "editing-tools"
+  const editingTools = allTechnologies.filter((tech) =>
+    ["vscode", "antigravity", "cursor", "kiro"].includes(tech.slug)
   );
-  const languages = allTechnologies.filter(
-    (tech) => tech.category === "languages"
+  const languages = allTechnologies.filter((tech) =>
+    ["javascript", "typescript", "sql"].includes(tech.slug)
   );
-  const aiTools = allTechnologies.filter(
-    (tech) => tech.category === "ai-tools"
+  const aiTools = allTechnologies.filter((tech) =>
+    ["chatgpt", "gemini", "claude"].includes(tech.slug)
   );
 
   const skillCategories = [
