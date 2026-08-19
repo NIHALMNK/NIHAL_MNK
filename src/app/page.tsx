@@ -6,7 +6,7 @@ import { AchievementsSection } from "@/components/home/achievements-section";
 import { WritingThoughtsSection } from "@/components/home/writing-thoughts-section";
 import { BookmarksSection } from "@/components/home/bookmarks-section";
 import { PersonalLifeSection } from "@/components/home/personal-life-section";
-import { ContactCtaSection } from "@/components/home/contact-cta-section";
+import { ConnectSection } from "@/components/home/connect-section";
 import { getSiteSettings } from "@/lib/data/site";
 import { getEngineeringActivity } from "@/lib/data/activity";
 import { getFeaturedProjects } from "@/lib/data/projects";
@@ -45,9 +45,9 @@ export default async function HomePage() {
       <AchievementsSection achievements={achievements} />
       <WritingThoughtsSection posts={latestPosts} />
       <BookmarksSection bookmarks={bookmarks} />
-      <PersonalLifeSection recentSnaps={recentSnaps} />
       <AboutSection siteSettings={siteSettings} allTechnologies={allTechnologies} />
-      <ContactCtaSection />
+      <PersonalLifeSection recentSnaps={recentSnaps} />
+      <ConnectSection siteSettings={siteSettings} />
     </div>
   );
 }
