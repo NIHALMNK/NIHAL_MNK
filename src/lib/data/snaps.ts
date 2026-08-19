@@ -42,3 +42,10 @@ export async function getRecentSnaps(limit?: number): Promise<Snap[]> {
   );
   return limit ? sorted.slice(0, limit) : sorted;
 }
+
+/**
+ * Returns all snaps for the dedicated Gallery page.
+ */
+export async function getAllSnaps(): Promise<Snap[]> {
+  return getRecentSnaps();
+}

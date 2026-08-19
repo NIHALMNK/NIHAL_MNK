@@ -30,7 +30,7 @@ export const siteSettingsData: SiteSettings = {
   defaultSeo: {
     title: "Mohammed Nihal K — MERN Stack Developer Portfolio",
     description:
-      "Personal developer portfolio of Mohammed Nihal K featuring projects, articles, craft experiments, and tech stack.",
+      "Personal developer portfolio of Mohammed Nihal K featuring projects, articles, recent snaps, and tech stack.",
     siteUrl: "https://nihalmnk-portfolio.vercel.app",
     ogImage: {
       url: "https://res.cloudinary.com/doyxte1wf/image/upload/v1785831231/NIHAL_MNK_profile.webp",
@@ -47,7 +47,6 @@ export const navigationConfigData: NavigationConfig = {
     { title: "Home", href: "/" },
     { title: "Projects", href: "/projects" },
     { title: "Blog", href: "/blogs" },
-    { title: "Craft", href: "/craft" },
     { title: "Stack", href: "/stack" },
     { title: "Contact", href: "/contact" },
   ],

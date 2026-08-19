@@ -120,7 +120,7 @@ export function PersonalLifeSection({ recentSnaps, snaps }: PersonalLifeSectionP
           {/* View Gallery Page CTA */}
           <div className="mt-5 flex justify-center">
             <Link
-              href="/craft"
+              href="/snaps"
               className="group inline-flex items-center rounded-lg border border-border/70 bg-foreground text-background shadow-sm overflow-hidden hover:scale-[1.02] active:scale-[0.98] transition-transform duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground focus-visible:ring-offset-2 select-none"
             >
               <span className="px-4 sm:px-5 py-2.5 text-sm font-mono font-semibold tracking-wide">
