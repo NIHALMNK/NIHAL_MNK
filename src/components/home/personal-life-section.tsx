@@ -22,10 +22,6 @@ export function PersonalLifeSection({ recentSnaps, snaps }: PersonalLifeSectionP
     stagger: 0.08,
   });
 
-  const [visibleCount, setVisibleCount] = React.useState(4);
-  const displayedSnaps = allSnaps.slice(0, visibleCount);
-  const hasMoreSnaps = allSnaps.length > visibleCount;
-
   return (
     <section ref={sectionRef} className="py-8 sm:py-10 md:py-12 border-b border-border/40">
       <Container>
@@ -91,7 +87,7 @@ export function PersonalLifeSection({ recentSnaps, snaps }: PersonalLifeSectionP
 
           {/* 4-column snap grid */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3">
-            {displayedSnaps.map((snap) => (
+            {allSnaps.slice(0, 4).map((snap) => (
               <div
                 key={snap.id}
                 className="group relative aspect-square rounded-xl overflow-hidden border border-border/40 bg-muted/20"
@@ -121,16 +117,8 @@ export function PersonalLifeSection({ recentSnaps, snaps }: PersonalLifeSectionP
             ))}
           </div>
 
-          {/* Show More + View Gallery CTAs */}
-          <div className="mt-5 flex flex-col items-center gap-4">
-            <button
-              type="button"
-              className="inline-flex items-center gap-1.5 text-xs font-mono text-muted-foreground hover:text-foreground transition-colors"
-            >
-              Show More Snaps
-              <span className="text-[10px]">▾</span>
-            </button>
-
+          {/* View Gallery Page CTA */}
+          <div className="mt-5 flex justify-center">
             <Link
               href="/craft"
               className="group inline-flex items-center rounded-lg border border-border/70 bg-foreground text-background shadow-sm overflow-hidden hover:scale-[1.02] active:scale-[0.98] transition-transform duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground focus-visible:ring-offset-2 select-none"

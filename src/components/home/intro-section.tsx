@@ -76,9 +76,9 @@ export function IntroSection({ siteSettings }: IntroSectionProps) {
               />
             </div>
 
-            {/* dbl-click to play hint */}
+            {/* dbl-click hint */}
             <span className="text-[11px] font-mono text-muted-foreground/75 select-none hidden sm:inline-flex items-center gap-1">
-              ← dbl-click to play
+              ← dbl-click for more
             </span>
           </div>
 

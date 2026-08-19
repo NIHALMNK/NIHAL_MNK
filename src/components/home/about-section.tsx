@@ -2,11 +2,14 @@
 
 import * as React from "react";
 import Image from "next/image";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import { SiteSettings } from "@/types/site";
 import { Technology } from "@/types/stack";
 import { Container } from "@/components/ui/container";
 import { TechIcon } from "@/components/ui/tech-icon";
 import { useStaggerReveal } from "@/lib/animation/hooks";
+import { onGlassMouseMove } from "@/lib/utils/glass-glow";
 
 interface AboutSectionProps {
   siteSettings: SiteSettings;
@@ -27,7 +30,7 @@ export function AboutSection({ siteSettings, allTechnologies }: AboutSectionProp
   const avatarAlt = siteSettings.avatar?.alt || `${siteSettings.name} Profile Photo`;
 
   return (
-    <section ref={sectionRef} className="py-10 sm:py-14 md:py-16 border-b border-border/40 bg-background">
+    <section id="about" ref={sectionRef} className="py-10 sm:py-14 md:py-16 border-b border-border/40 bg-background">
       <Container>
         {/* Section Label */}
         <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground font-sans">
@@ -36,8 +39,8 @@ export function AboutSection({ siteSettings, allTechnologies }: AboutSectionProp
 
         {/* Two-column layout: Profile Image left + Content right */}
         <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row gap-6 sm:gap-10 items-start">
-          {/* LEFT: Profile Image */}
-          <div data-animate-item className="shrink-0">
+          {/* LEFT: Profile Image & CTA */}
+          <div data-animate-item className="shrink-0 flex flex-col items-center sm:items-start gap-3.5">
             <div className="glass-card glass-highlight relative w-[200px] h-[200px] sm:w-[220px] sm:h-[220px] rounded-2xl overflow-hidden shadow-sm">
               {avatarUrl && !imageError ? (
                 <Image
@@ -55,6 +58,17 @@ export function AboutSection({ siteSettings, allTechnologies }: AboutSectionProp
                 </div>
               )}
             </div>
+
+            {/* View More About Me CTA */}
+            <Link
+              href="#about"
+              onMouseMove={onGlassMouseMove}
+              className="glass-button group relative overflow-hidden inline-flex items-center justify-center gap-2 rounded-lg px-3.5 py-2 text-xs font-mono font-medium text-foreground transition-all duration-150 shadow-xs select-none w-full max-w-[200px] sm:max-w-[220px]"
+            >
+              <span className="glass-button-glow" />
+              <span className="relative z-10">View More About Me</span>
+              <ArrowRight className="h-3.5 w-3.5 text-muted-foreground group-hover:text-foreground group-hover:translate-x-0.5 transition-all relative z-10" />
+            </Link>
           </div>
 
           {/* RIGHT: Bio + Tech Stack */}

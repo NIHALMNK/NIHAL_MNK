@@ -9,9 +9,9 @@ import { siteSettingsData } from "@/data/site";
 import { cn } from "@/lib/utils/cn";
 
 const navItems = [
+  { label: "About", href: "/#about" },
   { label: "Projects", href: "/projects" },
-  { label: "Craft", href: "/craft" },
-  { label: "Blogs", href: "/blog" },
+  { label: "Blogs", href: "/blogs" },
   { label: "Stack", href: "/stack" },
 ];
 
@@ -48,7 +48,9 @@ export function Navbar() {
               const isActive =
                 item.href === "/"
                   ? pathname === "/"
-                  : pathname === item.href || pathname.startsWith(`${item.href}/`);
+                  : item.href === "/#about"
+                  ? false
+                  : pathname === item.href || (item.href !== "/#about" && pathname.startsWith(`${item.href}`));
 
               return (
                 <li key={item.href} className="shrink-0">
