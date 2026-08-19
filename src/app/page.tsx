@@ -6,7 +6,6 @@ import { AchievementsSection } from "@/components/home/achievements-section";
 import { WritingThoughtsSection } from "@/components/home/writing-thoughts-section";
 import { BookmarksSection } from "@/components/home/bookmarks-section";
 import { PersonalLifeSection } from "@/components/home/personal-life-section";
-import { ConnectSection } from "@/components/home/connect-section";
 import { getSiteSettings } from "@/lib/data/site";
 import { getEngineeringActivity } from "@/lib/data/activity";
 import { getFeaturedProjects } from "@/lib/data/projects";
@@ -47,7 +46,6 @@ export default async function HomePage() {
       <BookmarksSection bookmarks={bookmarks} />
       <AboutSection siteSettings={siteSettings} allTechnologies={allTechnologies} />
       <PersonalLifeSection recentSnaps={recentSnaps} />
-      <ConnectSection siteSettings={siteSettings} />
     </div>
   );
 }

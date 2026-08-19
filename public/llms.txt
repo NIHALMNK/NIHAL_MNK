@@ -1,0 +1,27 @@
+# Mohammed Nihal K — Portfolio & Engineering Context
+
+> MERN Stack Developer • Engineer • Builder
+> Location: India (UTC+5:30)
+> Website: https://nihalmnk-portfolio.vercel.app
+
+## Summary
+I build complete web and AI experiences from zero to one. Focused on the entire lifecycle from design to deployment, I prioritize shipping products that users love over getting lost in technical details.
+
+## Core Technologies
+- Frontend: Next.js, React, TypeScript, Tailwind CSS
+- Backend: Node.js, Express.js, WebSockets (Socket.io), WebRTC
+- Databases & Storage: MongoDB, PostgreSQL, Redis
+- DevOps & Tools: Docker, Git, Linux, Vercel
+
+## Featured Projects
+- Kizuna: Real-time fitness tracking & workout analytics platform.
+- Tactics: E-commerce management platform with real-time inventory synchronization.
+- Chattify: High-concurrency messaging application with end-to-end encryption.
+- Hydrops: Smart water management and telemetry IoT portal.
+
+## Contact & Social Links
+- GitHub: https://github.com/NIHALMNK
+- LinkedIn: https://www.linkedin.com/in/mohammednihalk6061/
+- Instagram: https://instagram.com/
+- Email: mohammednihal.dev@gmail.com
+- Resume: /resume.pdf

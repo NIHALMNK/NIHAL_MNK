@@ -34,9 +34,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <PortfolioShell>
-            <main id="main-content" className="flex-1 flex flex-col">
-              {children}
-            </main>
+            {children}
           </PortfolioShell>
         </ThemeProvider>
       </body>

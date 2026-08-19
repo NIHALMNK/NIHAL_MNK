@@ -1,0 +1,129 @@
+import Link from "next/link";
+import { Instagram, Github, Linkedin, Mail, FileText } from "lucide-react";
+import { Container } from "@/components/ui/container";
+import { siteSettingsData } from "@/data/site";
+
+export function Footer() {
+  const connectLinks = [
+    {
+      label: "Instagram",
+      href: siteSettingsData.socials.instagram || "https://instagram.com/",
+      icon: Instagram,
+      external: true,
+    },
+    {
+      label: "GitHub",
+      href: siteSettingsData.socials.github,
+      icon: Github,
+      external: true,
+    },
+    {
+      label: "LinkedIn",
+      href: siteSettingsData.socials.linkedin,
+      icon: Linkedin,
+      external: true,
+    },
+    {
+      label: "Email",
+      href: `mailto:${siteSettingsData.email}`,
+      icon: Mail,
+      external: false,
+    },
+    {
+      label: "Resume",
+      href: siteSettingsData.resumeUrl || "/resume.pdf",
+      icon: FileText,
+      external: true,
+    },
+  ];
+
+  return (
+    <footer id="connect" className="mt-auto border-t border-border/40 bg-background">
+      {/* 1. Main Connect Section (The visual footer) */}
+      <section className="py-10 sm:py-14 md:py-16">
+        <Container>
+          {/* Section Header */}
+          <div className="max-w-2xl">
+            <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground font-sans">
+              Connect
+            </h2>
+            <p className="mt-1.5 sm:mt-2 text-xs sm:text-sm text-muted-foreground leading-relaxed">
+              Reach out to me on any of these platforms.
+            </p>
+          </div>
+
+          {/* 5 Social Buttons Horizontal Row */}
+          <div className="mt-6 sm:mt-8 flex flex-wrap items-center gap-3 sm:gap-4">
+            {connectLinks.map((item) => {
+              const Icon = item.icon;
+              return (
+                <a
+                  key={item.label}
+                  href={item.href}
+                  target={item.external ? "_blank" : undefined}
+                  rel={item.external ? "noopener noreferrer" : undefined}
+                  className="group inline-flex items-center gap-2.5 rounded-lg border border-border/60 bg-muted/20 px-4 py-2.5 text-xs sm:text-sm font-medium text-foreground hover:bg-muted/50 hover:border-border transition-all duration-150 shadow-sm select-none"
+                >
+                  <Icon className="h-4 w-4 text-muted-foreground group-hover:text-foreground transition-colors shrink-0" />
+                  <span>{item.label}</span>
+                </a>
+              );
+            })}
+          </div>
+        </Container>
+      </section>
+
+      {/* 2. Small Footer Metadata Row */}
+      <div className="border-t border-border/40 py-6 sm:py-8 bg-background">
+        <Container>
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-xs font-mono text-muted-foreground">
+            {/* Copyright & Core Built With */}
+            <div className="flex flex-col sm:flex-row sm:items-center gap-1.5 sm:gap-3">
+              <p>© 2026 Mohammed Nihal. All rights reserved.</p>
+              <span className="hidden sm:inline text-border">•</span>
+              <p>
+                Built with{" "}
+                <a
+                  href="https://nextjs.org"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline underline-offset-4 hover:text-foreground transition-colors"
+                >
+                  Next.js App Framework
+                </a>{" "}
+                &amp;{" "}
+                <a
+                  href="https://tailwindcss.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline underline-offset-4 hover:text-foreground transition-colors"
+                >
+                  Tailwind CSS Framework
+                </a>
+              </p>
+            </div>
+
+            {/* AI & System Links */}
+            <div className="flex items-center gap-3 shrink-0">
+              <Link
+                href="/llms.txt"
+                target="_blank"
+                className="underline underline-offset-4 hover:text-foreground transition-colors"
+              >
+                LLMs.txt · AI Context File
+              </Link>
+              <span className="text-border">·</span>
+              <Link
+                href="/robots.txt"
+                target="_blank"
+                className="underline underline-offset-4 hover:text-foreground transition-colors"
+              >
+                robots.txt
+              </Link>
+            </div>
+          </div>
+        </Container>
+      </div>
+    </footer>
+  );
+}

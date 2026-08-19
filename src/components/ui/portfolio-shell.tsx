@@ -1,5 +1,6 @@
 import * as React from "react";
 import { Navbar } from "@/components/navigation/navbar";
+import { Footer } from "@/components/navigation/footer";
 
 interface PortfolioShellProps {
   children: React.ReactNode;
@@ -21,7 +22,10 @@ export function PortfolioShell({ children }: PortfolioShellProps) {
         {/* Center Editorial Content Surface */}
         <div className="flex-1 min-w-0 flex flex-col min-h-screen bg-background">
           <Navbar />
-          {children}
+          <main id="main-content" className="flex-1 flex flex-col">
+            {children}
+          </main>
+          <Footer />
         </div>
 
         {/* Right Hatch Side Edge */}
