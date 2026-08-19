@@ -32,9 +32,9 @@ export const siteSettingsData: SiteSettings = {
     "tech-webrtc",
   ],
   socials: {
+    instagram: "https://instagram.com/",
     github: "https://github.com/NIHALMNK",
     linkedin: "https://www.linkedin.com/in/mohammednihalk6061/",
-    twitter: "https://twitter.com/nihal_dev",
   },
   defaultSeo: {
     title: "Mohammed Nihal K — MERN Stack Developer Portfolio",

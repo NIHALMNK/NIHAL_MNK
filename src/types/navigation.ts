@@ -7,9 +7,10 @@ export interface NavItem {
 export interface NavigationConfig {
   mainNav: NavItem[];
   socialLinks: {
+    instagram?: string;
     github: string;
-    twitter?: string;
     linkedin: string;
     email: string;
+    resume?: string;
   };
 }

@@ -13,9 +13,9 @@ export interface SiteSettings {
   resumeUrl?: string;
   featuredSkills?: string[];
   socials: {
+    instagram?: string;
     github: string;
     linkedin: string;
-    twitter?: string;
   };
   defaultSeo: {
     title: string;

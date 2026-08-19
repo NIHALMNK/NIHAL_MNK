@@ -10,9 +10,10 @@ export const navigationConfigData: NavigationConfig = {
     { title: "Contact", href: "/contact" },
   ],
   socialLinks: {
+    instagram: "https://instagram.com/",
     github: "https://github.com/nihal",
-    twitter: "https://twitter.com/nihal_dev",
     linkedin: "https://linkedin.com/in/nihal-mnk",
     email: "mailto:nihal.mnk.dev@gmail.com",
+    resume: "/resume.pdf",
   },
 };

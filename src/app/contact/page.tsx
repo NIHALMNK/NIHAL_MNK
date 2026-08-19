@@ -1,43 +1,81 @@
-import { SectionShell } from "@/components/ui/section-shell";
+import { Metadata } from "next";
+import { Instagram, Github, Linkedin, Mail, FileText } from "lucide-react";
+import { Container } from "@/components/ui/container";
 import { getSiteSettings } from "@/lib/data/site";
 
-export const metadata = {
-  title: "Contact — Nihal Portfolio",
-  description: "Get in touch for technical inquiries, consulting, or project inquiries.",
+export const metadata: Metadata = {
+  title: "Connect — Mohammed Nihal K",
+  description: "Reach out to me on any of these platforms.",
 };
 
 export default async function ContactPage() {
   const site = await getSiteSettings();
 
+  const connectLinks = [
+    {
+      label: "Instagram",
+      href: site.socials.instagram || "https://instagram.com/",
+      icon: Instagram,
+      external: true,
+    },
+    {
+      label: "GitHub",
+      href: site.socials.github,
+      icon: Github,
+      external: true,
+    },
+    {
+      label: "LinkedIn",
+      href: site.socials.linkedin,
+      icon: Linkedin,
+      external: true,
+    },
+    {
+      label: "Email",
+      href: `mailto:${site.email}`,
+      icon: Mail,
+      external: false,
+    },
+    {
+      label: "Resume",
+      href: site.resumeUrl || "/resume.pdf",
+      icon: FileText,
+      external: true,
+    },
+  ];
+
   return (
-    <SectionShell
-      title="Let's Connect"
-      description="Available for select senior engineering consulting, frontend architecture roles, and technical discussions."
-      badge="Contact"
-    >
-      <div className="max-w-xl rounded-lg border border-border bg-card p-6 shadow-sm space-y-4">
-        <div>
-          <span className="text-xs uppercase tracking-wider text-muted-foreground font-semibold">Direct Email</span>
-          <p className="mt-1 text-lg font-bold text-foreground">{site.email}</p>
+    <section className="py-12 sm:py-16 md:py-20 bg-background">
+      <Container>
+        {/* Section Header */}
+        <div className="max-w-2xl">
+          <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground font-sans">
+            Connect
+          </h1>
+          <p className="mt-2 text-sm sm:text-base text-muted-foreground leading-relaxed">
+            Reach out to me on any of these platforms.
+          </p>
         </div>
-        <div>
-          <span className="text-xs uppercase tracking-wider text-muted-foreground font-semibold">Location</span>
-          <p className="mt-1 text-base text-foreground">{site.location}</p>
+
+        {/* 5 Social Buttons in Exact Order: Instagram -> GitHub -> LinkedIn -> Email -> Resume */}
+        <div className="mt-6 sm:mt-8 flex flex-wrap items-center gap-3 sm:gap-4">
+          {connectLinks.map((item) => {
+            const Icon = item.icon;
+            return (
+              <a
+                key={item.label}
+                href={item.href}
+                target={item.external ? "_blank" : undefined}
+                rel={item.external ? "noopener noreferrer" : undefined}
+                className="group inline-flex items-center gap-2.5 rounded-lg border border-border/60 bg-muted/20 px-4 py-2.5 text-xs sm:text-sm font-medium text-foreground hover:bg-muted/50 hover:border-border transition-all duration-150 shadow-sm select-none"
+              >
+                <Icon className="h-4 w-4 text-muted-foreground group-hover:text-foreground transition-colors shrink-0" />
+                <span>{item.label}</span>
+              </a>
+            );
+          })}
         </div>
-        <div className="pt-4 border-t border-border flex gap-4 text-sm font-semibold">
-          <a href={site.socials.github} target="_blank" rel="noreferrer" className="hover:underline">
-            GitHub ↗
-          </a>
-          <a href={site.socials.linkedin} target="_blank" rel="noreferrer" className="hover:underline">
-            LinkedIn ↗
-          </a>
-          {site.socials.twitter && (
-            <a href={site.socials.twitter} target="_blank" rel="noreferrer" className="hover:underline">
-              Twitter / X ↗
-            </a>
-          )}
-        </div>
-      </div>
-    </SectionShell>
+      </Container>
+    </section>
   );
 }

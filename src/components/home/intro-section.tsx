@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import Image from "next/image";
-import { MapPin, FileText, Send, Github, Linkedin, Twitter, Mail } from "lucide-react";
+import { MapPin, FileText, Send, Github, Linkedin, Instagram, Mail } from "lucide-react";
 import { Container } from "@/components/ui/container";
 import { SiteSettings } from "@/types/site";
 import { cn } from "@/lib/utils/cn";
@@ -191,15 +191,15 @@ export function IntroSection({ siteSettings }: IntroSectionProps) {
               <Linkedin className="h-4 w-4" />
             </a>
 
-            {siteSettings.socials.twitter && (
+            {siteSettings.socials.instagram && (
               <a
-                href={siteSettings.socials.twitter}
+                href={siteSettings.socials.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="Twitter"
+                aria-label="Instagram"
                 className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-border/60 bg-muted/20 text-muted-foreground hover:bg-muted/50 hover:text-foreground hover:border-border transition-colors"
               >
-                <Twitter className="h-4 w-4" />
+                <Instagram className="h-4 w-4" />
               </a>
             )}
 
