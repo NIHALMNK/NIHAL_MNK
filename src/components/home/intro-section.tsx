@@ -6,7 +6,7 @@ import { MapPin, FileText, Send, Github, Linkedin, Instagram, Mail } from "lucid
 import { Container } from "@/components/ui/container";
 import { SiteSettings } from "@/types/site";
 import { cn } from "@/lib/utils/cn";
-import { getTechnologiesByIdsSync } from "@/lib/data/stack";
+import { getAllTechnologiesSync } from "@/lib/data/stack";
 import { TechIcon } from "@/components/ui/tech-icon";
 import { useHeroParallax } from "@/lib/animation/hooks";
 
@@ -28,13 +28,12 @@ export function IntroSection({ siteSettings }: IntroSectionProps) {
   const avatarUrl = siteSettings.profileImage || siteSettings.avatar?.url;
   const avatarAlt = siteSettings.avatar?.alt || siteSettings.name;
 
-  // Authoritative technology stack resolved from central stack dataset via DAL
-  const rawSkills = siteSettings.featuredSkills || [];
-  const resolvedTechnologies = getTechnologiesByIdsSync(rawSkills);
+  // Authoritative technology stack — full dataset from central stack source (same as About + Stack page)
+  const allTechnologies = getAllTechnologiesSync();
 
   const maxVisible = 10;
-  const visibleTechnologies = resolvedTechnologies.slice(0, maxVisible);
-  const remainingCount = Math.max(resolvedTechnologies.length - maxVisible, 0);
+  const visibleTechnologies = allTechnologies.slice(0, maxVisible);
+  const remainingCount = Math.max(allTechnologies.length - maxVisible, 0);
 
   const resumeHref = siteSettings.resumeUrl || "/resume.pdf";
 

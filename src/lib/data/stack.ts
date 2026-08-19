@@ -10,6 +10,14 @@ export async function getAllTechnologies(): Promise<Technology[]> {
 }
 
 /**
+ * Synchronous version of getAllTechnologies for use in client components.
+ * Returns the full stack dataset without requiring async/await.
+ */
+export function getAllTechnologiesSync(): Technology[] {
+  return stackData;
+}
+
+/**
  * Alias for backward compatibility with stack page views.
  */
 export async function getStackItems(): Promise<Technology[]> {
