@@ -22,7 +22,7 @@ export function WritingThoughtsSection({ posts }: WritingThoughtsSectionProps) {
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
           <div>
             <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground font-sans">
-              Writing <span className="font-light text-muted-foreground">|</span> Thoughts
+              Engineering Notes
             </h2>
             <p className="mt-1.5 text-xs sm:text-sm font-mono text-muted-foreground">
               Insights on engineering, design, and building products.

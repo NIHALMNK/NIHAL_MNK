@@ -21,7 +21,7 @@ export function ProofOfWorkSection({ projects }: ProofOfWorkSectionProps) {
         {/* Section Header */}
         <div>
           <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground">
-            Proof of Work
+            Selected Work
           </h2>
           <p className="mt-1 text-xs sm:text-sm text-muted-foreground font-mono">
             Selected projects that showcase my technical depth.

@@ -24,7 +24,7 @@ export function AboutSection({ siteSettings, allTechnologies }: AboutSectionProp
       <Container>
         {/* Section Label */}
         <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground font-sans">
-          About <span className="font-light text-muted-foreground">|</span> Me
+          About Me
         </h2>
 
         {/* Two-column layout: Profile Image left + Content right */}

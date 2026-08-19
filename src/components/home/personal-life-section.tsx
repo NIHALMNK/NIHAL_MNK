@@ -15,7 +15,7 @@ export function PersonalLifeSection({ recentSnaps }: PersonalLifeSectionProps) {
       <Container>
         {/* Section Header */}
         <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground font-sans">
-          Personal <span className="font-light text-muted-foreground">|</span> Life
+          Beyond Code
         </h2>
 
         {/* Books + Movies Nav Cards — 2-col desktop, stacked mobile */}

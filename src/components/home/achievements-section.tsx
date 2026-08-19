@@ -29,7 +29,7 @@ export function AchievementsSection({ achievements }: AchievementsSectionProps) 
         {/* Section Header */}
         <div>
           <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground font-sans">
-            Achievements <span className="font-light text-muted-foreground">|</span> Certifications
+            Achievements
           </h2>
           <p className="mt-1.5 text-xs sm:text-sm font-mono text-muted-foreground">
             Professional certifications and competitive programming wins.

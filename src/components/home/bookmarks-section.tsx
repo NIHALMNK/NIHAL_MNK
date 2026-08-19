@@ -13,7 +13,7 @@ export function BookmarksSection({ bookmarks }: BookmarksSectionProps) {
       <Container>
         {/* Section Header */}
         <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground font-sans mb-6 sm:mb-8">
-          Bookmarks <span className="font-light text-muted-foreground">|</span> Curated Reads
+          Curated Resources
         </h2>
 
         {/* Bookmarks List */}

@@ -23,7 +23,7 @@ export function EngineeringActivitySection({ data }: EngineeringActivitySectionP
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
           <div>
             <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground">
-              Engineering <span className="text-muted-foreground font-normal">|</span> Activity
+              Engineering Activity
             </h2>
             <p className="mt-1 text-xs sm:text-sm text-muted-foreground font-mono">
               Code contributions and problem-solving activity.
