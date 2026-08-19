@@ -4,6 +4,7 @@ import { EngineeringActivitySection } from "@/components/home/engineering-activi
 import { ProofOfWorkSection } from "@/components/home/proof-of-work-section";
 import { AchievementsSection } from "@/components/home/achievements-section";
 import { WritingThoughtsSection } from "@/components/home/writing-thoughts-section";
+import { BookmarksSection } from "@/components/home/bookmarks-section";
 import { PersonalLifeSection } from "@/components/home/personal-life-section";
 import { ContactCtaSection } from "@/components/home/contact-cta-section";
 import { getSiteSettings } from "@/lib/data/site";
@@ -13,6 +14,7 @@ import { getAchievements } from "@/lib/data/achievements";
 import { getLatestPosts } from "@/lib/data/blog";
 import { getAllTechnologies } from "@/lib/data/stack";
 import { getRecentSnaps } from "@/lib/data/snaps";
+import { getBookmarks } from "@/lib/data/bookmarks";
 
 export default async function HomePage() {
   const [
@@ -23,6 +25,7 @@ export default async function HomePage() {
     latestPosts,
     allTechnologies,
     recentSnaps,
+    bookmarks,
   ] = await Promise.all([
     getSiteSettings(),
     getEngineeringActivity(),
@@ -31,6 +34,7 @@ export default async function HomePage() {
     getLatestPosts(2),
     getAllTechnologies(),
     getRecentSnaps(4),
+    getBookmarks(),
   ]);
 
   return (
@@ -40,6 +44,7 @@ export default async function HomePage() {
       <ProofOfWorkSection projects={featuredProjects} />
       <AchievementsSection achievements={achievements} />
       <WritingThoughtsSection posts={latestPosts} />
+      <BookmarksSection bookmarks={bookmarks} />
       <PersonalLifeSection recentSnaps={recentSnaps} />
       <AboutSection siteSettings={siteSettings} allTechnologies={allTechnologies} />
       <ContactCtaSection />
