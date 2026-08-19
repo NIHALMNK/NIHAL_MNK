@@ -1,26 +1,33 @@
 "use client";
 
+import React from "react";
 import Link from "next/link";
 import { BookOpen, Film, Camera, ArrowRight, MapPin } from "lucide-react";
 import { Container } from "@/components/ui/container";
 import { Snap } from "@/types/snap";
 import { useStaggerReveal } from "@/lib/animation/hooks";
+import { onGlassMouseMove } from "@/lib/utils/glass-glow";
 
 interface PersonalLifeSectionProps {
-  recentSnaps: Snap[];
+  recentSnaps?: Snap[];
+  snaps?: Snap[];
 }
 
-export function PersonalLifeSection({ recentSnaps }: PersonalLifeSectionProps) {
+export function PersonalLifeSection({ recentSnaps, snaps }: PersonalLifeSectionProps) {
+  const allSnaps = snaps || recentSnaps || [];
   const sectionRef = useStaggerReveal<HTMLElement>({
     itemSelector: "[data-animate-item]",
     y: 25,
-    duration: 0.55,
+    duration: 0.6,
     stagger: 0.08,
   });
-  const displayedSnaps = recentSnaps.slice(0, 4);
+
+  const [visibleCount, setVisibleCount] = React.useState(4);
+  const displayedSnaps = allSnaps.slice(0, visibleCount);
+  const hasMoreSnaps = allSnaps.length > visibleCount;
 
   return (
-    <section ref={sectionRef} className="py-10 sm:py-14 md:py-16 border-b border-border/40 bg-background">
+    <section ref={sectionRef} className="py-8 sm:py-10 md:py-12 border-b border-border/40">
       <Container>
         {/* Section Header */}
         <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground font-sans">
@@ -33,8 +40,12 @@ export function PersonalLifeSection({ recentSnaps }: PersonalLifeSectionProps) {
           <Link
             href="/books"
             data-animate-item
+            onMouseMove={onGlassMouseMove}
             className="glass-card glass-highlight group flex items-center gap-4 rounded-xl px-5 py-4 hover:-translate-y-0.5 transition-all duration-200 shadow-sm"
           >
+            {/* Cursor-Following Glow */}
+            <span className="glass-glow-effect" />
+
             <span className="glass-surface inline-flex items-center justify-center w-10 h-10 shrink-0 rounded-lg transition-colors">
               <BookOpen className="h-5 w-5 text-muted-foreground" />
             </span>
@@ -50,8 +61,12 @@ export function PersonalLifeSection({ recentSnaps }: PersonalLifeSectionProps) {
           <Link
             href="/movies"
             data-animate-item
+            onMouseMove={onGlassMouseMove}
             className="glass-card glass-highlight group flex items-center gap-4 rounded-xl px-5 py-4 hover:-translate-y-0.5 transition-all duration-200 shadow-sm"
           >
+            {/* Cursor-Following Glow */}
+            <span className="glass-glow-effect" />
+
             <span className="glass-surface inline-flex items-center justify-center w-10 h-10 shrink-0 rounded-lg transition-colors">
               <Film className="h-5 w-5 text-muted-foreground" />
             </span>

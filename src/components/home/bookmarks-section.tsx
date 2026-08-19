@@ -5,6 +5,7 @@ import { Container } from "@/components/ui/container";
 import { BookmarkSourceIcon } from "@/components/ui/bookmark-source-icon";
 import { Bookmark } from "@/types/bookmark";
 import { useStaggerReveal } from "@/lib/animation/hooks";
+import { onGlassMouseMove } from "@/lib/utils/glass-glow";
 
 interface BookmarksSectionProps {
   bookmarks: Bookmark[];
@@ -35,8 +36,12 @@ export function BookmarksSection({ bookmarks }: BookmarksSectionProps) {
               href={bookmark.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="glass-card glass-highlight group flex items-center justify-between gap-4 p-4 sm:p-5 rounded-xl transition-all duration-200 shadow-sm"
+              onMouseMove={onGlassMouseMove}
+              className="glass-card glass-highlight group flex items-center justify-between gap-4 p-4 sm:p-5 rounded-xl transition-all duration-200 shadow-sm relative overflow-hidden"
             >
+              {/* Cursor-Following Glow */}
+              <span className="glass-glow-effect" />
+
               <div className="flex items-start gap-4 sm:gap-5 min-w-0">
                 <div className="glass-surface shrink-0 mt-0.5 w-8 h-8 sm:w-10 sm:h-10 rounded-lg flex items-center justify-center transition-colors">
                   <BookmarkSourceIcon domain={bookmark.domain} iconUrl={bookmark.iconUrl} />

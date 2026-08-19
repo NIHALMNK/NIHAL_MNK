@@ -211,5 +211,66 @@
     pointer-events: none;
     z-index: 10;
   }
+
+  /* Cursor-following glass glow overlay */
+  .glass-glow {
+    position: relative;
+  }
+
+  .glass-glow-effect {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    border-radius: inherit;
+    opacity: 0;
+    transition: opacity 0.3s ease-out;
+    background: radial-gradient(
+      450px circle at var(--mouse-x, -999px) var(--mouse-y, -999px),
+      rgba(255, 255, 255, 0.07),
+      transparent 80%
+    );
+    z-index: 1;
+  }
+
+  .glass-card:hover .glass-glow-effect,
+  .glass-glow:hover .glass-glow-effect {
+    opacity: 1;
+  }
+
+  /* Button cursor-following glow */
+  .glass-button-glow {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    border-radius: inherit;
+    opacity: 0;
+    transition: opacity 0.25s ease-out;
+    background: radial-gradient(
+      150px circle at var(--mouse-x, -999px) var(--mouse-y, -999px),
+      rgba(255, 255, 255, 0.12),
+      transparent 80%
+    );
+    z-index: 1;
+  }
+
+  .glass-button:hover .glass-button-glow {
+    opacity: 1;
+  }
+
+  /* Disable glow on touch-only devices */
+  @media (hover: none) or (pointer: coarse) {
+    .glass-glow-effect,
+    .glass-button-glow {
+      display: none !important;
+    }
+  }
+
+  /* Disable dynamic glow for reduced motion users */
+  @media (prefers-reduced-motion: reduce) {
+    .glass-glow-effect,
+    .glass-button-glow {
+      display: none !important;
+    }
+  }
 }
 

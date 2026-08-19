@@ -7,6 +7,7 @@ import { Container } from "@/components/ui/container";
 import { Achievement } from "@/types/achievement";
 import { AchievementOverviewModal } from "@/components/home/achievement-overview-modal";
 import { useStaggerReveal } from "@/lib/animation/hooks";
+import { onGlassMouseMove } from "@/lib/utils/glass-glow";
 
 interface AchievementsSectionProps {
   achievements: Achievement[];
@@ -50,8 +51,12 @@ export function AchievementsSection({ achievements }: AchievementsSectionProps) 
               key={item.id}
               data-animate-item
               onClick={() => setSelectedAchievement(item)}
+              onMouseMove={onGlassMouseMove}
               className="glass-card glass-highlight group relative flex flex-col justify-between rounded-xl p-4 sm:p-5 hover:-translate-y-0.5 transition-all duration-200 cursor-pointer select-none shadow-sm"
             >
+              {/* Cursor-Following Glow */}
+              <span className="glass-glow-effect" />
+
               <div>
                 {/* Top Row: Logo + Title & Date */}
                 <div className="flex items-start gap-3 sm:gap-3.5">

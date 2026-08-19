@@ -7,6 +7,7 @@ import { Container } from "@/components/ui/container";
 import { BlogPost } from "@/types/blog";
 import { SectionCtaButton } from "@/components/ui/section-cta-button";
 import { useStaggerReveal } from "@/lib/animation/hooks";
+import { onGlassMouseMove } from "@/lib/utils/glass-glow";
 
 interface WritingThoughtsSectionProps {
   posts: BlogPost[];
@@ -45,8 +46,12 @@ export function WritingThoughtsSection({ posts }: WritingThoughtsSectionProps) {
               key={post.id}
               data-animate-item
               href={`/blogs/${post.slug}`}
+              onMouseMove={onGlassMouseMove}
               className="glass-card glass-highlight group relative flex flex-col justify-between rounded-xl p-5 sm:p-6 hover:-translate-y-0.5 transition-all duration-200 shadow-sm"
             >
+              {/* Cursor-Following Glow */}
+              <span className="glass-glow-effect" />
+
               <div>
                 {/* Meta Row: Date & Reading Time */}
                 <div className="flex items-center gap-2 text-xs font-mono text-muted-foreground">

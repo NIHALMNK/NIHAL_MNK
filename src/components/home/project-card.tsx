@@ -5,6 +5,7 @@ import { ResolvedProject } from "@/types/project";
 import { ProjectVideoPreview } from "@/components/home/project-video-preview";
 import { TechIcon } from "@/components/ui/tech-icon";
 import { ExternalLink, Github } from "lucide-react";
+import { onGlassMouseMove } from "@/lib/utils/glass-glow";
 
 interface ProjectCardProps {
   project: ResolvedProject;
@@ -22,8 +23,12 @@ export function ProjectCard({ project, onSelect }: ProjectCardProps) {
   return (
     <div
       onClick={() => onSelect(project)}
+      onMouseMove={onGlassMouseMove}
       className="glass-card glass-highlight group relative flex flex-col rounded-2xl overflow-hidden transition-all duration-200 ease-out hover:-translate-y-1 hover:scale-[1.005] hover:shadow-xl cursor-pointer"
     >
+      {/* Cursor-Following Glass Glow Layer */}
+      <span className="glass-glow-effect" />
+
       {/* Top Media Area with Continuous Autoplay Video Preview & Status Overlay */}
       <div className="relative aspect-video w-full overflow-hidden border-b border-border/40 bg-black">
         <ProjectVideoPreview

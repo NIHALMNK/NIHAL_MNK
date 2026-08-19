@@ -5,6 +5,7 @@ import { Instagram, Github, Linkedin, Mail, FileText } from "lucide-react";
 import { Container } from "@/components/ui/container";
 import { siteSettingsData } from "@/data/site";
 import { useStaggerReveal } from "@/lib/animation/hooks";
+import { onGlassMouseMove } from "@/lib/utils/glass-glow";
 
 export function Footer() {
   const footerRef = useStaggerReveal<HTMLElement>({
@@ -72,10 +73,12 @@ export function Footer() {
                   href={item.href}
                   target={item.external ? "_blank" : undefined}
                   rel={item.external ? "noopener noreferrer" : undefined}
-                  className="glass-button group inline-flex items-center gap-2.5 rounded-lg px-4 py-2.5 text-xs sm:text-sm font-medium text-foreground transition-all duration-150 shadow-xs select-none"
+                  onMouseMove={onGlassMouseMove}
+                  className="glass-button group relative overflow-hidden inline-flex items-center gap-2.5 rounded-lg px-4 py-2.5 text-xs sm:text-sm font-medium text-foreground transition-all duration-150 shadow-xs select-none"
                 >
-                  <Icon className="h-4 w-4 text-muted-foreground group-hover:text-foreground transition-colors shrink-0" />
-                  <span>{item.label}</span>
+                  <span className="glass-button-glow" />
+                  <Icon className="h-4 w-4 text-muted-foreground group-hover:text-foreground transition-colors shrink-0 relative z-10" />
+                  <span className="relative z-10">{item.label}</span>
                 </a>
               );
             })}
