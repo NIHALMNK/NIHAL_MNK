@@ -73,14 +73,18 @@ export function Footer() {
         </Container>
       </section>
 
-      {/* 2. Small Footer Metadata Row */}
+      {/* 2. Small Footer Metadata Row — 3-column CSS Grid layout */}
       <div className="border-t border-border/40 py-6 sm:py-8 bg-background">
         <Container>
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-xs font-mono text-muted-foreground">
-            {/* Copyright & Core Built With */}
-            <div className="flex flex-col sm:flex-row sm:items-center gap-1.5 sm:gap-3">
-              <p>© 2026 Mohammed Nihal. All rights reserved.</p>
-              <span className="hidden sm:inline text-border">•</span>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 items-center text-xs font-mono text-muted-foreground">
+            {/* COLUMN 1: Copyright */}
+            <div className="text-left">
+              <p>© 2026 Mohammed Nihal.</p>
+              <p className="mt-0.5">All rights reserved.</p>
+            </div>
+
+            {/* COLUMN 2: Built with Frameworks */}
+            <div className="text-left leading-relaxed">
               <p>
                 Built with{" "}
                 <a
@@ -103,23 +107,26 @@ export function Footer() {
               </p>
             </div>
 
-            {/* AI & System Links */}
-            <div className="flex items-center gap-3 shrink-0">
-              <Link
-                href="/llms.txt"
-                target="_blank"
-                className="underline underline-offset-4 hover:text-foreground transition-colors"
-              >
-                LLMs.txt · AI Context File
-              </Link>
-              <span className="text-border">·</span>
-              <Link
-                href="/robots.txt"
-                target="_blank"
-                className="underline underline-offset-4 hover:text-foreground transition-colors"
-              >
-                robots.txt
-              </Link>
+            {/* COLUMN 3: AI & Resource Links */}
+            <div className="text-left flex flex-col gap-1">
+              <div>
+                <Link
+                  href="/llms.txt"
+                  target="_blank"
+                  className="underline underline-offset-4 hover:text-foreground transition-colors"
+                >
+                  LLMs.txt · AI Context File
+                </Link>
+              </div>
+              <div>
+                <Link
+                  href="/robots.txt"
+                  target="_blank"
+                  className="underline underline-offset-4 hover:text-foreground transition-colors"
+                >
+                  robots.txt
+                </Link>
+              </div>
             </div>
           </div>
         </Container>
