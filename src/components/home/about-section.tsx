@@ -61,7 +61,7 @@ export function AboutSection({ siteSettings, allTechnologies }: AboutSectionProp
 
             {/* View More About Me CTA */}
             <Link
-              href="#about"
+              href="/about"
               onMouseMove={onGlassMouseMove}
               className="glass-button group relative overflow-hidden inline-flex items-center justify-center gap-2 rounded-lg px-3.5 py-2 text-xs font-mono font-medium text-foreground transition-all duration-150 shadow-xs select-none w-full max-w-[200px] sm:max-w-[220px]"
             >
