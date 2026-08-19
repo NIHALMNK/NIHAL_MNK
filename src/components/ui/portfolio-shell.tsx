@@ -30,8 +30,13 @@ export async function PortfolioShell({ children }: PortfolioShellProps) {
         <div className="hidden sm:block w-4 md:w-5 shrink-0 border-r border-border/50 hatch-pattern select-none pointer-events-none" />
 
         {/* Center Editorial Content Surface */}
-        <div className="flex-1 min-w-0 flex flex-col min-h-screen bg-background">
-          <Navbar avatarUrl={siteSettings.avatar?.url} avatarAlt={siteSettings.avatar?.alt} />
+        <div className="flex-1 min-w-0 flex flex-col min-h-screen bg-background pt-16">
+          <Navbar
+            avatarUrl={siteSettings.avatar?.url}
+            avatarAlt={siteSettings.avatar?.alt}
+            connectLinks={connectLinks}
+            email={siteSettings.email}
+          />
           <main id="main-content" className="flex-1 flex flex-col">
             {children}
           </main>
