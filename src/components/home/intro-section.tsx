@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { MapPin, FileText, Send, Github, Linkedin, Instagram, Mail } from "lucide-react";
 import { Container } from "@/components/ui/container";
 import { SiteSettings } from "@/types/site";
@@ -165,13 +166,13 @@ export function IntroSection({ siteSettings, connectLinks }: IntroSectionProps) 
           </a>
 
           {/* Get in touch Button */}
-          <a
-            href={`mailto:${connect.email}`}
+          <Link
+            href="/contact"
             className="inline-flex items-center gap-2 rounded-lg bg-foreground px-4 py-2 text-xs font-medium text-background hover:opacity-90 transition-opacity shadow-sm"
           >
             <Send className="h-3.5 w-3.5" />
             <span>Get in touch</span>
-          </a>
+          </Link>
 
           {/* Vertical Separator Divider */}
           <div className="hidden sm:block h-5 w-[1px] bg-border/60 mx-1" />
@@ -210,13 +211,13 @@ export function IntroSection({ siteSettings, connectLinks }: IntroSectionProps) 
               </a>
             )}
 
-            <a
-              href={`mailto:${connect.email}`}
-              aria-label="Email"
+            <Link
+              href="/contact"
+              aria-label="Contact"
               className="glass-button inline-flex h-8 w-8 items-center justify-center rounded-lg text-muted-foreground hover:text-foreground transition-all shadow-xs"
             >
               <Mail className="h-4 w-4" />
-            </a>
+            </Link>
           </div>
         </div>
       </Container>

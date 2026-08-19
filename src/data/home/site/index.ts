@@ -55,7 +55,7 @@ export const navigationConfigData: NavigationConfig = {
     instagram: "https://instagram.com/",
     github: "https://github.com/NIHALMNK",
     linkedin: "https://www.linkedin.com/in/mohammednihalk6061/",
-    email: "mailto:mohammednihal.dev@gmail.com",
+    email: "/contact",
     resume: "/resume.pdf",
   },
 };

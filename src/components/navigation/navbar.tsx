@@ -13,6 +13,7 @@ import {
   User,
   Home,
   Layers,
+  Mail,
   ArrowRight,
 } from "lucide-react";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
@@ -37,6 +38,7 @@ const globalSearchItems = [
   { id: "projects", label: "Projects", href: "/projects", icon: Code2, keywords: ["work", "showcase", "portfolio"] },
   { id: "blogs", label: "Blogs", href: "/blogs", icon: FileText, keywords: ["articles", "posts", "writing"] },
   { id: "stack", label: "Stack", href: "/stack", icon: Layers, keywords: ["tech", "skills", "tools"] },
+  { id: "contact", label: "Contact", href: "/contact", icon: Mail, keywords: ["email", "get in touch", "message"] },
 ];
 
 interface NavbarProps {

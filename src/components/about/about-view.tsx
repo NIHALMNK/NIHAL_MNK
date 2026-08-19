@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import Image from "next/image";
+import Link from "next/link";
 import {
   MapPin,
   Mail,
@@ -167,13 +168,13 @@ export function AboutView({ data, allTechnologies, connectLinks }: AboutViewProp
                   <FileText className="h-3.5 w-3.5 text-muted-foreground" />
                   <span>Resume</span>
                 </a>
-                <a
-                  href={`mailto:${connect.email}`}
+                <Link
+                  href="/contact"
                   className="flex-1 inline-flex items-center justify-center gap-2 rounded-lg bg-foreground text-background px-3.5 py-2 text-xs font-mono font-semibold hover:opacity-90 transition-opacity shadow-xs"
                 >
                   <Mail className="h-3.5 w-3.5" />
                   <span>Contact</span>
-                </a>
+                </Link>
               </div>
 
               {/* Social Channels */}

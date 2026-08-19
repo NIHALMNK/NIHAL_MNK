@@ -44,7 +44,7 @@ export function Footer({ connectLinks, email, resumeUrl }: FooterProps) {
     },
     {
       label: "Email",
-      href: email ? `mailto:${email}` : `mailto:${connectLinks.email}`,
+      href: "/contact",
       icon: Mail,
       external: false,
     },

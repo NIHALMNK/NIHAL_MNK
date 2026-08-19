@@ -1,4 +1,5 @@
 import { Instagram, Github, Linkedin, Mail, FileText } from "lucide-react";
+import Link from "next/link";
 import { Container } from "@/components/ui/container";
 import { ConnectLinks } from "@/types/connect";
 import { getConnectLinksSync } from "@/lib/data/connect";
@@ -31,7 +32,7 @@ export function ConnectSection({ connectLinks }: ConnectSectionProps) {
     },
     {
       label: "Email",
-      href: `mailto:${connect.email}`,
+      href: "/contact",
       icon: Mail,
       external: false,
     },
