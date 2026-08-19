@@ -7,6 +7,7 @@ import { WritingThoughtsSection } from "@/components/home/writing-thoughts-secti
 import { BookmarksSection } from "@/components/home/bookmarks-section";
 import { PersonalLifeSection } from "@/components/home/personal-life-section";
 import { getSiteSettings } from "@/lib/data/site";
+import { getConnectLinks } from "@/lib/data/connect";
 import { getEngineeringActivity } from "@/lib/data/activity";
 import { getFeaturedProjects } from "@/lib/data/projects";
 import { getAchievements } from "@/lib/data/achievements";
@@ -18,6 +19,7 @@ import { getBookmarks } from "@/lib/data/bookmarks";
 export default async function HomePage() {
   const [
     siteSettings,
+    connectLinks,
     engineeringActivity,
     featuredProjects,
     achievements,
@@ -27,6 +29,7 @@ export default async function HomePage() {
     bookmarks,
   ] = await Promise.all([
     getSiteSettings(),
+    getConnectLinks(),
     getEngineeringActivity(),
     getFeaturedProjects(),
     getAchievements(),
@@ -38,7 +41,7 @@ export default async function HomePage() {
 
   return (
     <div className="flex-1 flex flex-col">
-      <IntroSection siteSettings={siteSettings} />
+      <IntroSection siteSettings={siteSettings} connectLinks={connectLinks} />
       <EngineeringActivitySection data={engineeringActivity} />
       <ProofOfWorkSection projects={featuredProjects} />
       <AchievementsSection achievements={achievements} />

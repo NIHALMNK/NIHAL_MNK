@@ -18,6 +18,8 @@ import {
 } from "lucide-react";
 import { AboutData } from "@/types/about";
 import { Technology } from "@/types/stack";
+import { ConnectLinks } from "@/types/connect";
+import { getConnectLinksSync } from "@/lib/data/connect";
 import { Container } from "@/components/ui/container";
 import { TechIcon } from "@/components/ui/tech-icon";
 import { useStaggerReveal } from "@/lib/animation/hooks";
@@ -26,9 +28,10 @@ import { onGlassMouseMove } from "@/lib/utils/glass-glow";
 interface AboutViewProps {
   data: AboutData;
   allTechnologies: Technology[];
+  connectLinks?: ConnectLinks;
 }
 
-export function AboutView({ data, allTechnologies }: AboutViewProps) {
+export function AboutView({ data, allTechnologies, connectLinks }: AboutViewProps) {
   const pageRef = useStaggerReveal<HTMLElement>({
     itemSelector: "[data-animate-item]",
     y: 24,
@@ -38,6 +41,7 @@ export function AboutView({ data, allTechnologies }: AboutViewProps) {
 
   const { profile, summary, education, experience } = data;
   const [imageError, setImageError] = React.useState(false);
+  const connect = connectLinks || getConnectLinksSync();
 
   // Derive the four technical skill groups dynamically from authoritative stack data
   const designTools = allTechnologies.filter((tech) =>
@@ -154,7 +158,7 @@ export function AboutView({ data, allTechnologies }: AboutViewProps) {
             <div className="space-y-4 pt-4 border-t border-border/40">
               <div className="flex flex-wrap items-center gap-2.5">
                 <a
-                  href="/resume.pdf"
+                  href={connect.resume || "/resume.pdf"}
                   target="_blank"
                   rel="noopener noreferrer"
                   download="Mohammed_Nihal_MERN-Stack_Developer_Resume.pdf"
@@ -164,7 +168,7 @@ export function AboutView({ data, allTechnologies }: AboutViewProps) {
                   <span>Resume</span>
                 </a>
                 <a
-                  href={`mailto:${profile.email}`}
+                  href={`mailto:${connect.email}`}
                   className="flex-1 inline-flex items-center justify-center gap-2 rounded-lg bg-foreground text-background px-3.5 py-2 text-xs font-mono font-semibold hover:opacity-90 transition-opacity shadow-xs"
                 >
                   <Mail className="h-3.5 w-3.5" />
@@ -175,7 +179,7 @@ export function AboutView({ data, allTechnologies }: AboutViewProps) {
               {/* Social Channels */}
               <div className="flex items-center gap-2">
                 <a
-                  href={profile.socials.github}
+                  href={connect.github}
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="GitHub"
@@ -184,7 +188,7 @@ export function AboutView({ data, allTechnologies }: AboutViewProps) {
                   <Github className="h-4 w-4" />
                 </a>
                 <a
-                  href={profile.socials.linkedin}
+                  href={connect.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="LinkedIn"
@@ -192,9 +196,9 @@ export function AboutView({ data, allTechnologies }: AboutViewProps) {
                 >
                   <Linkedin className="h-4 w-4" />
                 </a>
-                {profile.socials.instagram && (
+                {connect.instagram && (
                   <a
-                    href={profile.socials.instagram}
+                    href={connect.instagram}
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label="Instagram"

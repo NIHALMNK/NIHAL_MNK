@@ -1,40 +1,43 @@
 import { Instagram, Github, Linkedin, Mail, FileText } from "lucide-react";
 import { Container } from "@/components/ui/container";
-import { SiteSettings } from "@/types/site";
+import { ConnectLinks } from "@/types/connect";
+import { getConnectLinksSync } from "@/lib/data/connect";
 
 interface ConnectSectionProps {
-  siteSettings: SiteSettings;
+  connectLinks?: ConnectLinks;
 }
 
-export function ConnectSection({ siteSettings }: ConnectSectionProps) {
-  const connectLinks = [
+export function ConnectSection({ connectLinks }: ConnectSectionProps) {
+  const connect = connectLinks || getConnectLinksSync();
+
+  const socialLinks = [
     {
       label: "Instagram",
-      href: siteSettings.socials.instagram || "https://instagram.com/",
+      href: connect.instagram,
       icon: Instagram,
       external: true,
     },
     {
       label: "GitHub",
-      href: siteSettings.socials.github,
+      href: connect.github,
       icon: Github,
       external: true,
     },
     {
       label: "LinkedIn",
-      href: siteSettings.socials.linkedin,
+      href: connect.linkedin,
       icon: Linkedin,
       external: true,
     },
     {
       label: "Email",
-      href: `mailto:${siteSettings.email}`,
+      href: `mailto:${connect.email}`,
       icon: Mail,
       external: false,
     },
     {
       label: "Resume",
-      href: siteSettings.resumeUrl || "/resume.pdf",
+      href: connect.resume || "/resume.pdf",
       icon: FileText,
       external: true,
     },
@@ -55,7 +58,7 @@ export function ConnectSection({ siteSettings }: ConnectSectionProps) {
 
         {/* 5 Social Buttons Horizontal Row */}
         <div className="mt-6 sm:mt-8 flex flex-wrap items-center gap-3 sm:gap-4">
-          {connectLinks.map((item) => {
+          {socialLinks.map((item) => {
             const Icon = item.icon;
             return (
               <a

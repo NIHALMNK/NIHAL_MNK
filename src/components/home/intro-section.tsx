@@ -5,19 +5,25 @@ import Image from "next/image";
 import { MapPin, FileText, Send, Github, Linkedin, Instagram, Mail } from "lucide-react";
 import { Container } from "@/components/ui/container";
 import { SiteSettings } from "@/types/site";
+import { ConnectLinks } from "@/types/connect";
 import { cn } from "@/lib/utils/cn";
 import { getAllTechnologiesSync } from "@/lib/data/stack";
+import { getConnectLinksSync } from "@/lib/data/connect";
 import { TechIcon } from "@/components/ui/tech-icon";
 import { useHeroParallax } from "@/lib/animation/hooks";
 
 interface IntroSectionProps {
   siteSettings: SiteSettings;
+  connectLinks?: ConnectLinks;
 }
 
-export function IntroSection({ siteSettings }: IntroSectionProps) {
+export function IntroSection({ siteSettings, connectLinks }: IntroSectionProps) {
   const heroRef = useHeroParallax<HTMLElement>();
   const [isPlaying, setIsPlaying] = React.useState(false);
   const [imageError, setImageError] = React.useState(false);
+
+  // Authoritative Connect Links — single source of truth for social/contact actions
+  const connect = connectLinks || getConnectLinksSync();
 
   const handleDoubleClick = () => {
     setIsPlaying(true);
@@ -35,7 +41,7 @@ export function IntroSection({ siteSettings }: IntroSectionProps) {
   const visibleTechnologies = allTechnologies.slice(0, maxVisible);
   const remainingCount = Math.max(allTechnologies.length - maxVisible, 0);
 
-  const resumeHref = siteSettings.resumeUrl || "/resume.pdf";
+  const resumeHref = connect.resume || "/resume.pdf";
 
   return (
     <section ref={heroRef} className="py-8 sm:py-10 md:py-12 border-b border-border/40">
@@ -160,7 +166,7 @@ export function IntroSection({ siteSettings }: IntroSectionProps) {
 
           {/* Get in touch Button */}
           <a
-            href={`mailto:${siteSettings.email}`}
+            href={`mailto:${connect.email}`}
             className="inline-flex items-center gap-2 rounded-lg bg-foreground px-4 py-2 text-xs font-medium text-background hover:opacity-90 transition-opacity shadow-sm"
           >
             <Send className="h-3.5 w-3.5" />
@@ -173,7 +179,7 @@ export function IntroSection({ siteSettings }: IntroSectionProps) {
           {/* Social Links */}
           <div className="flex items-center gap-2">
             <a
-              href={siteSettings.socials.github}
+              href={connect.github}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="GitHub"
@@ -183,7 +189,7 @@ export function IntroSection({ siteSettings }: IntroSectionProps) {
             </a>
 
             <a
-              href={siteSettings.socials.linkedin}
+              href={connect.linkedin}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="LinkedIn"
@@ -192,9 +198,9 @@ export function IntroSection({ siteSettings }: IntroSectionProps) {
               <Linkedin className="h-4 w-4" />
             </a>
 
-            {siteSettings.socials.instagram && (
+            {connect.instagram && (
               <a
-                href={siteSettings.socials.instagram || "https://instagram.com/"}
+                href={connect.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Instagram"
@@ -205,7 +211,7 @@ export function IntroSection({ siteSettings }: IntroSectionProps) {
             )}
 
             <a
-              href={`mailto:${siteSettings.email}`}
+              href={`mailto:${connect.email}`}
               aria-label="Email"
               className="glass-button inline-flex h-8 w-8 items-center justify-center rounded-lg text-muted-foreground hover:text-foreground transition-all shadow-xs"
             >

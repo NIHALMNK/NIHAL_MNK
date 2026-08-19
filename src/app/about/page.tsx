@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import { getAboutData } from "@/lib/data/about";
 import { getAllTechnologies } from "@/lib/data/stack";
+import { getConnectLinks } from "@/lib/data/connect";
 import { AboutView } from "@/components/about/about-view";
 
 export const metadata: Metadata = {
@@ -10,10 +11,11 @@ export const metadata: Metadata = {
 };
 
 export default async function AboutPage() {
-  const [data, allTechnologies] = await Promise.all([
+  const [data, allTechnologies, connectLinks] = await Promise.all([
     getAboutData(),
     getAllTechnologies(),
+    getConnectLinks(),
   ]);
 
-  return <AboutView data={data} allTechnologies={allTechnologies} />;
+  return <AboutView data={data} allTechnologies={allTechnologies} connectLinks={connectLinks} />;
 }
