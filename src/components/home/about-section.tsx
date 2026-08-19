@@ -6,6 +6,7 @@ import { SiteSettings } from "@/types/site";
 import { Technology } from "@/types/stack";
 import { Container } from "@/components/ui/container";
 import { TechIcon } from "@/components/ui/tech-icon";
+import { useStaggerReveal } from "@/lib/animation/hooks";
 
 interface AboutSectionProps {
   siteSettings: SiteSettings;
@@ -13,6 +14,12 @@ interface AboutSectionProps {
 }
 
 export function AboutSection({ siteSettings, allTechnologies }: AboutSectionProps) {
+  const sectionRef = useStaggerReveal<HTMLElement>({
+    itemSelector: "[data-animate-item]",
+    y: 30,
+    duration: 0.65,
+    stagger: 0.15,
+  });
   const [imageError, setImageError] = React.useState(false);
 
   // Profile image from data layer — never hardcoded local path
@@ -20,7 +27,7 @@ export function AboutSection({ siteSettings, allTechnologies }: AboutSectionProp
   const avatarAlt = siteSettings.avatar?.alt || `${siteSettings.name} Profile Photo`;
 
   return (
-    <section className="py-10 sm:py-14 md:py-16 border-b border-border/40 bg-background">
+    <section ref={sectionRef} className="py-10 sm:py-14 md:py-16 border-b border-border/40 bg-background">
       <Container>
         {/* Section Label */}
         <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground font-sans">
@@ -30,7 +37,7 @@ export function AboutSection({ siteSettings, allTechnologies }: AboutSectionProp
         {/* Two-column layout: Profile Image left + Content right */}
         <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row gap-6 sm:gap-10 items-start">
           {/* LEFT: Profile Image */}
-          <div className="shrink-0">
+          <div data-animate-item className="shrink-0">
             <div className="relative w-[200px] h-[200px] sm:w-[220px] sm:h-[220px] rounded-2xl overflow-hidden border border-border/50 bg-muted/20 shadow-sm">
               {avatarUrl && !imageError ? (
                 <Image
@@ -51,7 +58,7 @@ export function AboutSection({ siteSettings, allTechnologies }: AboutSectionProp
           </div>
 
           {/* RIGHT: Bio + Tech Stack */}
-          <div className="flex-1 min-w-0 space-y-5 sm:space-y-6">
+          <div data-animate-item className="flex-1 min-w-0 space-y-5 sm:space-y-6">
             {/* Bio / Headline */}
             <div>
               <p className="text-lg sm:text-xl font-bold text-foreground leading-snug">

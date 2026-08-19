@@ -8,12 +8,14 @@ import { SiteSettings } from "@/types/site";
 import { cn } from "@/lib/utils/cn";
 import { getTechnologiesByIdsSync } from "@/lib/data/stack";
 import { TechIcon } from "@/components/ui/tech-icon";
+import { useHeroParallax } from "@/lib/animation/hooks";
 
 interface IntroSectionProps {
   siteSettings: SiteSettings;
 }
 
 export function IntroSection({ siteSettings }: IntroSectionProps) {
+  const heroRef = useHeroParallax<HTMLElement>();
   const [isPlaying, setIsPlaying] = React.useState(false);
   const [imageError, setImageError] = React.useState(false);
 
@@ -37,10 +39,10 @@ export function IntroSection({ siteSettings }: IntroSectionProps) {
   const resumeHref = siteSettings.resumeUrl || "/resume.pdf";
 
   return (
-    <section className="py-8 sm:py-10 md:py-12 border-b border-border/40">
+    <section ref={heroRef} className="py-8 sm:py-10 md:py-12 border-b border-border/40">
       <Container>
         {/* Top Header Row: Avatar + Easter Egg Hint & Location Badge */}
-        <div className="flex items-start justify-between gap-4">
+        <div data-hero-avatar className="flex items-start justify-between gap-4">
           {/* Avatar Container with Green Status Dot */}
           <div className="flex items-center gap-3 sm:gap-4">
             <div
@@ -88,7 +90,7 @@ export function IntroSection({ siteSettings }: IntroSectionProps) {
         </div>
 
         {/* Title & Roles Subtitle */}
-        <div className="mt-5 sm:mt-6">
+        <div data-hero-content className="mt-5 sm:mt-6">
           <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-foreground font-sans">
             {siteSettings.name}
           </h1>

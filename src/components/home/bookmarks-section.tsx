@@ -1,15 +1,25 @@
+"use client";
+
 import { ExternalLink } from "lucide-react";
 import { Container } from "@/components/ui/container";
 import { BookmarkSourceIcon } from "@/components/ui/bookmark-source-icon";
 import { Bookmark } from "@/types/bookmark";
+import { useStaggerReveal } from "@/lib/animation/hooks";
 
 interface BookmarksSectionProps {
   bookmarks: Bookmark[];
 }
 
 export function BookmarksSection({ bookmarks }: BookmarksSectionProps) {
+  const sectionRef = useStaggerReveal<HTMLElement>({
+    itemSelector: "[data-animate-item]",
+    y: 25,
+    duration: 0.55,
+    stagger: 0.07,
+  });
+
   return (
-    <section className="py-10 sm:py-14 md:py-16 border-b border-border/40 bg-background">
+    <section ref={sectionRef} className="py-10 sm:py-14 md:py-16 border-b border-border/40 bg-background">
       <Container>
         {/* Section Header */}
         <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground font-sans mb-6 sm:mb-8">
@@ -21,6 +31,7 @@ export function BookmarksSection({ bookmarks }: BookmarksSectionProps) {
           {bookmarks.map((bookmark) => (
             <a
               key={bookmark.id}
+              data-animate-item
               href={bookmark.url}
               target="_blank"
               rel="noopener noreferrer"

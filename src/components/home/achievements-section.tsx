@@ -6,12 +6,19 @@ import { Award, ChevronDown } from "lucide-react";
 import { Container } from "@/components/ui/container";
 import { Achievement } from "@/types/achievement";
 import { AchievementOverviewModal } from "@/components/home/achievement-overview-modal";
+import { useStaggerReveal } from "@/lib/animation/hooks";
 
 interface AchievementsSectionProps {
   achievements: Achievement[];
 }
 
 export function AchievementsSection({ achievements }: AchievementsSectionProps) {
+  const sectionRef = useStaggerReveal<HTMLElement>({
+    itemSelector: "[data-animate-item]",
+    y: 30,
+    duration: 0.6,
+    stagger: 0.08,
+  });
   const [selectedAchievement, setSelectedAchievement] = React.useState<Achievement | null>(null);
   const [visibleCount, setVisibleCount] = React.useState(6);
   const [failedLogos, setFailedLogos] = React.useState<Record<string, boolean>>({});
@@ -24,7 +31,7 @@ export function AchievementsSection({ achievements }: AchievementsSectionProps) 
   const hasMore = achievements.length > visibleCount;
 
   return (
-    <section className="py-8 sm:py-10 md:py-12 border-b border-border/40">
+    <section ref={sectionRef} className="py-8 sm:py-10 md:py-12 border-b border-border/40">
       <Container>
         {/* Section Header */}
         <div>
@@ -41,6 +48,7 @@ export function AchievementsSection({ achievements }: AchievementsSectionProps) 
           {displayedAchievements.map((item) => (
             <div
               key={item.id}
+              data-animate-item
               onClick={() => setSelectedAchievement(item)}
               className="group relative flex flex-col justify-between rounded-xl border border-border/50 bg-card p-4 sm:p-5 hover:border-border/80 hover:-translate-y-0.5 transition-all duration-200 cursor-pointer select-none shadow-sm"
             >

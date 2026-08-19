@@ -7,17 +7,24 @@ import { CalendarYearHeatmap } from "@/components/home/calendar-year-heatmap";
 import { cn } from "@/lib/utils/cn";
 import { ExternalLink } from "lucide-react";
 import { SectionCtaButton } from "@/components/ui/section-cta-button";
+import { useStaggerReveal } from "@/lib/animation/hooks";
 
 interface EngineeringActivitySectionProps {
   data: EngineeringActivityData;
 }
 
 export function EngineeringActivitySection({ data }: EngineeringActivitySectionProps) {
+  const sectionRef = useStaggerReveal<HTMLElement>({
+    itemSelector: "[data-animate-item]",
+    y: 25,
+    duration: 0.55,
+    stagger: 0.08,
+  });
   const [activeTab, setActiveTab] = React.useState<"github" | "leetcode">("github");
   const activeProvider: ProviderActivityData = data[activeTab];
 
   return (
-    <section className="py-10 sm:py-14 md:py-16 border-b border-border/40 bg-background">
+    <section ref={sectionRef} className="py-10 sm:py-14 md:py-16 border-b border-border/40 bg-background">
       <Container>
         {/* Section Header & Provider Segment Toggle */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
@@ -64,6 +71,7 @@ export function EngineeringActivitySection({ data }: EngineeringActivitySectionP
           {activeProvider.stats.map((stat, i) => (
             <div
               key={`${activeProvider.provider}-${stat.label}-${i}`}
+              data-animate-item
               className="rounded-xl border border-border/50 bg-secondary/20 p-3.5 sm:p-4 text-left transition-colors hover:border-border/80"
             >
               <p className="text-[10px] sm:text-xs font-mono font-medium text-muted-foreground uppercase tracking-wider">
@@ -77,7 +85,7 @@ export function EngineeringActivitySection({ data }: EngineeringActivitySectionP
         </div>
 
         {/* Shared Calendar-Year Heatmap Grid Container (NO HORIZONTAL SCROLLBAR) */}
-        <div className="mt-4 rounded-xl border border-border/50 bg-secondary/15 p-4 sm:p-6 transition-all">
+        <div data-animate-item className="mt-4 rounded-xl border border-border/50 bg-secondary/15 p-4 sm:p-6 transition-all">
           <CalendarYearHeatmap
             daysMap={activeProvider.daysMap || {}}
             isCalendarAvailable={activeProvider.isCalendarAvailable}

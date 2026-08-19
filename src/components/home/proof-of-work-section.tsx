@@ -7,16 +7,24 @@ import { ProjectCard } from "@/components/home/project-card";
 import { ProjectOverviewModal } from "@/components/home/project-overview-modal";
 import { ArrowRight } from "lucide-react";
 import { SectionCtaButton } from "@/components/ui/section-cta-button";
+import { useStaggerReveal } from "@/lib/animation/hooks";
 
 interface ProofOfWorkSectionProps {
   projects: ResolvedProject[];
 }
 
 export function ProofOfWorkSection({ projects }: ProofOfWorkSectionProps) {
+  const sectionRef = useStaggerReveal<HTMLElement>({
+    itemSelector: "[data-animate-item]",
+    y: 35,
+    scale: 0.97,
+    duration: 0.65,
+    stagger: 0.12,
+  });
   const [selectedProject, setSelectedProject] = React.useState<ResolvedProject | null>(null);
 
   return (
-    <section className="py-10 sm:py-14 md:py-16 border-b border-border/40 bg-background">
+    <section ref={sectionRef} className="py-10 sm:py-14 md:py-16 border-b border-border/40 bg-background">
       <Container>
         {/* Section Header */}
         <div>
@@ -31,11 +39,12 @@ export function ProofOfWorkSection({ projects }: ProofOfWorkSectionProps) {
         {/* 2-Column Desktop / 1-Column Mobile Projects Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
           {projects.map((project) => (
-            <ProjectCard
-              key={project.id}
-              project={project}
-              onSelect={(p) => setSelectedProject(p)}
-            />
+            <div key={project.id} data-animate-item className="h-full">
+              <ProjectCard
+                project={project}
+                onSelect={(p) => setSelectedProject(p)}
+              />
+            </div>
           ))}
         </div>
 

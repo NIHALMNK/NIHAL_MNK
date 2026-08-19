@@ -1,9 +1,18 @@
+"use client";
+
 import Link from "next/link";
 import { Instagram, Github, Linkedin, Mail, FileText } from "lucide-react";
 import { Container } from "@/components/ui/container";
 import { siteSettingsData } from "@/data/site";
+import { useStaggerReveal } from "@/lib/animation/hooks";
 
 export function Footer() {
+  const footerRef = useStaggerReveal<HTMLElement>({
+    itemSelector: "[data-animate-item]",
+    y: 20,
+    duration: 0.5,
+    stagger: 0.06,
+  });
   const connectLinks = [
     {
       label: "Instagram",
@@ -38,7 +47,7 @@ export function Footer() {
   ];
 
   return (
-    <footer id="connect" className="mt-auto border-t border-border/40 bg-background">
+    <footer ref={footerRef} id="connect" className="mt-auto border-t border-border/40 bg-background">
       {/* 1. Main Connect Section (The visual footer) */}
       <section className="py-10 sm:py-14 md:py-16">
         <Container>
@@ -59,6 +68,7 @@ export function Footer() {
               return (
                 <a
                   key={item.label}
+                  data-animate-item
                   href={item.href}
                   target={item.external ? "_blank" : undefined}
                   rel={item.external ? "noopener noreferrer" : undefined}

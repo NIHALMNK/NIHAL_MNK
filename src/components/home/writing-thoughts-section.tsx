@@ -6,17 +6,25 @@ import { ArrowUpRight, ArrowRight } from "lucide-react";
 import { Container } from "@/components/ui/container";
 import { BlogPost } from "@/types/blog";
 import { SectionCtaButton } from "@/components/ui/section-cta-button";
+import { useStaggerReveal } from "@/lib/animation/hooks";
 
 interface WritingThoughtsSectionProps {
   posts: BlogPost[];
 }
 
 export function WritingThoughtsSection({ posts }: WritingThoughtsSectionProps) {
+  const sectionRef = useStaggerReveal<HTMLElement>({
+    itemSelector: "[data-animate-item]",
+    y: 30,
+    duration: 0.6,
+    stagger: 0.1,
+  });
+
   // Ensure exactly maximum 2 posts are displayed on the homepage
   const displayedPosts = posts.slice(0, 2);
 
   return (
-    <section className="py-8 sm:py-10 md:py-12 border-b border-border/40">
+    <section ref={sectionRef} className="py-8 sm:py-10 md:py-12 border-b border-border/40">
       <Container>
         {/* Section Header */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
@@ -35,6 +43,7 @@ export function WritingThoughtsSection({ posts }: WritingThoughtsSectionProps) {
           {displayedPosts.map((post) => (
             <Link
               key={post.id}
+              data-animate-item
               href={`/blogs/${post.slug}`}
               className="group relative flex flex-col justify-between rounded-xl border border-border/50 bg-card p-5 sm:p-6 hover:border-border/80 hover:-translate-y-0.5 transition-all duration-200 shadow-sm"
             >

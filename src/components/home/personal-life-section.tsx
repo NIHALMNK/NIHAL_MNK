@@ -1,17 +1,26 @@
+"use client";
+
 import Link from "next/link";
 import { BookOpen, Film, Camera, ArrowRight, MapPin } from "lucide-react";
 import { Container } from "@/components/ui/container";
 import { Snap } from "@/types/snap";
+import { useStaggerReveal } from "@/lib/animation/hooks";
 
 interface PersonalLifeSectionProps {
   recentSnaps: Snap[];
 }
 
 export function PersonalLifeSection({ recentSnaps }: PersonalLifeSectionProps) {
+  const sectionRef = useStaggerReveal<HTMLElement>({
+    itemSelector: "[data-animate-item]",
+    y: 25,
+    duration: 0.55,
+    stagger: 0.08,
+  });
   const displayedSnaps = recentSnaps.slice(0, 4);
 
   return (
-    <section className="py-10 sm:py-14 md:py-16 border-b border-border/40 bg-background">
+    <section ref={sectionRef} className="py-10 sm:py-14 md:py-16 border-b border-border/40 bg-background">
       <Container>
         {/* Section Header */}
         <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground font-sans">
@@ -23,6 +32,7 @@ export function PersonalLifeSection({ recentSnaps }: PersonalLifeSectionProps) {
           {/* Books Card */}
           <Link
             href="/books"
+            data-animate-item
             className="group flex items-center gap-4 rounded-xl border border-border/50 bg-card px-5 py-4 hover:border-border/80 hover:bg-card/80 transition-all duration-200 shadow-sm"
           >
             <span className="inline-flex items-center justify-center w-10 h-10 shrink-0 rounded-lg border border-border/50 bg-secondary/30 group-hover:border-border/80 transition-colors">
@@ -39,6 +49,7 @@ export function PersonalLifeSection({ recentSnaps }: PersonalLifeSectionProps) {
           {/* Movies Card */}
           <Link
             href="/movies"
+            data-animate-item
             className="group flex items-center gap-4 rounded-xl border border-border/50 bg-card px-5 py-4 hover:border-border/80 hover:bg-card/80 transition-all duration-200 shadow-sm"
           >
             <span className="inline-flex items-center justify-center w-10 h-10 shrink-0 rounded-lg border border-border/50 bg-secondary/30 group-hover:border-border/80 transition-colors">
@@ -54,7 +65,7 @@ export function PersonalLifeSection({ recentSnaps }: PersonalLifeSectionProps) {
         </div>
 
         {/* Recent Snaps */}
-        <div className="mt-8 sm:mt-10">
+        <div data-animate-item className="mt-8 sm:mt-10">
           {/* Snaps Label */}
           <div className="flex items-center gap-2 mb-4">
             <Camera className="h-3.5 w-3.5 text-muted-foreground/70" />
