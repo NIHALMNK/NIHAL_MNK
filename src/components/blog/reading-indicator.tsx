@@ -9,16 +9,11 @@ interface ReadingIndicatorProps {
 }
 
 export function ReadingIndicator({ headings, articleId = "article-body" }: ReadingIndicatorProps) {
-  const [activeHeadingText, setActiveHeadingText] = React.useState<string>("");
+  const [activeHeadingText, setActiveHeadingText] = React.useState<string>(
+    headings[0]?.text || ""
+  );
   const [scrollProgress, setScrollProgress] = React.useState<number>(0);
   const [isVisible, setIsVisible] = React.useState<boolean>(false);
-
-  // Set initial active heading when headings update
-  React.useEffect(() => {
-    if (headings.length > 0 && !activeHeadingText) {
-      setActiveHeadingText(headings[0].text);
-    }
-  }, [headings, activeHeadingText]);
 
   // Scroll Progress Calculation (0% -> 100%)
   React.useEffect(() => {

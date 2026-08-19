@@ -13,8 +13,6 @@ interface ProjectOverviewModalProps {
 }
 
 export function ProjectOverviewModal({ project, isOpen, onClose }: ProjectOverviewModalProps) {
-  const [playbackRate, setPlaybackRate] = React.useState<number>(1);
-
   // Lock body scroll when modal is open & add Escape key listener
   React.useEffect(() => {
     if (!isOpen) return;
@@ -36,14 +34,19 @@ export function ProjectOverviewModal({ project, isOpen, onClose }: ProjectOvervi
     };
   }, [isOpen, onClose]);
 
-  // Reset playback speed to 1x whenever a new project opens
-  React.useEffect(() => {
-    if (isOpen) {
-      setPlaybackRate(1);
-    }
-  }, [isOpen, project]);
-
   if (!isOpen || !project) return null;
+
+  return <ProjectOverviewModalContent key={project.id} project={project} onClose={onClose} />;
+}
+
+function ProjectOverviewModalContent({
+  project,
+  onClose,
+}: {
+  project: ResolvedProject;
+  onClose: () => void;
+}) {
+  const [playbackRate, setPlaybackRate] = React.useState<number>(1);
 
   const isLiveValid = Boolean(project.liveUrl && !project.liveUrl.includes("example.com"));
   const isGithubValid = Boolean(project.githubUrl && !project.githubUrl.includes("example.com"));

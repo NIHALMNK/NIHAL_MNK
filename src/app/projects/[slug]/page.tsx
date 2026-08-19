@@ -4,13 +4,20 @@ import { getProjectBySlug, getAllProjects } from "@/lib/data/projects";
 import { TechIcon } from "@/components/ui/tech-icon";
 import Link from "next/link";
 
+interface ProjectDetailPageProps {
+  params: Promise<{
+    slug: string;
+  }>;
+}
+
 export async function generateStaticParams() {
   const projects = await getAllProjects();
   return projects.map((p) => ({ slug: p.slug }));
 }
 
-export async function generateMetadata({ params }: { params: { slug: string } }) {
-  const project = await getProjectBySlug(params.slug);
+export async function generateMetadata({ params }: ProjectDetailPageProps) {
+  const { slug } = await params;
+  const project = await getProjectBySlug(slug);
   if (!project) return {};
   return {
     title: `${project.title} — Case Study`,
@@ -18,8 +25,9 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   };
 }
 
-export default async function ProjectDetailPage({ params }: { params: { slug: string } }) {
-  const project = await getProjectBySlug(params.slug);
+export default async function ProjectDetailPage({ params }: ProjectDetailPageProps) {
+  const { slug } = await params;
+  const project = await getProjectBySlug(slug);
 
   if (!project) {
     notFound();

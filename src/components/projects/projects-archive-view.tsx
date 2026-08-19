@@ -61,10 +61,10 @@ export function ProjectsArchiveView({ initialProjects }: ProjectsArchiveViewProp
     });
   }, [initialProjects, searchQuery]);
 
-  // Reset pagination count when query changes
-  React.useEffect(() => {
+  const handleSearchChange = (value: string) => {
+    setSearchQuery(value);
     setVisibleCount(PAGE_SIZE);
-  }, [searchQuery]);
+  };
 
   // Progressive loading with IntersectionObserver
   React.useEffect(() => {
@@ -116,7 +116,7 @@ export function ProjectsArchiveView({ initialProjects }: ProjectsArchiveViewProp
               <input
                 type="text"
                 value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
+                onChange={(e) => handleSearchChange(e.target.value)}
                 placeholder="Search by project or tech..."
                 aria-label="Search projects by title or technology"
                 className="w-full h-11 pl-10 pr-10 rounded-xl glass-card text-xs sm:text-sm font-mono text-foreground placeholder:text-muted-foreground/60 border border-border/60 focus:outline-none focus:border-foreground/40 focus:ring-1 focus:ring-foreground/20 transition-all shadow-xs"
@@ -124,7 +124,7 @@ export function ProjectsArchiveView({ initialProjects }: ProjectsArchiveViewProp
               {searchQuery && (
                 <button
                   type="button"
-                  onClick={() => setSearchQuery("")}
+                  onClick={() => handleSearchChange("")}
                   aria-label="Clear search input"
                   className="absolute right-3 p-1 rounded-md text-muted-foreground hover:text-foreground transition-colors"
                 >

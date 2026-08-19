@@ -78,9 +78,7 @@ function renderInlineText(text: string): React.ReactNode {
 }
 
 export function MarkdownRenderer({ content, onHeadingsExtracted }: MarkdownRendererProps) {
-  const extractedHeadingsRef = React.useRef<BlogHeading[]>([]);
-
-  const elements = React.useMemo(() => {
+  const { elements, headingsList } = React.useMemo(() => {
     const lines = content.split("\n");
     const result: React.ReactNode[] = [];
     const headingsList: BlogHeading[] = [];
@@ -229,15 +227,14 @@ export function MarkdownRenderer({ content, onHeadingsExtracted }: MarkdownRende
       i++;
     }
 
-    extractedHeadingsRef.current = headingsList;
-    return result;
+    return { elements: result, headingsList };
   }, [content]);
 
   React.useEffect(() => {
     if (onHeadingsExtracted) {
-      onHeadingsExtracted(extractedHeadingsRef.current);
+      onHeadingsExtracted(headingsList);
     }
-  }, [onHeadingsExtracted, elements]);
+  }, [onHeadingsExtracted, headingsList]);
 
   return <div className="markdown-content">{elements}</div>;
 }
