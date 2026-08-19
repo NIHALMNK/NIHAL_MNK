@@ -1,5 +1,6 @@
-import { ExternalLink, Bookmark as BookmarkIcon } from "lucide-react";
+import { ExternalLink } from "lucide-react";
 import { Container } from "@/components/ui/container";
+import { BookmarkSourceIcon } from "@/components/ui/bookmark-source-icon";
 import { Bookmark } from "@/types/bookmark";
 
 interface BookmarksSectionProps {
@@ -27,7 +28,7 @@ export function BookmarksSection({ bookmarks }: BookmarksSectionProps) {
             >
               <div className="flex items-start gap-4 sm:gap-5 min-w-0">
                 <div className="shrink-0 mt-0.5 w-8 h-8 sm:w-10 sm:h-10 rounded-md bg-secondary/30 border border-border/50 flex items-center justify-center group-hover:border-border/80 transition-colors">
-                  <BookmarkIcon className="w-4 h-4 sm:w-5 sm:h-5 text-muted-foreground" />
+                  <BookmarkSourceIcon domain={bookmark.domain} iconUrl={bookmark.iconUrl} />
                 </div>
                 
                 <div className="flex flex-col gap-1 min-w-0">

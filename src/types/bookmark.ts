@@ -5,4 +5,5 @@ export interface Bookmark {
   domain: string;
   category: string;
   description: string;
+  iconUrl?: string;
 }
