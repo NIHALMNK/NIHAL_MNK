@@ -1,20 +1,68 @@
 import { Technology } from "@/types/stack";
 import { Project, ResolvedProject } from "@/types/project";
-import { stackData } from "@/data/stacks";
+import { stackData as localStackData } from "@/data/stacks";
+import { sanityFetch, isSanityConfigured } from "@/sanity/client";
+import { allStacksQuery, stackBySlugQuery } from "@/sanity/queries";
+
+interface SanityStackDoc {
+  _id: string;
+  id?: string;
+  name: string;
+  slug: string;
+  category: string;
+  iconUrl?: string;
+  tagline?: string;
+  description?: string;
+  proficiencyLevel?: Technology["proficiencyLevel"];
+  yearsOfExperience?: number;
+  documentationUrl?: string;
+  order?: number;
+  isActive?: boolean;
+}
+
+function mapSanityStackToDomain(doc: SanityStackDoc): Technology {
+  return {
+    id: doc.id || doc._id,
+    name: doc.name,
+    slug: doc.slug,
+    category: doc.category || "Additional Skills",
+    icon: {
+      url: doc.iconUrl || `https://res.cloudinary.com/demo/image/upload/v1/portfolio/tech/${doc.slug}.png`,
+      alt: `${doc.name} Logo`,
+    },
+    tagline: doc.tagline,
+    description: doc.description,
+    proficiencyLevel: doc.proficiencyLevel,
+    yearsOfExperience: doc.yearsOfExperience,
+    documentationUrl: doc.documentationUrl,
+    order: doc.order,
+    isActive: doc.isActive ?? true,
+  };
+}
 
 /**
- * Returns all technologies from the central Tech Stack dataset.
+ * Returns all technologies from Sanity (or fallback local Tech Stack dataset).
  */
 export async function getAllTechnologies(): Promise<Technology[]> {
-  return stackData;
+  if (isSanityConfigured()) {
+    const sanityStacks = await sanityFetch<SanityStackDoc[]>({
+      query: allStacksQuery,
+      tags: ["stack", "stackCategory"],
+    });
+
+    if (sanityStacks && sanityStacks.length > 0) {
+      return sanityStacks.map(mapSanityStackToDomain);
+    }
+  }
+
+  return localStackData;
 }
 
 /**
  * Synchronous version of getAllTechnologies for use in client components.
- * Returns the full stack dataset without requiring async/await.
  */
 export function getAllTechnologiesSync(): Technology[] {
-  return stackData;
+  return localStackData;
 }
 
 /**
@@ -28,6 +76,18 @@ export async function getStackItems(): Promise<Technology[]> {
  * Returns a single Technology entity by its URL slug.
  */
 export async function getTechnologyBySlug(slug: string): Promise<Technology | null> {
+  if (isSanityConfigured()) {
+    const sanityStack = await sanityFetch<SanityStackDoc>({
+      query: stackBySlugQuery,
+      params: { slug },
+      tags: ["stack"],
+    });
+
+    if (sanityStack) {
+      return mapSanityStackToDomain(sanityStack);
+    }
+  }
+
   const all = await getAllTechnologies();
   return all.find((t) => t.slug === slug) ?? null;
 }
@@ -46,7 +106,7 @@ export async function getTechnologyById(id: string): Promise<Technology | null> 
 export function getTechnologiesByIdsSync(ids: string[]): Technology[] {
   return ids
     .map((techIdOrName) => {
-      const match = stackData.find(
+      const match = localStackData.find(
         (t) =>
           t.id === techIdOrName ||
           t.slug === techIdOrName ||
@@ -55,7 +115,6 @@ export function getTechnologiesByIdsSync(ids: string[]): Technology[] {
 
       if (match) return match;
 
-      // Safe fallback entity if reference ID is unknown
       return {
         id: `tech-${techIdOrName.toLowerCase().replace(/[^a-z0-9]/g, "")}`,
         name: techIdOrName,
@@ -73,7 +132,18 @@ export function getTechnologiesByIdsSync(ids: string[]): Technology[] {
  * Async DAL helper returning resolved Technology objects for array of IDs.
  */
 export async function getTechnologiesByIds(ids: string[]): Promise<Technology[]> {
-  return getTechnologiesByIdsSync(ids);
+  const all = await getAllTechnologies();
+  return ids
+    .map((idOrName) => {
+      const match = all.find(
+        (t) =>
+          t.id === idOrName ||
+          t.slug === idOrName ||
+          t.name.toLowerCase() === idOrName.toLowerCase()
+      );
+      return match || getTechnologiesByIdsSync([idOrName])[0];
+    })
+    .filter(Boolean);
 }
 
 /**
