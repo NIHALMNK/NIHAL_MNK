@@ -1,5 +1,5 @@
 import { MetadataRoute } from "next";
-import { siteSettingsData } from "@/data/site";
+import { siteSettingsData } from "@/data/home/site";
 
 export default function robots(): MetadataRoute.Robots {
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || siteSettingsData.defaultSeo.siteUrl;

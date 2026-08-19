@@ -1,5 +1,9 @@
 import { SiteSettings } from "@/types/site";
+import { NavigationConfig } from "@/types/navigation";
 
+// ─── Site Identity (Hero / Global) ───────────────────────────────────────────
+// This is the single source of truth for site-level identity data.
+// Social / contact links live in src/data/connect/index.ts — NOT here.
 export const siteSettingsData: SiteSettings = {
   name: "Mohammed Nihal K",
   role: "MERN Stack Developer • Engineer • Builder",
@@ -17,20 +21,7 @@ export const siteSettingsData: SiteSettings = {
   availableForHire: true,
   email: "mohammednihal.dev@gmail.com",
   resumeUrl: "/resume.pdf",
-  featuredSkills: [
-    "tech-nextjs",
-    "tech-typescript",
-    "tech-react",
-    "tech-nodejs",
-    "tech-express",
-    "tech-mongodb",
-    "tech-postgresql",
-    "tech-docker",
-    "tech-tailwindcss",
-    "tech-redis",
-    "tech-socketio",
-    "tech-webrtc",
-  ],
+  // socials is kept for backward-compat but the authoritative source is src/data/connect/index.ts
   socials: {
     instagram: "https://instagram.com/",
     github: "https://github.com/NIHALMNK",
@@ -38,7 +29,8 @@ export const siteSettingsData: SiteSettings = {
   },
   defaultSeo: {
     title: "Mohammed Nihal K — MERN Stack Developer Portfolio",
-    description: "Personal developer portfolio of Mohammed Nihal K featuring projects, articles, craft experiments, and tech stack.",
+    description:
+      "Personal developer portfolio of Mohammed Nihal K featuring projects, articles, craft experiments, and tech stack.",
     siteUrl: "https://nihalmnk-portfolio.vercel.app",
     ogImage: {
       url: "https://res.cloudinary.com/doyxte1wf/image/upload/v1785831231/NIHAL_MNK_profile.webp",
@@ -46,5 +38,25 @@ export const siteSettingsData: SiteSettings = {
       width: 1200,
       height: 630,
     },
+  },
+};
+
+// ─── Navigation Config ────────────────────────────────────────────────────────
+export const navigationConfigData: NavigationConfig = {
+  mainNav: [
+    { title: "Home", href: "/" },
+    { title: "Projects", href: "/projects" },
+    { title: "Blog", href: "/blogs" },
+    { title: "Craft", href: "/craft" },
+    { title: "Stack", href: "/stack" },
+    { title: "Contact", href: "/contact" },
+  ],
+  // socialLinks resolved from connect domain — kept here for backward-compat only
+  socialLinks: {
+    instagram: "https://instagram.com/",
+    github: "https://github.com/NIHALMNK",
+    linkedin: "https://www.linkedin.com/in/mohammednihalk6061/",
+    email: "mailto:mohammednihal.dev@gmail.com",
+    resume: "/resume.pdf",
   },
 };

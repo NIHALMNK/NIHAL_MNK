@@ -3,49 +3,59 @@
 import Link from "next/link";
 import { Instagram, Github, Linkedin, Mail, FileText } from "lucide-react";
 import { Container } from "@/components/ui/container";
-import { siteSettingsData } from "@/data/site";
+import { ConnectLinks } from "@/types/connect";
 import { useStaggerReveal } from "@/lib/animation/hooks";
 import { onGlassMouseMove } from "@/lib/utils/glass-glow";
 
-export function Footer() {
+interface FooterProps {
+  /** Social/contact links from connect domain — passed by PortfolioShell */
+  connectLinks: ConnectLinks;
+  /** Site email for mailto link */
+  email?: string;
+  /** Resume URL */
+  resumeUrl?: string;
+}
+
+export function Footer({ connectLinks, email, resumeUrl }: FooterProps) {
   const footerRef = useStaggerReveal<HTMLElement>({
     itemSelector: "[data-animate-item]",
     y: 20,
     duration: 0.5,
     stagger: 0.06,
   });
-  const connectLinks = [
+  const socialButtons = [
     {
       label: "Instagram",
-      href: siteSettingsData.socials.instagram || "https://instagram.com/",
+      href: connectLinks.instagram,
       icon: Instagram,
       external: true,
     },
     {
       label: "GitHub",
-      href: siteSettingsData.socials.github,
+      href: connectLinks.github,
       icon: Github,
       external: true,
     },
     {
       label: "LinkedIn",
-      href: siteSettingsData.socials.linkedin,
+      href: connectLinks.linkedin,
       icon: Linkedin,
       external: true,
     },
     {
       label: "Email",
-      href: `mailto:${siteSettingsData.email}`,
+      href: email ? `mailto:${email}` : `mailto:${connectLinks.email}`,
       icon: Mail,
       external: false,
     },
     {
       label: "Resume",
-      href: siteSettingsData.resumeUrl || "/resume.pdf",
+      href: resumeUrl ?? connectLinks.resume,
       icon: FileText,
       external: true,
     },
   ];
+
 
   return (
     <footer ref={footerRef} id="connect" className="mt-auto border-t border-border/40 bg-background">
@@ -64,7 +74,7 @@ export function Footer() {
 
           {/* 5 Social Buttons Horizontal Row */}
           <div className="mt-6 sm:mt-8 flex flex-wrap items-center gap-3 sm:gap-4">
-            {connectLinks.map((item) => {
+            {socialButtons.map((item) => {
               const Icon = item.icon;
               return (
                 <a

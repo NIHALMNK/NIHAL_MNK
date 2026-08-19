@@ -1,5 +1,5 @@
 import { BlogPost } from "@/types/blog";
-import { blogData } from "@/data/blog";
+import { blogData } from "@/data/blogs";
 
 export async function getAllPosts(): Promise<BlogPost[]> {
   return blogData;

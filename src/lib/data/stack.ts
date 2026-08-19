@@ -1,6 +1,6 @@
 import { Technology } from "@/types/stack";
 import { Project, ResolvedProject } from "@/types/project";
-import { stackData } from "@/data/stack";
+import { stackData } from "@/data/stacks";
 
 /**
  * Returns all technologies from the central Tech Stack dataset.

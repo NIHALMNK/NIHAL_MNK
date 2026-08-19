@@ -1,5 +1,5 @@
-import { navigationConfigData } from "@/data/navigation";
-import { siteSettingsData } from "@/data/site";
+import { navigationConfigData } from "@/data/home/site";
+import { siteSettingsData } from "@/data/home/site";
 
 export const siteConfig = {
   name: siteSettingsData.name,

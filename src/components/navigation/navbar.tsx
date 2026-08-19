@@ -5,7 +5,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
-import { siteSettingsData } from "@/data/site";
 import { cn } from "@/lib/utils/cn";
 
 const navItems = [
@@ -15,7 +14,14 @@ const navItems = [
   { label: "Stack", href: "/stack" },
 ];
 
-export function Navbar() {
+interface NavbarProps {
+  /** Avatar image URL from site settings — passed by PortfolioShell server component */
+  avatarUrl?: string;
+  /** Avatar alt text from site settings */
+  avatarAlt?: string;
+}
+
+export function Navbar({ avatarUrl, avatarAlt = "Portfolio" }: NavbarProps) {
   const pathname = usePathname();
 
   return (
@@ -32,14 +38,20 @@ export function Navbar() {
             aria-label="Home"
             className="shrink-0 transition-opacity hover:opacity-85 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-lg"
           >
-            <Image
-              src={siteSettingsData.avatar.url}
-              alt={siteSettingsData.avatar.alt}
-              width={36}
-              height={36}
-              priority
-              className="h-9 w-9 rounded-lg object-cover border border-border/40"
-            />
+            {avatarUrl ? (
+              <Image
+                src={avatarUrl}
+                alt={avatarAlt}
+                width={36}
+                height={36}
+                priority
+                className="h-9 w-9 rounded-lg object-cover border border-border/40"
+              />
+            ) : (
+              <div className="h-9 w-9 rounded-lg border border-border/40 bg-muted flex items-center justify-center text-xs font-bold text-muted-foreground select-none">
+                N
+              </div>
+            )}
           </Link>
 
           {/* Navigation Links */}

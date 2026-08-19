@@ -1,5 +1,5 @@
 import { Snap } from "@/types/snap";
-import { snapsData } from "@/data/snaps";
+import { snapsData } from "@/data/home/recent-snaps";
 
 export async function getRecentSnaps(limit?: number): Promise<Snap[]> {
   const sorted = [...snapsData].sort(

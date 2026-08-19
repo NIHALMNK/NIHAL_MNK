@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { siteSettingsData } from "@/data/site";
+import { siteSettingsData } from "@/data/home/site";
 
 export function constructMetadata({
   title = siteSettingsData.defaultSeo.title,
