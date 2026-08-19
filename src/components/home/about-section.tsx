@@ -93,26 +93,57 @@ export function AboutSection({ siteSettings, allTechnologies }: AboutSectionProp
                 </span>
               </div>
 
-              {/* Icons Grid — ALL technologies, icons only, hover tooltip */}
-              <div className="flex flex-wrap gap-2">
-                {allTechnologies.map((tech) => (
-                  <div key={tech.id} className="group relative">
-                    {/* Icon Container */}
-                    <div className="glass-pill inline-flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-lg cursor-default">
-                      <TechIcon technology={tech} className="h-5 w-5 sm:h-6 sm:w-6 object-contain" />
-                    </div>
+              {/* Icons Grid — first 15 technologies + dynamic overflow card */}
+              {(() => {
+                const VISIBLE_LIMIT = 15;
+                const visibleTechs = allTechnologies.slice(0, VISIBLE_LIMIT);
+                const remainingCount = Math.max(allTechnologies.length - VISIBLE_LIMIT, 0);
+                return (
+                  <div className="flex flex-wrap gap-2">
+                    {visibleTechs.map((tech) => (
+                      <div key={tech.id} className="group relative">
+                        {/* Icon Container */}
+                        <div className="glass-pill inline-flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-lg cursor-default">
+                          <TechIcon technology={tech} className="h-5 w-5 sm:h-6 sm:w-6 object-contain" />
+                        </div>
 
-                    {/* Hover Tooltip: Technology Name Only */}
-                    <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 z-20 pointer-events-none opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-150 whitespace-nowrap">
-                      <div className="rounded-md bg-zinc-950/95 dark:bg-zinc-900 border border-white/10 px-2 py-1 text-[10px] font-mono font-medium text-white shadow-lg">
-                        {tech.name}
+                        {/* Hover Tooltip: Technology Name Only */}
+                        <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 z-20 pointer-events-none opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-150 whitespace-nowrap">
+                          <div className="rounded-md bg-zinc-950/95 dark:bg-zinc-900 border border-white/10 px-2 py-1 text-[10px] font-mono font-medium text-white shadow-lg">
+                            {tech.name}
+                          </div>
+                          {/* Tooltip Caret */}
+                          <div className="absolute top-full left-1/2 -translate-x-1/2 w-0 h-0 border-x-4 border-x-transparent border-t-4 border-t-zinc-950/95 dark:border-t-zinc-900" />
+                        </div>
                       </div>
-                      {/* Tooltip Caret */}
-                      <div className="absolute top-full left-1/2 -translate-x-1/2 w-0 h-0 border-x-4 border-x-transparent border-t-4 border-t-zinc-950/95 dark:border-t-zinc-900" />
-                    </div>
+                    ))}
+
+                    {/* Dynamic overflow card — only rendered when there are more than VISIBLE_LIMIT items */}
+                    {remainingCount > 0 && (
+                      <div className="group relative">
+                        <Link
+                          href="/stack"
+                          className="glass-pill inline-flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-lg cursor-pointer hover:bg-muted/40 transition-colors"
+                          aria-label={`View all ${allTechnologies.length} technologies on Stack page`}
+                        >
+                          <span className="text-[10px] sm:text-[11px] font-mono font-bold text-muted-foreground">
+                            +{remainingCount}
+                          </span>
+                        </Link>
+
+                        {/* Hover Tooltip for overflow card */}
+                        <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 z-20 pointer-events-none opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-150 whitespace-nowrap">
+                          <div className="rounded-md bg-zinc-950/95 dark:bg-zinc-900 border border-white/10 px-2 py-1 text-[10px] font-mono font-medium text-white shadow-lg">
+                            View all {allTechnologies.length} technologies
+                          </div>
+                          <div className="absolute top-full left-1/2 -translate-x-1/2 w-0 h-0 border-x-4 border-x-transparent border-t-4 border-t-zinc-950/95 dark:border-t-zinc-900" />
+                        </div>
+                      </div>
+                    )}
                   </div>
-                ))}
-              </div>
+                );
+              })()}
+
             </div>
           </div>
         </div>
