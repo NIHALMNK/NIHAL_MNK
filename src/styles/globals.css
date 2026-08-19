@@ -122,3 +122,94 @@
   scrollbar-width: none; /* Firefox */
 }
 
+@layer utilities {
+  /* Translucent glass surface */
+  .glass-surface {
+    background-color: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  /* Interactive glass card with subtle top reflection */
+  .glass-card {
+    position: relative;
+    background-color: hsl(var(--card) / 0.5);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid hsl(var(--border) / 0.7);
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .dark .glass-card {
+    background-color: rgba(255, 255, 255, 0.025);
+    border-color: rgba(255, 255, 255, 0.08);
+  }
+  .dark .glass-card:hover {
+    background-color: rgba(255, 255, 255, 0.045);
+    border-color: rgba(255, 255, 255, 0.15);
+  }
+
+  /* Glass pill / control */
+  .glass-pill {
+    background-color: hsl(var(--muted) / 0.5);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    border: 1px solid hsl(var(--border) / 0.6);
+    transition: all 0.15s ease-out;
+  }
+  .dark .glass-pill {
+    background-color: rgba(255, 255, 255, 0.035);
+    border-color: rgba(255, 255, 255, 0.08);
+  }
+  .dark .glass-pill:hover {
+    background-color: rgba(255, 255, 255, 0.07);
+    border-color: rgba(255, 255, 255, 0.16);
+  }
+
+  /* Glass button */
+  .glass-button {
+    background-color: hsl(var(--muted) / 0.6);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid hsl(var(--border) / 0.7);
+    transition: all 0.15s ease-out;
+  }
+  .dark .glass-button {
+    background-color: rgba(255, 255, 255, 0.04);
+    border-color: rgba(255, 255, 255, 0.09);
+  }
+  .dark .glass-button:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.18);
+  }
+
+  /* Glass modal dialog frame */
+  .glass-modal {
+    background-color: hsl(var(--background) / 0.95);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid hsl(var(--border) / 0.8);
+  }
+  .dark .glass-modal {
+    background-color: rgba(12, 12, 16, 0.85);
+    border-color: rgba(255, 255, 255, 0.12);
+  }
+
+  /* Subtle specular top-edge highlight */
+  .glass-highlight {
+    position: relative;
+    overflow: hidden;
+  }
+  .glass-highlight::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.14), transparent);
+    pointer-events: none;
+    z-index: 10;
+  }
+}
+

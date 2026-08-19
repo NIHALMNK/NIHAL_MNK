@@ -35,10 +35,10 @@ export function BookmarksSection({ bookmarks }: BookmarksSectionProps) {
               href={bookmark.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex items-center justify-between gap-4 p-4 sm:p-5 rounded-xl border border-border/40 bg-card hover:bg-card/80 hover:border-border/80 transition-all duration-200 shadow-sm"
+              className="glass-card glass-highlight group flex items-center justify-between gap-4 p-4 sm:p-5 rounded-xl transition-all duration-200 shadow-sm"
             >
               <div className="flex items-start gap-4 sm:gap-5 min-w-0">
-                <div className="shrink-0 mt-0.5 w-8 h-8 sm:w-10 sm:h-10 rounded-md bg-secondary/30 border border-border/50 flex items-center justify-center group-hover:border-border/80 transition-colors">
+                <div className="glass-surface shrink-0 mt-0.5 w-8 h-8 sm:w-10 sm:h-10 rounded-lg flex items-center justify-center transition-colors">
                   <BookmarkSourceIcon domain={bookmark.domain} iconUrl={bookmark.iconUrl} />
                 </div>
                 

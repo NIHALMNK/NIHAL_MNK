@@ -45,7 +45,7 @@ export function WritingThoughtsSection({ posts }: WritingThoughtsSectionProps) {
               key={post.id}
               data-animate-item
               href={`/blogs/${post.slug}`}
-              className="group relative flex flex-col justify-between rounded-xl border border-border/50 bg-card p-5 sm:p-6 hover:border-border/80 hover:-translate-y-0.5 transition-all duration-200 shadow-sm"
+              className="glass-card glass-highlight group relative flex flex-col justify-between rounded-xl p-5 sm:p-6 hover:-translate-y-0.5 transition-all duration-200 shadow-sm"
             >
               <div>
                 {/* Meta Row: Date & Reading Time */}

@@ -33,9 +33,9 @@ export function PersonalLifeSection({ recentSnaps }: PersonalLifeSectionProps) {
           <Link
             href="/books"
             data-animate-item
-            className="group flex items-center gap-4 rounded-xl border border-border/50 bg-card px-5 py-4 hover:border-border/80 hover:bg-card/80 transition-all duration-200 shadow-sm"
+            className="glass-card glass-highlight group flex items-center gap-4 rounded-xl px-5 py-4 hover:-translate-y-0.5 transition-all duration-200 shadow-sm"
           >
-            <span className="inline-flex items-center justify-center w-10 h-10 shrink-0 rounded-lg border border-border/50 bg-secondary/30 group-hover:border-border/80 transition-colors">
+            <span className="glass-surface inline-flex items-center justify-center w-10 h-10 shrink-0 rounded-lg transition-colors">
               <BookOpen className="h-5 w-5 text-muted-foreground" />
             </span>
             <div className="min-w-0">
@@ -50,9 +50,9 @@ export function PersonalLifeSection({ recentSnaps }: PersonalLifeSectionProps) {
           <Link
             href="/movies"
             data-animate-item
-            className="group flex items-center gap-4 rounded-xl border border-border/50 bg-card px-5 py-4 hover:border-border/80 hover:bg-card/80 transition-all duration-200 shadow-sm"
+            className="glass-card glass-highlight group flex items-center gap-4 rounded-xl px-5 py-4 hover:-translate-y-0.5 transition-all duration-200 shadow-sm"
           >
-            <span className="inline-flex items-center justify-center w-10 h-10 shrink-0 rounded-lg border border-border/50 bg-secondary/30 group-hover:border-border/80 transition-colors">
+            <span className="glass-surface inline-flex items-center justify-center w-10 h-10 shrink-0 rounded-lg transition-colors">
               <Film className="h-5 w-5 text-muted-foreground" />
             </span>
             <div className="min-w-0">

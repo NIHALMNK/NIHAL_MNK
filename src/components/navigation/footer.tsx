@@ -72,7 +72,7 @@ export function Footer() {
                   href={item.href}
                   target={item.external ? "_blank" : undefined}
                   rel={item.external ? "noopener noreferrer" : undefined}
-                  className="group inline-flex items-center gap-2.5 rounded-lg border border-border/60 bg-muted/20 px-4 py-2.5 text-xs sm:text-sm font-medium text-foreground hover:bg-muted/50 hover:border-border transition-all duration-150 shadow-sm select-none"
+                  className="glass-button group inline-flex items-center gap-2.5 rounded-lg px-4 py-2.5 text-xs sm:text-sm font-medium text-foreground transition-all duration-150 shadow-xs select-none"
                 >
                   <Icon className="h-4 w-4 text-muted-foreground group-hover:text-foreground transition-colors shrink-0" />
                   <span>{item.label}</span>

@@ -50,13 +50,13 @@ export function AchievementsSection({ achievements }: AchievementsSectionProps) 
               key={item.id}
               data-animate-item
               onClick={() => setSelectedAchievement(item)}
-              className="group relative flex flex-col justify-between rounded-xl border border-border/50 bg-card p-4 sm:p-5 hover:border-border/80 hover:-translate-y-0.5 transition-all duration-200 cursor-pointer select-none shadow-sm"
+              className="glass-card glass-highlight group relative flex flex-col justify-between rounded-xl p-4 sm:p-5 hover:-translate-y-0.5 transition-all duration-200 cursor-pointer select-none shadow-sm"
             >
               <div>
                 {/* Top Row: Logo + Title & Date */}
                 <div className="flex items-start gap-3 sm:gap-3.5">
                   {/* Logo Container */}
-                  <div className="relative h-11 w-11 shrink-0 rounded-xl border border-border/50 bg-zinc-900/90 flex items-center justify-center overflow-hidden shadow-xs">
+                  <div className="glass-surface relative h-11 w-11 shrink-0 rounded-xl flex items-center justify-center overflow-hidden shadow-xs">
                     {item.logo && !failedLogos[item.id] ? (
                       <Image
                         src={item.logo.url}
@@ -73,8 +73,8 @@ export function AchievementsSection({ achievements }: AchievementsSectionProps) 
 
                   {/* Title & Date */}
                   <div className="min-w-0 flex-1">
-                    <div className="flex items-start justify-between gap-2">
-                      <h3 className="text-sm sm:text-base font-bold text-foreground group-hover:text-foreground/90 transition-colors line-clamp-1">
+                    <div className="flex items-baseline justify-between gap-2">
+                      <h3 className="text-sm sm:text-base font-bold text-foreground group-hover:text-primary transition-colors leading-snug">
                         {item.title}
                       </h3>
                       {item.date && (
@@ -93,7 +93,7 @@ export function AchievementsSection({ achievements }: AchievementsSectionProps) 
 
               {/* Bottom Badge Row */}
               <div className="mt-4 flex items-center justify-start pt-2">
-                <span className="inline-flex items-center rounded-md border border-border/40 bg-secondary/30 px-2 py-0.5 text-[11px] font-mono text-muted-foreground">
+                <span className="glass-pill inline-flex items-center rounded-md px-2 py-0.5 text-[11px] font-mono text-muted-foreground">
                   {item.issuer}
                 </span>
               </div>
@@ -106,7 +106,7 @@ export function AchievementsSection({ achievements }: AchievementsSectionProps) 
           <div className="mt-6 flex justify-center">
             <button
               onClick={handleViewMore}
-              className="inline-flex items-center gap-1.5 rounded-lg border border-border/60 bg-muted/20 px-4 py-2 text-xs font-mono text-muted-foreground hover:border-border/80 hover:text-foreground hover:bg-muted/40 transition-all select-none"
+              className="glass-button inline-flex items-center gap-1.5 rounded-lg px-4 py-2 text-xs font-mono text-muted-foreground hover:text-foreground transition-all select-none"
             >
               <span>View All Achievements</span>
               <ChevronDown className="h-3.5 w-3.5" />

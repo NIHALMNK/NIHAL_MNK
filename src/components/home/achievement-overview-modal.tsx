@@ -38,18 +38,18 @@ export function AchievementOverviewModal({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/75 backdrop-blur-sm animate-in fade-in duration-200 select-none"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/75 backdrop-blur-md animate-in fade-in duration-200 select-none"
       onClick={onClose}
     >
       <div
-        className="relative w-full max-w-md rounded-2xl border border-border/60 bg-card p-5 sm:p-6 shadow-2xl space-y-4 animate-in zoom-in-95 duration-200"
+        className="glass-modal glass-highlight relative w-full max-w-md rounded-2xl p-5 sm:p-6 shadow-2xl space-y-4 animate-in zoom-in-95 duration-200"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Close Button */}
         <button
           onClick={onClose}
           aria-label="Close modal"
-          className="absolute top-4 right-4 rounded-lg p-1.5 text-muted-foreground hover:bg-muted/50 hover:text-foreground transition-colors"
+          className="glass-surface absolute top-4 right-4 rounded-lg p-1.5 text-muted-foreground hover:text-foreground transition-colors"
         >
           <X className="h-4 w-4" />
         </button>
@@ -57,7 +57,7 @@ export function AchievementOverviewModal({
         {/* Top Header: Logo + Title + Issuer & Date */}
         <div className="flex items-start gap-3.5 pr-6">
           {/* Certificate Logo Container */}
-          <div className="relative h-12 w-12 shrink-0 rounded-xl border border-border/60 bg-zinc-900/90 flex items-center justify-center overflow-hidden shadow-sm">
+          <div className="glass-surface relative h-12 w-12 shrink-0 rounded-xl flex items-center justify-center overflow-hidden shadow-xs">
             {achievement.logo && !logoError ? (
               <Image
                 src={achievement.logo.url}
@@ -117,7 +117,7 @@ export function AchievementOverviewModal({
               {achievement.skills.map((skill) => (
                 <span
                   key={skill}
-                  className="inline-flex items-center rounded-md border border-border/50 bg-secondary/30 px-2.5 py-1 text-[11px] sm:text-xs font-mono text-muted-foreground select-none"
+                  className="glass-pill inline-flex items-center rounded-md px-2.5 py-1 text-[11px] sm:text-xs font-mono text-muted-foreground select-none"
                 >
                   {skill}
                 </span>

@@ -38,7 +38,7 @@ export function AboutSection({ siteSettings, allTechnologies }: AboutSectionProp
         <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row gap-6 sm:gap-10 items-start">
           {/* LEFT: Profile Image */}
           <div data-animate-item className="shrink-0">
-            <div className="relative w-[200px] h-[200px] sm:w-[220px] sm:h-[220px] rounded-2xl overflow-hidden border border-border/50 bg-muted/20 shadow-sm">
+            <div className="glass-card glass-highlight relative w-[200px] h-[200px] sm:w-[220px] sm:h-[220px] rounded-2xl overflow-hidden shadow-sm">
               {avatarUrl && !imageError ? (
                 <Image
                   src={avatarUrl}
@@ -84,7 +84,7 @@ export function AboutSection({ siteSettings, allTechnologies }: AboutSectionProp
                 {allTechnologies.map((tech) => (
                   <div key={tech.id} className="group relative">
                     {/* Icon Container */}
-                    <div className="inline-flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-lg border border-border/50 bg-secondary/20 hover:border-border/80 hover:bg-secondary/40 transition-colors cursor-default">
+                    <div className="glass-pill inline-flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-lg cursor-default">
                       <TechIcon technology={tech} className="h-5 w-5 sm:h-6 sm:w-6 object-contain" />
                     </div>
 

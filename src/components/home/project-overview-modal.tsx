@@ -58,14 +58,14 @@ export function ProjectOverviewModal({ project, isOpen, onClose }: ProjectOvervi
     >
       {/* Modal Dialog Card Frame - Compact Visual Scale (max-w-xl) */}
       <div
-        className="relative w-full max-w-xl rounded-xl border border-border/60 bg-background text-foreground shadow-2xl overflow-hidden my-auto transition-all"
+        className="glass-modal glass-highlight relative w-full max-w-xl rounded-2xl text-foreground shadow-2xl overflow-hidden my-auto transition-all"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Top Right Close Button */}
         <button
           type="button"
           onClick={onClose}
-          className="absolute top-2.5 right-2.5 z-20 flex h-7 w-7 items-center justify-center rounded-full bg-black/60 text-white backdrop-blur-md border border-white/20 transition-colors hover:bg-black/80"
+          className="glass-surface absolute top-2.5 right-2.5 z-20 flex h-7 w-7 items-center justify-center rounded-full text-foreground transition-colors hover:bg-muted/60"
           aria-label="Close dialog"
         >
           <X className="h-3.5 w-3.5" />
@@ -151,7 +151,7 @@ export function ProjectOverviewModal({ project, isOpen, onClose }: ProjectOvervi
                 {project.technologies.map((tech) => (
                   <span
                     key={tech.id}
-                    className="inline-flex items-center gap-1.5 rounded-md border border-border/60 bg-muted/30 px-2.5 py-0.5 text-xs font-mono font-medium text-foreground/90"
+                    className="glass-pill inline-flex items-center gap-1.5 rounded-md px-2.5 py-0.5 text-xs font-mono font-medium text-foreground/90"
                   >
                     <TechIcon technology={tech} className="h-3.5 w-3.5 shrink-0" />
                     <span>{tech.name}</span>
@@ -177,7 +177,7 @@ export function ProjectOverviewModal({ project, isOpen, onClose }: ProjectOvervi
               <button
                 type="button"
                 disabled
-                className="flex-1 inline-flex items-center justify-center gap-1.5 rounded-lg bg-muted/40 text-muted-foreground border border-border/40 px-4 py-2 text-xs font-semibold cursor-not-allowed opacity-60"
+                className="glass-pill flex-1 inline-flex items-center justify-center gap-1.5 rounded-lg px-4 py-2 text-xs font-semibold cursor-not-allowed opacity-60 text-muted-foreground"
                 title="Live URL currently unavailable"
               >
                 <span>Visit Website (Unavailable)</span>
@@ -190,7 +190,7 @@ export function ProjectOverviewModal({ project, isOpen, onClose }: ProjectOvervi
                 href={project.githubUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="shrink-0 inline-flex items-center justify-center gap-1.5 rounded-lg border border-border/60 bg-muted/20 px-3.5 py-2 text-xs font-medium text-foreground hover:bg-muted/50 hover:border-border transition-colors shadow-sm"
+                className="glass-button shrink-0 inline-flex items-center justify-center gap-1.5 rounded-lg px-3.5 py-2 text-xs font-medium text-foreground transition-all shadow-xs"
               >
                 <Github className="h-3.5 w-3.5" />
                 <span>GitHub Repository</span>
@@ -199,7 +199,7 @@ export function ProjectOverviewModal({ project, isOpen, onClose }: ProjectOvervi
               <button
                 type="button"
                 disabled
-                className="shrink-0 inline-flex items-center justify-center gap-1.5 rounded-lg border border-border/40 bg-muted/20 px-3.5 py-2 text-xs font-medium text-muted-foreground cursor-not-allowed opacity-60"
+                className="glass-pill shrink-0 inline-flex items-center justify-center gap-1.5 rounded-lg px-3.5 py-2 text-xs font-medium text-muted-foreground cursor-not-allowed opacity-60"
                 title="GitHub URL currently unavailable"
               >
                 <Github className="h-3.5 w-3.5" />

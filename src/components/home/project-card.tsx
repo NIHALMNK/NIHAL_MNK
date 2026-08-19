@@ -22,7 +22,7 @@ export function ProjectCard({ project, onSelect }: ProjectCardProps) {
   return (
     <div
       onClick={() => onSelect(project)}
-      className="group relative flex flex-col rounded-2xl border border-border/50 bg-secondary/15 overflow-hidden transition-all duration-200 ease-out hover:-translate-y-1 hover:scale-[1.005] hover:border-border/90 hover:shadow-lg cursor-pointer"
+      className="glass-card glass-highlight group relative flex flex-col rounded-2xl overflow-hidden transition-all duration-200 ease-out hover:-translate-y-1 hover:scale-[1.005] hover:shadow-xl cursor-pointer"
     >
       {/* Top Media Area with Continuous Autoplay Video Preview & Status Overlay */}
       <div className="relative aspect-video w-full overflow-hidden border-b border-border/40 bg-black">
@@ -34,7 +34,7 @@ export function ProjectCard({ project, onSelect }: ProjectCardProps) {
 
         {/* Operational Status Indicator Overlay (Bottom Left of Card Video) */}
         <div className="absolute bottom-2.5 left-2.5 z-10">
-          <div className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/40 bg-black/65 px-2.5 py-0.5 text-[11px] font-mono font-medium text-emerald-400 backdrop-blur-md shadow-sm">
+          <div className="glass-surface inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-[11px] font-mono font-medium text-emerald-400 backdrop-blur-md shadow-sm border-emerald-500/30">
             <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
             <span>{project.status || "Operational"}</span>
           </div>
@@ -60,14 +60,14 @@ export function ProjectCard({ project, onSelect }: ProjectCardProps) {
             {techPills.map((tech) => (
               <span
                 key={tech.id}
-                className="inline-flex items-center gap-1 rounded-md border border-border/60 bg-muted/30 px-2 py-0.5 text-[11px] font-mono text-muted-foreground font-medium"
+                className="glass-pill inline-flex items-center gap-1 rounded-md px-2 py-0.5 text-[11px] font-mono text-muted-foreground font-medium"
               >
                 <TechIcon technology={tech} className="h-3 w-3 shrink-0" />
                 <span>{tech.name}</span>
               </span>
             ))}
             {extraTechCount > 0 && (
-              <span className="inline-flex items-center rounded-md border border-border/40 bg-muted/20 px-2 py-0.5 text-[11px] font-mono text-muted-foreground/80 font-medium">
+              <span className="glass-pill inline-flex items-center rounded-md px-2 py-0.5 text-[11px] font-mono text-muted-foreground/80 font-medium">
                 +{extraTechCount}
               </span>
             )}
@@ -90,7 +90,7 @@ export function ProjectCard({ project, onSelect }: ProjectCardProps) {
             <button
               type="button"
               disabled
-              className="inline-flex items-center justify-center gap-1.5 rounded-lg bg-muted/40 text-muted-foreground border border-border/40 py-2 text-xs font-semibold cursor-not-allowed opacity-60"
+              className="glass-pill inline-flex items-center justify-center gap-1.5 rounded-lg py-2 text-xs font-semibold cursor-not-allowed opacity-60 text-muted-foreground"
               title="Live Demo link currently unavailable"
             >
               <span>Live Demo</span>
@@ -103,7 +103,7 @@ export function ProjectCard({ project, onSelect }: ProjectCardProps) {
               href={project.githubUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-1.5 rounded-lg border border-border/60 bg-muted/20 py-2 text-xs font-medium text-foreground hover:bg-muted/50 hover:border-border transition-colors shadow-sm"
+              className="glass-button inline-flex items-center justify-center gap-1.5 rounded-lg py-2 text-xs font-medium text-foreground transition-all shadow-xs"
             >
               <Github className="h-3 w-3" />
               <span>Code</span>
@@ -112,7 +112,7 @@ export function ProjectCard({ project, onSelect }: ProjectCardProps) {
             <button
               type="button"
               disabled
-              className="inline-flex items-center justify-center gap-1.5 rounded-lg border border-border/40 bg-muted/20 py-2 text-xs font-medium text-muted-foreground cursor-not-allowed opacity-60"
+              className="glass-pill inline-flex items-center justify-center gap-1.5 rounded-lg py-2 text-xs font-medium text-muted-foreground cursor-not-allowed opacity-60"
               title="GitHub repository link currently unavailable"
             >
               <Github className="h-3 w-3" />

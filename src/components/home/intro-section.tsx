@@ -83,7 +83,7 @@ export function IntroSection({ siteSettings }: IntroSectionProps) {
           </div>
 
           {/* Location Badge */}
-          <div className="inline-flex items-center gap-1.5 rounded-full border border-border/60 bg-muted/20 px-3 py-1 text-[11px] font-mono text-muted-foreground shrink-0 mt-1">
+          <div className="glass-pill inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[11px] font-mono text-muted-foreground shrink-0 mt-1">
             <MapPin className="h-3 w-3 text-muted-foreground" />
             <span>{siteSettings.location}</span>
           </div>
@@ -114,14 +114,14 @@ export function IntroSection({ siteSettings }: IntroSectionProps) {
         <div className="mt-5 sm:mt-6 flex flex-wrap items-center gap-2">
           {visibleTechnologies.map((tech) => (
             <div key={tech.id} className="group relative inline-flex">
-              <span className="inline-flex items-center gap-1.5 rounded-md border border-border/50 bg-secondary/30 px-2.5 py-1 text-[11px] sm:text-xs font-mono text-muted-foreground hover:border-border/80 hover:text-foreground transition-colors select-none cursor-pointer">
+              <span className="glass-pill inline-flex items-center gap-1.5 rounded-md px-2.5 py-1 text-[11px] sm:text-xs font-mono text-muted-foreground hover:text-foreground transition-colors select-none cursor-pointer">
                 <TechIcon technology={tech} className="h-3.5 w-3.5 shrink-0" />
                 <span>{tech.name}</span>
               </span>
 
               {/* Subtle Hover Tooltip */}
               <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-1.5 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-150 z-20 pointer-events-none whitespace-nowrap">
-                <div className="rounded bg-black/90 dark:bg-zinc-900 border border-white/10 px-2 py-0.5 text-[10px] font-mono text-white shadow-md">
+                <div className="glass-modal rounded px-2 py-0.5 text-[10px] font-mono text-foreground shadow-md">
                   {tech.name}
                 </div>
               </div>
@@ -131,13 +131,13 @@ export function IntroSection({ siteSettings }: IntroSectionProps) {
           {/* Remaining Technologies Counter Pill (+N) */}
           {remainingCount > 0 && (
             <div className="group relative inline-flex">
-              <span className="inline-flex items-center rounded-md border border-border/40 bg-muted/20 px-2.5 py-1 text-[11px] sm:text-xs font-mono font-medium text-muted-foreground/80 hover:border-border/80 hover:text-foreground transition-colors select-none cursor-pointer">
+              <span className="glass-pill inline-flex items-center rounded-md px-2.5 py-1 text-[11px] sm:text-xs font-mono font-medium text-muted-foreground/80 hover:text-foreground transition-colors select-none cursor-pointer">
                 +{remainingCount}
               </span>
 
               {/* Tooltip for Counter Pill */}
               <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-1.5 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-150 z-20 pointer-events-none whitespace-nowrap">
-                <div className="rounded bg-black/90 dark:bg-zinc-900 border border-white/10 px-2 py-0.5 text-[10px] font-mono text-white shadow-md">
+                <div className="glass-modal rounded px-2 py-0.5 text-[10px] font-mono text-foreground shadow-md">
                   +{remainingCount} more technologies
                 </div>
               </div>
@@ -153,7 +153,7 @@ export function IntroSection({ siteSettings }: IntroSectionProps) {
             target="_blank"
             rel="noopener noreferrer"
             download="Mohammed_Nihal_MERN-Stack_Developer_Resume.pdf"
-            className="inline-flex items-center gap-2 rounded-lg border border-border/60 bg-muted/20 px-3.5 py-2 text-xs font-medium text-foreground hover:bg-muted/50 hover:border-border transition-colors"
+            className="glass-button inline-flex items-center gap-2 rounded-lg px-3.5 py-2 text-xs font-medium text-foreground transition-all shadow-xs select-none"
           >
             <FileText className="h-3.5 w-3.5 text-muted-foreground" />
             <span>Resume</span>
@@ -178,7 +178,7 @@ export function IntroSection({ siteSettings }: IntroSectionProps) {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="GitHub"
-              className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-border/60 bg-muted/20 text-muted-foreground hover:bg-muted/50 hover:text-foreground hover:border-border transition-colors"
+              className="glass-button inline-flex h-8 w-8 items-center justify-center rounded-lg text-muted-foreground hover:text-foreground transition-all shadow-xs"
             >
               <Github className="h-4 w-4" />
             </a>
@@ -188,18 +188,18 @@ export function IntroSection({ siteSettings }: IntroSectionProps) {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="LinkedIn"
-              className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-border/60 bg-muted/20 text-muted-foreground hover:bg-muted/50 hover:text-foreground hover:border-border transition-colors"
+              className="glass-button inline-flex h-8 w-8 items-center justify-center rounded-lg text-muted-foreground hover:text-foreground transition-all shadow-xs"
             >
               <Linkedin className="h-4 w-4" />
             </a>
 
             {siteSettings.socials.instagram && (
               <a
-                href={siteSettings.socials.instagram}
+                href={siteSettings.socials.instagram || "https://instagram.com/"}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Instagram"
-                className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-border/60 bg-muted/20 text-muted-foreground hover:bg-muted/50 hover:text-foreground hover:border-border transition-colors"
+                className="glass-button inline-flex h-8 w-8 items-center justify-center rounded-lg text-muted-foreground hover:text-foreground transition-all shadow-xs"
               >
                 <Instagram className="h-4 w-4" />
               </a>
@@ -208,7 +208,7 @@ export function IntroSection({ siteSettings }: IntroSectionProps) {
             <a
               href={`mailto:${siteSettings.email}`}
               aria-label="Email"
-              className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-border/60 bg-muted/20 text-muted-foreground hover:bg-muted/50 hover:text-foreground hover:border-border transition-colors"
+              className="glass-button inline-flex h-8 w-8 items-center justify-center rounded-lg text-muted-foreground hover:text-foreground transition-all shadow-xs"
             >
               <Mail className="h-4 w-4" />
             </a>

@@ -19,7 +19,7 @@ export function Navbar() {
   const pathname = usePathname();
 
   return (
-    <header className="relative w-full border-b border-border/40 bg-background">
+    <header className="sticky top-0 z-40 w-full border-b border-border/40 bg-background/80 dark:bg-background/65 backdrop-blur-md transition-colors duration-200">
       <nav
         aria-label="Global"
         className="mx-auto flex h-16 w-full items-center justify-between px-4 sm:px-6 md:px-8"

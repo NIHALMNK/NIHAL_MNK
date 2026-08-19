@@ -38,7 +38,7 @@ export function EngineeringActivitySection({ data }: EngineeringActivitySectionP
           </div>
 
           {/* Provider Segmented Toggle Controls */}
-          <div className="inline-flex items-center rounded-lg border border-border/60 bg-muted/30 p-1 shrink-0 self-start sm:self-auto">
+          <div className="glass-surface inline-flex items-center rounded-lg p-1 shrink-0 self-start sm:self-auto">
             <button
               type="button"
               onClick={() => setActiveTab("github")}
@@ -72,7 +72,7 @@ export function EngineeringActivitySection({ data }: EngineeringActivitySectionP
             <div
               key={`${activeProvider.provider}-${stat.label}-${i}`}
               data-animate-item
-              className="rounded-xl border border-border/50 bg-secondary/20 p-3.5 sm:p-4 text-left transition-colors hover:border-border/80"
+              className="glass-card glass-highlight rounded-xl p-3.5 sm:p-4 text-left shadow-xs"
             >
               <p className="text-[10px] sm:text-xs font-mono font-medium text-muted-foreground uppercase tracking-wider">
                 {stat.label}
@@ -85,7 +85,7 @@ export function EngineeringActivitySection({ data }: EngineeringActivitySectionP
         </div>
 
         {/* Shared Calendar-Year Heatmap Grid Container (NO HORIZONTAL SCROLLBAR) */}
-        <div data-animate-item className="mt-4 rounded-xl border border-border/50 bg-secondary/15 p-4 sm:p-6 transition-all">
+        <div data-animate-item className="glass-surface glass-highlight mt-4 rounded-xl p-4 sm:p-6 transition-all">
           <CalendarYearHeatmap
             daysMap={activeProvider.daysMap || {}}
             isCalendarAvailable={activeProvider.isCalendarAvailable}
