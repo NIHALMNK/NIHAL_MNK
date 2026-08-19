@@ -247,10 +247,9 @@ async function runMigration() {
   // Achievements
   for (const ach of achievementsData) {
     const docId = ach.id;
-    const skillRefs = (ach.skills || []).map((s) => {
-      const ref = resolveStackRef(s);
-      return ref ? ref : s;
-    });
+    const skillRefs = (ach.skills || [])
+      .map((s) => resolveStackRef(s))
+      .filter((ref): ref is { _type: "reference"; _ref: string; _key: string } => Boolean(ref));
 
     try {
       await client.createOrReplace({

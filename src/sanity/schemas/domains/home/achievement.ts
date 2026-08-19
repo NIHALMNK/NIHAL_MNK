@@ -50,8 +50,10 @@ export const achievement = defineType({
       title: "Associated Skills (Stack References)",
       type: "array",
       of: [
-        { type: "reference", to: [{ type: "stack" }] },
-        { type: "string" },
+        {
+          type: "reference",
+          to: [{ type: "stack" }],
+        },
       ],
     }),
   ],

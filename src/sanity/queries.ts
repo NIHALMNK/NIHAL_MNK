@@ -117,10 +117,7 @@ export const allAchievementsQuery = groq`
     description,
     credentialId,
     logoUrl,
-    "skills": skills[] {
-      _type == "reference" => @->name,
-      _type != "reference" => @
-    }
+    "skills": skills[]->name
   }
 `;
 
