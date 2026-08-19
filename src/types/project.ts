@@ -1,7 +1,7 @@
 import { MediaItem } from "./media";
 import { Technology } from "./stack";
 
-export type ProjectPriority = 1 | 2 | 3 | 4;
+export type ProjectPriority = number;
 
 export interface ProjectSEO {
   metaTitle?: string;
