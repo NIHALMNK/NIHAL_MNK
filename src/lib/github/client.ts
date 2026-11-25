@@ -22,8 +22,19 @@ function mapGraphQLContributionLevel(levelStr: string): 0 | 1 | 2 | 3 | 4 {
  * Safely logs diagnostic details on the server without exposing secrets.
  * Supports partial REST metadata when GITHUB_ACCESS_TOKEN is not configured.
  */
-export async function fetchGitHubActivityServer(): Promise<GitHubActivity> {
-  const username = process.env.GITHUB_USERNAME || "NIHALMNK";
+export async function fetchGitHubActivityServer(cmsUsername?: string | null): Promise<GitHubActivity> {
+  // GITHUB_USERNAME env var overrides the username derived from the Sanity GitHub URL.
+  const username = process.env.GITHUB_USERNAME || cmsUsername || "";
+  if (!username) {
+    return {
+      username: "",
+      totalContributions: 0,
+      days: [],
+      isAvailable: false,
+      isCalendarAvailable: false,
+      calendarUnavailableReason: "Add your GitHub profile URL in Sanity (Connect & Social Links).",
+    };
+  }
   const rawToken = process.env.GITHUB_ACCESS_TOKEN;
   const isTokenValid = Boolean(
     rawToken && rawToken.trim().length > 0 && !rawToken.includes("PASTE_YOUR_GITHUB_TOKEN_HERE")

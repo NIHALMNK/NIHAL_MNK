@@ -1,61 +1,28 @@
 "use client";
 
 import Link from "next/link";
-import { Instagram, Github, Linkedin, Mail, FileText } from "lucide-react";
 import { Container } from "@/components/ui/container";
 import { ConnectLinks } from "@/types/connect";
 import { useStaggerReveal } from "@/lib/animation/hooks";
 import { onGlassMouseMove } from "@/lib/utils/glass-glow";
+import { buildSocialLinks } from "@/lib/utils/connect-links";
 
 interface FooterProps {
-  /** Social/contact links from connect domain — passed by PortfolioShell */
+  /** Social/contact links from the Sanity connect domain — passed by PortfolioShell */
   connectLinks: ConnectLinks;
-  /** Site email for mailto link */
-  email?: string;
-  /** Resume URL */
-  resumeUrl?: string;
+  /** Owner name from Sanity site settings (copyright line) */
+  siteName?: string;
 }
 
-export function Footer({ connectLinks, email, resumeUrl }: FooterProps) {
+export function Footer({ connectLinks, siteName }: FooterProps) {
   const footerRef = useStaggerReveal<HTMLElement>({
     itemSelector: "[data-animate-item]",
     y: 20,
     duration: 0.5,
     stagger: 0.06,
   });
-  const socialButtons = [
-    {
-      label: "Instagram",
-      href: connectLinks.instagram,
-      icon: Instagram,
-      external: true,
-    },
-    {
-      label: "GitHub",
-      href: connectLinks.github,
-      icon: Github,
-      external: true,
-    },
-    {
-      label: "LinkedIn",
-      href: connectLinks.linkedin,
-      icon: Linkedin,
-      external: true,
-    },
-    {
-      label: "Email",
-      href: "/contact",
-      icon: Mail,
-      external: false,
-    },
-    {
-      label: "Resume",
-      href: resumeUrl ?? connectLinks.resume,
-      icon: FileText,
-      external: true,
-    },
-  ];
-
+  const socialButtons = buildSocialLinks(connectLinks);
+  const year = new Date().getFullYear();
 
   return (
     <footer ref={footerRef} id="connect" className="mt-auto border-t border-border/40 bg-background">
@@ -72,7 +39,7 @@ export function Footer({ connectLinks, email, resumeUrl }: FooterProps) {
             </p>
           </div>
 
-          {/* 5 Social Buttons Horizontal Row */}
+          {/* Social Buttons Row (from Sanity) */}
           <div className="mt-6 sm:mt-8 flex flex-wrap items-center gap-3 sm:gap-4">
             {socialButtons.map((item) => {
               const Icon = item.icon;
@@ -102,7 +69,7 @@ export function Footer({ connectLinks, email, resumeUrl }: FooterProps) {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 items-center text-xs font-mono text-muted-foreground">
             {/* COLUMN 1: Copyright */}
             <div className="text-left">
-              <p>© 2026 Mohammed Nihal.</p>
+              <p>© {year}{siteName ? ` ${siteName}` : ""}.</p>
               <p className="mt-0.5">All rights reserved.</p>
             </div>
 

@@ -1,14 +1,14 @@
 import { SiteSettings } from "@/types/site";
-import { siteSettingsData as localSiteSettingsData } from "@/data/home/site";
-import { sanityFetch, isSanityConfigured } from "@/sanity/client";
+import { sanityFetch } from "@/sanity/client";
 import { siteSettingsQuery } from "@/sanity/queries";
 
 interface SanitySiteSettingsDoc {
-  name: string;
-  role: string;
+  name?: string;
+  role?: string;
   headline?: string;
   bio?: string;
   profileImage?: string;
+  avatarAssetUrl?: string;
   location?: string;
   availableForHire?: boolean;
   defaultSeo?: {
@@ -20,38 +20,45 @@ interface SanitySiteSettingsDoc {
 }
 
 /**
- * Returns Site Settings & Hero content from Sanity (or fallback local dataset).
+ * Returns Site Settings & Hero content from the Sanity `siteSettings` singleton.
+ * Fields not set in the CMS come back empty; the UI degrades gracefully.
  */
 export async function getSiteSettings(): Promise<SiteSettings> {
-  if (isSanityConfigured()) {
-    const sanitySite = await sanityFetch<SanitySiteSettingsDoc>({
-      query: siteSettingsQuery,
-      tags: ["siteSettings"],
-    });
+  const doc = await sanityFetch<SanitySiteSettingsDoc>({
+    query: siteSettingsQuery,
+    tags: ["siteSettings"],
+  });
 
-    if (sanitySite && sanitySite.name) {
-      return {
-        ...localSiteSettingsData,
-        name: sanitySite.name,
-        role: sanitySite.role,
-        headline: sanitySite.headline || localSiteSettingsData.headline,
-        bio: sanitySite.bio || localSiteSettingsData.bio,
-        profileImage: sanitySite.profileImage || localSiteSettingsData.profileImage,
-        location: sanitySite.location || localSiteSettingsData.location,
-        availableForHire: sanitySite.availableForHire ?? localSiteSettingsData.availableForHire,
-        defaultSeo: {
-          ...localSiteSettingsData.defaultSeo,
-          title: sanitySite.defaultSeo?.title || localSiteSettingsData.defaultSeo.title,
-          description: sanitySite.defaultSeo?.description || localSiteSettingsData.defaultSeo.description,
-          siteUrl: sanitySite.defaultSeo?.siteUrl || localSiteSettingsData.defaultSeo.siteUrl,
-          ogImage: {
-            ...localSiteSettingsData.defaultSeo.ogImage,
-            url: sanitySite.defaultSeo?.ogImageUrl || localSiteSettingsData.defaultSeo.ogImage.url,
-          },
-        },
-      };
-    }
-  }
+  const name = doc?.name || "";
+  const avatarUrl = doc?.profileImage || doc?.avatarAssetUrl || "";
+  const title = doc?.defaultSeo?.title || name || "Portfolio";
 
-  return localSiteSettingsData;
+  return {
+    name,
+    role: doc?.role || "",
+    headline: doc?.headline || "",
+    bio: doc?.bio || "",
+    avatar: {
+      url: avatarUrl,
+      alt: name ? `${name} Profile Photo` : "Profile Photo",
+      width: 512,
+      height: 512,
+      aspectRatio: "1/1",
+    },
+    profileImage: avatarUrl || undefined,
+    location: doc?.location || "",
+    availableForHire: doc?.availableForHire ?? false,
+    defaultSeo: {
+      title,
+      description: doc?.defaultSeo?.description || doc?.headline || "",
+      siteUrl:
+        process.env.NEXT_PUBLIC_SITE_URL || doc?.defaultSeo?.siteUrl || "http://localhost:3000",
+      ogImage: {
+        url: doc?.defaultSeo?.ogImageUrl || avatarUrl,
+        alt: title,
+        width: 1200,
+        height: 630,
+      },
+    },
+  };
 }

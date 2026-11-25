@@ -1,5 +1,4 @@
 import { Snap } from "@/types/snap";
-import { snapsData as localSnapsData } from "@/data/home/recent-snaps";
 import { sanityFetch, isSanityConfigured } from "@/sanity/client";
 import { allRecentSnapsQuery } from "@/sanity/queries";
 
@@ -37,10 +36,7 @@ export async function getRecentSnaps(limit?: number): Promise<Snap[]> {
     }
   }
 
-  const sorted = [...localSnapsData].sort(
-    (a, b) => new Date(b.takenAt).getTime() - new Date(a.takenAt).getTime()
-  );
-  return limit ? sorted.slice(0, limit) : sorted;
+  return [];
 }
 
 /**

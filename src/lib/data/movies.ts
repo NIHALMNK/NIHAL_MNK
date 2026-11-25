@@ -1,5 +1,4 @@
 import { Movie } from "@/types/personal";
-import { moviesData as localMoviesData } from "@/data/home/movies";
 import { sanityFetch, isSanityConfigured } from "@/sanity/client";
 import { allMoviesQuery } from "@/sanity/queries";
 
@@ -36,5 +35,5 @@ export async function getMovies(): Promise<Movie[]> {
     }
   }
 
-  return localMoviesData;
+  return [];
 }

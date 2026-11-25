@@ -1,5 +1,4 @@
 import { Bookmark } from "@/types/bookmark";
-import { bookmarksData as localBookmarksData } from "@/data/home/current-resources";
 import { sanityFetch, isSanityConfigured } from "@/sanity/client";
 import { allCurrentResourcesQuery } from "@/sanity/queries";
 
@@ -32,5 +31,5 @@ export async function getBookmarks(): Promise<Bookmark[]> {
     }
   }
 
-  return localBookmarksData;
+  return [];
 }

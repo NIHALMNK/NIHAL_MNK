@@ -13,8 +13,23 @@ function mapCountToLevel(count: number): 0 | 1 | 2 | 3 | 4 {
  * Uses official LeetCode GraphQL endpoint with next: { revalidate: 3600 }.
  * Gracefully degrades with isAvailable: false if fetch fails or user is not found.
  */
-export async function fetchLeetCodeActivityServer(): Promise<LeetCodeActivity> {
-  const username = process.env.LEETCODE_USERNAME || "MohammedNihalk";
+export async function fetchLeetCodeActivityServer(cmsUsername?: string | null): Promise<LeetCodeActivity> {
+  // LEETCODE_USERNAME env var overrides the username derived from the Sanity LeetCode URL.
+  const username = process.env.LEETCODE_USERNAME || cmsUsername || "";
+  if (!username) {
+    return {
+      username: "",
+      totalSolved: 0,
+      stats: { all: 0, easy: 0, medium: 0, hard: 0 },
+      streak: 0,
+      totalActiveDays: 0,
+      ranking: 0,
+      days: [],
+      isAvailable: false,
+      isCalendarAvailable: false,
+      calendarUnavailableReason: "Add your LeetCode profile URL in Sanity (Connect & Social Links).",
+    };
+  }
 
   console.log(`[LeetCode API Diagnostic] Username: "${username}"`);
 

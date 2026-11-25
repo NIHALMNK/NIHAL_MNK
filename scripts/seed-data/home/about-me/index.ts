@@ -7,12 +7,6 @@ export const aboutData: AboutData = {
     location: "India (UTC+5:30)",
     avatarUrl: "https://res.cloudinary.com/doyxte1wf/image/upload/v1787069442/NIHAL-MNK_f2epho.png",
     availableForHire: true,
-    email: "mohammednihal.dev@gmail.com",
-    socials: {
-      github: "https://github.com/NIHALMNK",
-      linkedin: "https://www.linkedin.com/in/mohammednihalk6061/",
-      instagram: "https://instagram.com/",
-    },
   },
   summary: {
     title: "Engineering from Zero to One",

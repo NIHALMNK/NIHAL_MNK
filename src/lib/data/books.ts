@@ -1,5 +1,4 @@
 import { Book } from "@/types/personal";
-import { booksData as localBooksData } from "@/data/home/books";
 import { sanityFetch, isSanityConfigured } from "@/sanity/client";
 import { allBooksQuery } from "@/sanity/queries";
 
@@ -36,5 +35,5 @@ export async function getBooks(): Promise<Book[]> {
     }
   }
 
-  return localBooksData;
+  return [];
 }

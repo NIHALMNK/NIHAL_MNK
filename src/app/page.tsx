@@ -41,7 +41,11 @@ export default async function HomePage() {
 
   return (
     <div className="flex-1 flex flex-col">
-      <IntroSection siteSettings={siteSettings} connectLinks={connectLinks} />
+      <IntroSection
+        siteSettings={siteSettings}
+        connectLinks={connectLinks}
+        allTechnologies={allTechnologies}
+      />
       <EngineeringActivitySection data={engineeringActivity} />
       <ProofOfWorkSection projects={featuredProjects} />
       <AchievementsSection achievements={achievements} />

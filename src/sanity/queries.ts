@@ -56,9 +56,10 @@ export const stackBySlugQuery = groq`
 
 export const connectLinksQuery = groq`
   *[_type == "connectLinks"][0] {
-    instagram,
     github,
     linkedin,
+    instagram,
+    leetcode,
     email,
     resume
   }
@@ -73,7 +74,7 @@ export const siteSettingsQuery = groq`
     headline,
     bio,
     profileImage,
-    avatarAsset,
+    "avatarAssetUrl": avatarAsset.asset->url,
     location,
     availableForHire,
     defaultSeo

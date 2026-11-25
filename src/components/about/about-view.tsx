@@ -20,7 +20,7 @@ import {
 import { AboutData } from "@/types/about";
 import { Technology } from "@/types/stack";
 import { ConnectLinks } from "@/types/connect";
-import { getConnectLinksSync } from "@/lib/data/connect";
+import { getResumeViewUrl } from "@/lib/utils/connect-links";
 import { Container } from "@/components/ui/container";
 import { TechIcon } from "@/components/ui/tech-icon";
 import { useStaggerReveal } from "@/lib/animation/hooks";
@@ -29,10 +29,10 @@ import { onGlassMouseMove } from "@/lib/utils/glass-glow";
 interface AboutViewProps {
   data: AboutData;
   allTechnologies: Technology[];
-  connectLinks?: ConnectLinks;
+  connectLinks: ConnectLinks;
 }
 
-export function AboutView({ data, allTechnologies, connectLinks }: AboutViewProps) {
+export function AboutView({ data, allTechnologies, connectLinks: connect }: AboutViewProps) {
   const pageRef = useStaggerReveal<HTMLElement>({
     itemSelector: "[data-animate-item]",
     y: 24,
@@ -42,7 +42,7 @@ export function AboutView({ data, allTechnologies, connectLinks }: AboutViewProp
 
   const { profile, summary, education, experience } = data;
   const [imageError, setImageError] = React.useState(false);
-  const connect = connectLinks || getConnectLinksSync();
+  const resumeHref = getResumeViewUrl(connect.resume);
 
   // Derive the four technical skill groups dynamically from authoritative stack data
   const designTools = allTechnologies.filter((tech) =>
@@ -158,16 +158,17 @@ export function AboutView({ data, allTechnologies, connectLinks }: AboutViewProp
             {/* Actions & Social Links */}
             <div className="space-y-4 pt-4 border-t border-border/40">
               <div className="flex flex-wrap items-center gap-2.5">
-                <a
-                  href={connect.resume || "/resume.pdf"}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  download="Mohammed_Nihal_MERN-Stack_Developer_Resume.pdf"
-                  className="glass-button flex-1 inline-flex items-center justify-center gap-2 rounded-lg px-3.5 py-2 text-xs font-mono font-medium text-foreground transition-all shadow-xs"
-                >
-                  <FileText className="h-3.5 w-3.5 text-muted-foreground" />
-                  <span>Resume</span>
-                </a>
+                {resumeHref && (
+                  <a
+                    href={resumeHref}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="glass-button flex-1 inline-flex items-center justify-center gap-2 rounded-lg px-3.5 py-2 text-xs font-mono font-medium text-foreground transition-all shadow-xs"
+                  >
+                    <FileText className="h-3.5 w-3.5 text-muted-foreground" />
+                    <span>Resume</span>
+                  </a>
+                )}
                 <Link
                   href="/contact"
                   className="flex-1 inline-flex items-center justify-center gap-2 rounded-lg bg-foreground text-background px-3.5 py-2 text-xs font-mono font-semibold hover:opacity-90 transition-opacity shadow-xs"
@@ -179,24 +180,28 @@ export function AboutView({ data, allTechnologies, connectLinks }: AboutViewProp
 
               {/* Social Channels */}
               <div className="flex items-center gap-2">
-                <a
-                  href={connect.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="GitHub"
-                  className="glass-button inline-flex h-8 w-8 items-center justify-center rounded-lg text-muted-foreground hover:text-foreground transition-all shadow-xs"
-                >
-                  <Github className="h-4 w-4" />
-                </a>
-                <a
-                  href={connect.linkedin}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="LinkedIn"
-                  className="glass-button inline-flex h-8 w-8 items-center justify-center rounded-lg text-muted-foreground hover:text-foreground transition-all shadow-xs"
-                >
-                  <Linkedin className="h-4 w-4" />
-                </a>
+                {connect.github && (
+                  <a
+                    href={connect.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="GitHub"
+                    className="glass-button inline-flex h-8 w-8 items-center justify-center rounded-lg text-muted-foreground hover:text-foreground transition-all shadow-xs"
+                  >
+                    <Github className="h-4 w-4" />
+                  </a>
+                )}
+                {connect.linkedin && (
+                  <a
+                    href={connect.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="LinkedIn"
+                    className="glass-button inline-flex h-8 w-8 items-center justify-center rounded-lg text-muted-foreground hover:text-foreground transition-all shadow-xs"
+                  >
+                    <Linkedin className="h-4 w-4" />
+                  </a>
+                )}
                 {connect.instagram && (
                   <a
                     href={connect.instagram}

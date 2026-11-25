@@ -1,5 +1,4 @@
 import { BlogPost } from "@/types/blog";
-import { blogData as localBlogData } from "@/data/blogs";
 import { sanityFetch, isSanityConfigured } from "@/sanity/client";
 import { allBlogPostsQuery, blogPostBySlugQuery } from "@/sanity/queries";
 
@@ -42,7 +41,7 @@ function mapSanityBlogPostToDomain(doc: SanityBlogPostDoc): BlogPost {
     tags: doc.tags || [],
     featured: doc.featured ?? false,
     author: {
-      name: doc.author?.name || "Nihal",
+      name: doc.author?.name || "",
       role: doc.author?.role || "MERN Stack Developer",
     },
   };
@@ -60,7 +59,7 @@ export async function getAllPosts(): Promise<BlogPost[]> {
     }
   }
 
-  return localBlogData;
+  return [];
 }
 
 export async function getLatestPosts(limit: number = 3): Promise<BlogPost[]> {
@@ -83,6 +82,5 @@ export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
     }
   }
 
-  const allPosts = await getAllPosts();
-  return allPosts.find((p) => p.slug === slug) ?? null;
+  return null;
 }

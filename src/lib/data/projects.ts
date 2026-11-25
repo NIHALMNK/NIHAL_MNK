@@ -1,7 +1,5 @@
 import { ResolvedProject, ProjectPriority } from "@/types/project";
-import { projectsData as localProjectsData } from "@/data/projects";
-import { resolveProjectTechnologies } from "./stack";
-import { sanityFetch, isSanityConfigured } from "@/sanity/client";
+import { sanityFetch } from "@/sanity/client";
 import { allProjectsQuery, projectBySlugQuery } from "@/sanity/queries";
 
 interface SanityTechItem {
@@ -74,21 +72,14 @@ function mapSanityProjectToDomain(doc: SanityProjectDoc): ResolvedProject {
 }
 
 /**
- * Returns all published projects with resolved Technology objects.
+ * Returns all published projects from Sanity with resolved Technology objects.
  */
 export async function getAllProjects(): Promise<ResolvedProject[]> {
-  if (isSanityConfigured()) {
-    const sanityProjects = await sanityFetch<SanityProjectDoc[]>({
-      query: allProjectsQuery,
-      tags: ["project", "stack"],
-    });
-
-    if (sanityProjects && sanityProjects.length > 0) {
-      return sanityProjects.map(mapSanityProjectToDomain);
-    }
-  }
-
-  return localProjectsData.map((project) => resolveProjectTechnologies(project));
+  const docs = await sanityFetch<SanityProjectDoc[]>({
+    query: allProjectsQuery,
+    tags: ["project", "stack"],
+  });
+  return (docs || []).map(mapSanityProjectToDomain);
 }
 
 /**
@@ -110,18 +101,10 @@ export async function getFeaturedProjects(): Promise<ResolvedProject[]> {
  * Returns a single project matching the specified slug with resolved Technology entities, or null if not found.
  */
 export async function getProjectBySlug(slug: string): Promise<ResolvedProject | null> {
-  if (isSanityConfigured()) {
-    const sanityProject = await sanityFetch<SanityProjectDoc>({
-      query: projectBySlugQuery,
-      params: { slug },
-      tags: ["project", "stack"],
-    });
-
-    if (sanityProject) {
-      return mapSanityProjectToDomain(sanityProject);
-    }
-  }
-
-  const allProjects = await getAllProjects();
-  return allProjects.find((p) => p.slug === slug) ?? null;
+  const doc = await sanityFetch<SanityProjectDoc>({
+    query: projectBySlugQuery,
+    params: { slug },
+    tags: ["project", "stack"],
+  });
+  return doc ? mapSanityProjectToDomain(doc) : null;
 }

@@ -1,9 +1,11 @@
-// Connect domain — social/contact links type
-// Twitter/X is intentionally excluded from this portfolio.
+// Connect domain — social/contact links (single source of truth: Sanity `connectLinks`).
+// Any field may be an empty string when not set in the CMS; UI hides empty links.
 export interface ConnectLinks {
-  instagram: string;
   github: string;
   linkedin: string;
+  instagram: string;
+  leetcode: string;
   email: string;
+  /** Google Drive share link to the resume PDF */
   resume: string;
 }

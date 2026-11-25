@@ -1,8 +1,8 @@
 import { MetadataRoute } from "next";
-import { siteSettingsData } from "@/data/home/site";
+import { getSiteSettings } from "@/lib/data/site";
 
-export default function robots(): MetadataRoute.Robots {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || siteSettingsData.defaultSeo.siteUrl;
+export default async function robots(): Promise<MetadataRoute.Robots> {
+  const baseUrl = (await getSiteSettings()).defaultSeo.siteUrl;
 
   return {
     rules: {

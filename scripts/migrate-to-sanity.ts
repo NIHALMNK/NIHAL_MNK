@@ -1,8 +1,13 @@
 /**
  * Programmatic, Idempotent Sanity Migration Script
  * 
+ * Seeds Sanity from scripts/seed-data. Sanity is the single source of truth at
+ * runtime, so by default this only CREATES documents that don't exist yet and
+ * never overwrites edits made in Sanity Studio.
+ *
  * Usage:
- *   npx tsx scripts/migrate-to-sanity.ts
+ *   npm run migrate:sanity              # create missing documents only
+ *   npm run migrate:sanity -- --force   # overwrite every document with seed data
  * 
  * Requirements:
  *   NEXT_PUBLIC_SANITY_PROJECT_ID
@@ -16,17 +21,17 @@ import * as dotenv from "dotenv";
 dotenv.config({ path: ".env.local" });
 dotenv.config({ path: ".env" });
 
-import { stackData } from "../src/data/stacks";
-import { connectLinksData } from "../src/data/connect";
-import { siteSettingsData } from "../src/data/home/site";
-import { aboutData } from "../src/data/home/about-me";
-import { achievementsData } from "../src/data/home/achievements";
-import { booksData } from "../src/data/home/books";
-import { moviesData } from "../src/data/home/movies";
-import { snapsData } from "../src/data/home/recent-snaps";
-import { bookmarksData } from "../src/data/home/current-resources";
-import { projectsData } from "../src/data/projects";
-import { blogData } from "../src/data/blogs";
+import { stackData } from "./seed-data/stacks";
+import { connectLinksData } from "./seed-data/connect";
+import { siteSettingsData } from "./seed-data/home/site";
+import { aboutData } from "./seed-data/home/about-me";
+import { achievementsData } from "./seed-data/home/achievements";
+import { booksData } from "./seed-data/home/books";
+import { moviesData } from "./seed-data/home/movies";
+import { snapsData } from "./seed-data/home/recent-snaps";
+import { bookmarksData } from "./seed-data/home/current-resources";
+import { projectsData } from "./seed-data/projects";
+import { blogData } from "./seed-data/blogs";
 
 const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
 const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET || "production";
@@ -50,6 +55,15 @@ const client = createClient({
   useCdn: false,
 });
 
+const FORCE = process.argv.includes("--force");
+
+type SeedDoc = { _id: string; _type: string; [key: string]: unknown };
+
+/** Create-only by default; full replace with --force. */
+function write(doc: SeedDoc) {
+  return FORCE ? client.createOrReplace(doc) : client.createIfNotExists(doc);
+}
+
 function slugify(text: string): string {
   return text
     .toLowerCase()
@@ -60,6 +74,11 @@ function slugify(text: string): string {
 async function runMigration() {
   console.log("🚀 Starting idempotent Sanity migration...");
   console.log(`📌 Project ID: ${projectId} | Dataset: ${dataset}`);
+  console.log(
+    FORCE
+      ? "⚠️  --force: existing documents will be OVERWRITTEN with seed data."
+      : "ℹ️  Create-only mode: existing documents are left untouched (use --force to overwrite)."
+  );
 
   let createdCount = 0;
   let updatedCount = 0;
@@ -77,7 +96,7 @@ async function runMigration() {
     categoryMap.set(catName, docId);
 
     try {
-      await client.createOrReplace({
+      await write({
         _id: docId,
         _type: "stackCategory",
         name: catName,
@@ -106,7 +125,7 @@ async function runMigration() {
     stackMap.set(tech.name.toLowerCase(), docId);
 
     try {
-      await client.createOrReplace({
+      await write({
         _id: docId,
         _type: "stack",
         name: tech.name,
@@ -144,14 +163,16 @@ async function runMigration() {
   // ─── 3. Connect Links (Singleton) ─────────────────────────────────────────
   console.log("\n🔗 [3/7] Migrating Connect Links...");
   try {
-    await client.createOrReplace({
+    await write({
       _id: "connect-links-singleton",
       _type: "connectLinks",
-      instagram: connectLinksData.instagram,
-      github: connectLinksData.github,
-      linkedin: connectLinksData.linkedin,
-      email: connectLinksData.email,
-      resume: connectLinksData.resume,
+      // Empty seed values are omitted so they can be filled in Sanity Studio.
+      github: connectLinksData.github || undefined,
+      linkedin: connectLinksData.linkedin || undefined,
+      instagram: connectLinksData.instagram || undefined,
+      leetcode: connectLinksData.leetcode || undefined,
+      email: connectLinksData.email || undefined,
+      resume: connectLinksData.resume || undefined,
     });
     createdCount++;
     console.log("  ✓ Connect Links (connect-links-singleton)");
@@ -165,7 +186,7 @@ async function runMigration() {
 
   // Site Settings (Singleton)
   try {
-    await client.createOrReplace({
+    await write({
       _id: "site-settings-singleton",
       _type: "siteSettings",
       name: siteSettingsData.name,
@@ -206,7 +227,7 @@ async function runMigration() {
         .filter(Boolean),
     }));
 
-    await client.createOrReplace({
+    await write({
       _id: "about-singleton",
       _type: "about",
       profile: {
@@ -252,7 +273,7 @@ async function runMigration() {
       .filter((ref): ref is { _type: "reference"; _ref: string; _key: string } => Boolean(ref));
 
     try {
-      await client.createOrReplace({
+      await write({
         _id: docId,
         _type: "achievement",
         title: ach.title,
@@ -276,7 +297,7 @@ async function runMigration() {
   for (const book of booksData) {
     const docId = book.id;
     try {
-      await client.createOrReplace({
+      await write({
         _id: docId,
         _type: "book",
         title: book.title,
@@ -299,7 +320,7 @@ async function runMigration() {
   for (const movie of moviesData) {
     const docId = movie.id;
     try {
-      await client.createOrReplace({
+      await write({
         _id: docId,
         _type: "movie",
         title: movie.title,
@@ -322,7 +343,7 @@ async function runMigration() {
   for (const snap of snapsData) {
     const docId = snap.id;
     try {
-      await client.createOrReplace({
+      await write({
         _id: docId,
         _type: "recentSnap",
         caption: snap.caption,
@@ -343,7 +364,7 @@ async function runMigration() {
   for (const res of bookmarksData) {
     const docId = res.id;
     try {
-      await client.createOrReplace({
+      await write({
         _id: docId,
         _type: "currentResource",
         title: res.title,
@@ -369,7 +390,7 @@ async function runMigration() {
       .filter(Boolean);
 
     try {
-      await client.createOrReplace({
+      await write({
         _id: docId,
         _type: "project",
         title: proj.title,
@@ -399,7 +420,7 @@ async function runMigration() {
   for (const post of blogData) {
     const docId = post.id;
     try {
-      await client.createOrReplace({
+      await write({
         _id: docId,
         _type: "blogPost",
         title: post.title,
@@ -425,7 +446,7 @@ async function runMigration() {
   // ─── 7. Final Summary ─────────────────────────────────────────────────────
   console.log("\n==============================================");
   console.log("🎉 Migration Complete!");
-  console.log(`  ✓ Total Operations Processed: ${createdCount}`);
+  console.log(`  ✓ Total Operations Processed: ${createdCount}${FORCE ? "" : " (existing documents skipped)"}`);
   console.log(`  ✗ Total Errors: ${errorCount}`);
   console.log("==============================================\n");
 }

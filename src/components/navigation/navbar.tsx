@@ -54,7 +54,7 @@ interface NavbarProps {
 
 export function Navbar({
   avatarUrl,
-  avatarAlt = "Mohammed Nihal K",
+  avatarAlt = "Profile photo",
 }: NavbarProps) {
   const pathname = usePathname();
   const router = useRouter();

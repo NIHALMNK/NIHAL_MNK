@@ -1,11 +1,14 @@
 import { fetchGitHubActivityServer } from "@/lib/github/client";
 import { fetchLeetCodeActivityServer } from "@/lib/leetcode/client";
+import { getConnectLinks } from "@/lib/data/connect";
+import { getProfileUsername } from "@/lib/utils/connect-links";
 import { EngineeringActivityData, ProviderActivityData, ActivityHeatmapDay } from "@/types/activity";
 
 export async function getEngineeringActivity(): Promise<EngineeringActivityData> {
+  const connect = await getConnectLinks();
   const [gh, lc] = await Promise.all([
-    fetchGitHubActivityServer(),
-    fetchLeetCodeActivityServer(),
+    fetchGitHubActivityServer(getProfileUsername(connect.github)),
+    fetchLeetCodeActivityServer(getProfileUsername(connect.leetcode)),
   ]);
 
   const ghDaysMap: Record<string, ActivityHeatmapDay> = {};
@@ -24,7 +27,7 @@ export async function getEngineeringActivity(): Promise<EngineeringActivityData>
   const githubProvider: ProviderActivityData = {
     provider: "github",
     username: gh.username,
-    profileUrl: `https://github.com/${gh.username}`,
+    profileUrl: connect.github || `https://github.com/${gh.username}`,
     summaryText: "Code contributions and open source activity on GitHub.",
     totalCountText:
       gh.isCalendarAvailable && gh.totalContributions > 0
@@ -74,7 +77,7 @@ export async function getEngineeringActivity(): Promise<EngineeringActivityData>
   const leetcodeProvider: ProviderActivityData = {
     provider: "leetcode",
     username: lc.username,
-    profileUrl: `https://leetcode.com/u/${lc.username}`,
+    profileUrl: connect.leetcode || `https://leetcode.com/u/${lc.username}`,
     summaryText: "Problem-solving & algorithm practice activity on LeetCode.",
     totalCountText:
       lc.isAvailable && lc.totalSolved > 0

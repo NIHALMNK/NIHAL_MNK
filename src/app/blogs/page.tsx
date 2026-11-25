@@ -5,7 +5,7 @@ import { SectionShell } from "@/components/ui/section-shell";
 import { getAllPosts } from "@/lib/data/blog";
 
 export const metadata: Metadata = {
-  title: "Writing | Thoughts — Mohammed Nihal K",
+  title: "Writing | Thoughts",
   description: "Articles, technical essays, and reflections on engineering, web architecture, and product design.",
 };
 

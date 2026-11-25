@@ -6,7 +6,7 @@ import { getBooks } from "@/lib/data/books";
 import { Book } from "@/types/personal";
 
 export const metadata: Metadata = {
-  title: "Books — Mohammed Nihal K",
+  title: "Books",
   description: "A collection of the books that have shaped my engineering, design, and philosophy.",
 };
 

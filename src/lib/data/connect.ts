@@ -1,29 +1,29 @@
 import { ConnectLinks } from "@/types/connect";
-import { connectLinksData as localConnectLinksData } from "@/data/connect";
-import { sanityFetch, isSanityConfigured } from "@/sanity/client";
+import { sanityFetch } from "@/sanity/client";
 import { connectLinksQuery } from "@/sanity/queries";
 
+export const EMPTY_CONNECT_LINKS: ConnectLinks = {
+  github: "",
+  linkedin: "",
+  instagram: "",
+  leetcode: "",
+  email: "",
+  resume: "",
+};
+
 /**
- * Returns the centralized social/contact links from Sanity (or local fallback).
+ * Returns the social/contact/resume links from the Sanity `connectLinks` singleton.
+ * Missing fields come back as empty strings so the UI can hide them.
  */
 export async function getConnectLinks(): Promise<ConnectLinks> {
-  if (isSanityConfigured()) {
-    const sanityLinks = await sanityFetch<ConnectLinks>({
-      query: connectLinksQuery,
-      tags: ["connectLinks"],
-    });
+  const links = await sanityFetch<Partial<ConnectLinks>>({
+    query: connectLinksQuery,
+    tags: ["connectLinks"],
+  });
 
-    if (sanityLinks && sanityLinks.github) {
-      return sanityLinks;
-    }
+  const merged = { ...EMPTY_CONNECT_LINKS };
+  for (const key of Object.keys(merged) as (keyof ConnectLinks)[]) {
+    merged[key] = links?.[key]?.trim() || "";
   }
-
-  return localConnectLinksData;
-}
-
-/**
- * Synchronous version for use in client components.
- */
-export function getConnectLinksSync(): ConnectLinks {
-  return localConnectLinksData;
+  return merged;
 }

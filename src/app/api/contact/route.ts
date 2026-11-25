@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
 import { contactFormSchema } from "@/lib/validation/contact";
+import { getConnectLinks } from "@/lib/data/connect";
 
 export async function POST(req: NextRequest) {
   try {
@@ -45,7 +46,15 @@ export async function POST(req: NextRequest) {
 
     // 3. Send email via Resend
     const resend = new Resend(apiKey);
-    const toEmail = process.env.CONTACT_TO_EMAIL || "mohammednihal.dev@gmail.com";
+    // CONTACT_TO_EMAIL overrides the email address managed in Sanity (Connect & Social Links).
+    const toEmail = process.env.CONTACT_TO_EMAIL || (await getConnectLinks()).email;
+    if (!toEmail) {
+      console.error("[Contact API] No recipient: set CONTACT_TO_EMAIL or the email in Sanity.");
+      return NextResponse.json(
+        { success: false, message: "Contact form is not configured yet. Please try again later." },
+        { status: 500 }
+      );
+    }
     const fromEmail =
       process.env.RESEND_FROM_EMAIL || "Portfolio Contact <onboarding@resend.dev>";
 

@@ -4,7 +4,7 @@ import { SectionShell } from "@/components/ui/section-shell";
 import { getMovies } from "@/lib/data/movies";
 
 export const metadata: Metadata = {
-  title: "Movies — Mohammed Nihal K",
+  title: "Movies",
   description: "Cinema that left a mark. A collection of visual storytelling I admire.",
 };
 

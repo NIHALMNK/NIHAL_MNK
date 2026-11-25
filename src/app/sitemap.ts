@@ -1,13 +1,15 @@
 import { MetadataRoute } from "next";
 import { getAllProjects } from "@/lib/data/projects";
 import { getAllPosts } from "@/lib/data/blog";
-import { siteSettingsData } from "@/data/home/site";
+import { getSiteSettings } from "@/lib/data/site";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || siteSettingsData.defaultSeo.siteUrl;
-
-  const projects = await getAllProjects();
-  const posts = await getAllPosts();
+  const [site, projects, posts] = await Promise.all([
+    getSiteSettings(),
+    getAllProjects(),
+    getAllPosts(),
+  ]);
+  const baseUrl = site.defaultSeo.siteUrl;
 
   const projectUrls: MetadataRoute.Sitemap = projects.map((project) => ({
     url: `${baseUrl}/projects/${project.slug}`,

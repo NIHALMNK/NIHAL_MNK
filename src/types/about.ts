@@ -4,12 +4,6 @@ export interface AboutProfile {
   location: string;
   avatarUrl: string;
   availableForHire: boolean;
-  email: string;
-  socials: {
-    github: string;
-    linkedin: string;
-    instagram?: string;
-  };
 }
 
 export interface EducationItem {

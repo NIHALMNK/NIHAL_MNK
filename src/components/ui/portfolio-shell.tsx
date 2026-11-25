@@ -14,8 +14,8 @@ interface PortfolioShellProps {
  * (Dark Mode: #09090B, Light Mode: #F4F0E9).
  * The frame is visually identified strictly through thin border lines and flanking diagonal hatch side strips.
  *
- * This is a Server Component — it fetches site settings and connect links once and
- * passes them down to Navbar and Footer, eliminating direct @/data/* imports in client components.
+ * This is a Server Component — it fetches site settings and connect links from Sanity once
+ * and passes them down to Navbar and Footer.
  */
 export async function PortfolioShell({ children }: PortfolioShellProps) {
   const [siteSettings, connectLinks] = await Promise.all([
@@ -35,12 +35,12 @@ export async function PortfolioShell({ children }: PortfolioShellProps) {
             avatarUrl={siteSettings.avatar?.url}
             avatarAlt={siteSettings.avatar?.alt}
             connectLinks={connectLinks}
-            email={siteSettings.email}
+            email={connectLinks.email}
           />
           <main id="main-content" className="flex-1 flex flex-col">
             {children}
           </main>
-          <Footer connectLinks={connectLinks} email={siteSettings.email} resumeUrl={siteSettings.resumeUrl} />
+          <Footer connectLinks={connectLinks} siteName={siteSettings.name} />
         </div>
 
         {/* Right Hatch Side Edge */}

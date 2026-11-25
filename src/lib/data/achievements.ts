@@ -1,5 +1,4 @@
 import { Achievement } from "@/types/achievement";
-import { achievementsData as localAchievementsData } from "@/data/home/achievements";
 import { sanityFetch, isSanityConfigured } from "@/sanity/client";
 import { allAchievementsQuery } from "@/sanity/queries";
 
@@ -17,7 +16,7 @@ interface SanityAchievementDoc {
 }
 
 /**
- * Returns Achievements from Sanity (or fallback local dataset).
+ * Returns Achievements from Sanity (empty when none are published).
  */
 export async function getAchievements(): Promise<Achievement[]> {
   if (isSanityConfigured()) {
@@ -46,5 +45,5 @@ export async function getAchievements(): Promise<Achievement[]> {
     }
   }
 
-  return localAchievementsData;
+  return [];
 }

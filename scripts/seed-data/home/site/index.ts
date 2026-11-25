@@ -1,9 +1,8 @@
 import { SiteSettings } from "@/types/site";
-import { NavigationConfig } from "@/types/navigation";
 
 // ─── Site Identity (Hero / Global) ───────────────────────────────────────────
 // This is the single source of truth for site-level identity data.
-// Social / contact links live in src/data/connect/index.ts — NOT here.
+// Social / contact links live in the connect seed — NOT here.
 export const siteSettingsData: SiteSettings = {
   name: "Mohammed Nihal K",
   role: "MERN Stack Developer • Engineer • Builder",
@@ -19,14 +18,6 @@ export const siteSettingsData: SiteSettings = {
   profileImage: "https://res.cloudinary.com/doyxte1wf/image/upload/v1787069442/NIHAL-MNK_f2epho.png",
   location: "India (UTC+5:30)",
   availableForHire: true,
-  email: "mohammednihal.dev@gmail.com",
-  resumeUrl: "/resume.pdf",
-  // socials is kept for backward-compat but the authoritative source is src/data/connect/index.ts
-  socials: {
-    instagram: "https://instagram.com/",
-    github: "https://github.com/NIHALMNK",
-    linkedin: "https://www.linkedin.com/in/mohammednihalk6061/",
-  },
   defaultSeo: {
     title: "Mohammed Nihal K — MERN Stack Developer Portfolio",
     description:
@@ -38,24 +29,5 @@ export const siteSettingsData: SiteSettings = {
       width: 1200,
       height: 630,
     },
-  },
-};
-
-// ─── Navigation Config ────────────────────────────────────────────────────────
-export const navigationConfigData: NavigationConfig = {
-  mainNav: [
-    { title: "Home", href: "/" },
-    { title: "Projects", href: "/projects" },
-    { title: "Blog", href: "/blogs" },
-    { title: "Stack", href: "/stack" },
-    { title: "Contact", href: "/contact" },
-  ],
-  // socialLinks resolved from connect domain — kept here for backward-compat only
-  socialLinks: {
-    instagram: "https://instagram.com/",
-    github: "https://github.com/NIHALMNK",
-    linkedin: "https://www.linkedin.com/in/mohammednihalk6061/",
-    email: "/contact",
-    resume: "/resume.pdf",
   },
 };

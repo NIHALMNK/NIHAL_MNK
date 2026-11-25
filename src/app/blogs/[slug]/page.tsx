@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
   if (!post) return {};
 
   return {
-    title: `${post.title} — Mohammed Nihal K`,
+    title: `${post.title}`,
     description: post.excerpt,
     openGraph: {
       title: post.title,

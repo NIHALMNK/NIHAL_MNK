@@ -8,23 +8,21 @@ import { Container } from "@/components/ui/container";
 import { SiteSettings } from "@/types/site";
 import { ConnectLinks } from "@/types/connect";
 import { cn } from "@/lib/utils/cn";
-import { getAllTechnologiesSync } from "@/lib/data/stack";
-import { getConnectLinksSync } from "@/lib/data/connect";
+import { Technology } from "@/types/stack";
+import { getResumeViewUrl } from "@/lib/utils/connect-links";
 import { TechIcon } from "@/components/ui/tech-icon";
 import { useHeroParallax } from "@/lib/animation/hooks";
 
 interface IntroSectionProps {
   siteSettings: SiteSettings;
-  connectLinks?: ConnectLinks;
+  connectLinks: ConnectLinks;
+  allTechnologies: Technology[];
 }
 
-export function IntroSection({ siteSettings, connectLinks }: IntroSectionProps) {
+export function IntroSection({ siteSettings, connectLinks: connect, allTechnologies }: IntroSectionProps) {
   const heroRef = useHeroParallax<HTMLElement>();
   const [isPlaying, setIsPlaying] = React.useState(false);
   const [imageError, setImageError] = React.useState(false);
-
-  // Authoritative Connect Links — single source of truth for social/contact actions
-  const connect = connectLinks || getConnectLinksSync();
 
   const handleDoubleClick = () => {
     setIsPlaying(true);
@@ -35,14 +33,13 @@ export function IntroSection({ siteSettings, connectLinks }: IntroSectionProps) 
   const avatarUrl = siteSettings.profileImage || siteSettings.avatar?.url;
   const avatarAlt = siteSettings.avatar?.alt || siteSettings.name;
 
-  // Authoritative technology stack — full dataset from central stack source (same as About + Stack page)
-  const allTechnologies = getAllTechnologiesSync();
-
+  // Technology stack from Sanity (same dataset as About + Stack page)
   const maxVisible = 10;
   const visibleTechnologies = allTechnologies.slice(0, maxVisible);
   const remainingCount = Math.max(allTechnologies.length - maxVisible, 0);
 
-  const resumeHref = connect.resume || "/resume.pdf";
+  // Resume is a Google Drive link managed in Sanity (Connect & Social Links)
+  const resumeHref = getResumeViewUrl(connect.resume);
 
   return (
     <section ref={heroRef} className="py-8 sm:py-10 md:py-12 border-b border-border/40">
@@ -153,17 +150,18 @@ export function IntroSection({ siteSettings, connectLinks }: IntroSectionProps) 
 
         {/* Action Buttons & Social Links */}
         <div className="mt-6 sm:mt-8 flex flex-wrap items-center gap-3">
-          {/* Resume Button */}
-          <a
-            href={resumeHref}
-            target="_blank"
-            rel="noopener noreferrer"
-            download="Mohammed_Nihal_MERN-Stack_Developer_Resume.pdf"
-            className="glass-button inline-flex items-center gap-2 rounded-lg px-3.5 py-2 text-xs font-medium text-foreground transition-all shadow-xs select-none"
-          >
-            <FileText className="h-3.5 w-3.5 text-muted-foreground" />
-            <span>Resume</span>
-          </a>
+          {/* Resume Button (Google Drive, from Sanity) */}
+          {resumeHref && (
+            <a
+              href={resumeHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="glass-button inline-flex items-center gap-2 rounded-lg px-3.5 py-2 text-xs font-medium text-foreground transition-all shadow-xs select-none"
+            >
+              <FileText className="h-3.5 w-3.5 text-muted-foreground" />
+              <span>Resume</span>
+            </a>
+          )}
 
           {/* Get in touch Button */}
           <Link
@@ -179,25 +177,29 @@ export function IntroSection({ siteSettings, connectLinks }: IntroSectionProps) 
 
           {/* Social Links */}
           <div className="flex items-center gap-2">
-            <a
-              href={connect.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="GitHub"
-              className="glass-button inline-flex h-8 w-8 items-center justify-center rounded-lg text-muted-foreground hover:text-foreground transition-all shadow-xs"
-            >
-              <Github className="h-4 w-4" />
-            </a>
+            {connect.github && (
+              <a
+                href={connect.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="GitHub"
+                className="glass-button inline-flex h-8 w-8 items-center justify-center rounded-lg text-muted-foreground hover:text-foreground transition-all shadow-xs"
+              >
+                <Github className="h-4 w-4" />
+              </a>
+            )}
 
-            <a
-              href={connect.linkedin}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="LinkedIn"
-              className="glass-button inline-flex h-8 w-8 items-center justify-center rounded-lg text-muted-foreground hover:text-foreground transition-all shadow-xs"
-            >
-              <Linkedin className="h-4 w-4" />
-            </a>
+            {connect.linkedin && (
+              <a
+                href={connect.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="LinkedIn"
+                className="glass-button inline-flex h-8 w-8 items-center justify-center rounded-lg text-muted-foreground hover:text-foreground transition-all shadow-xs"
+              >
+                <Linkedin className="h-4 w-4" />
+              </a>
+            )}
 
             {connect.instagram && (
               <a

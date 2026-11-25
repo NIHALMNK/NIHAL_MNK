@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { PortfolioShell } from "@/components/ui/portfolio-shell";
 import { constructMetadata } from "@/lib/utils/metadata";
+import { getSiteSettings } from "@/lib/data/site";
 import "@/styles/globals.css";
 
 const inter = Inter({
@@ -11,7 +12,9 @@ const inter = Inter({
   display: "swap",
 });
 
-export const metadata: Metadata = constructMetadata();
+export async function generateMetadata(): Promise<Metadata> {
+  return constructMetadata(await getSiteSettings());
+}
 
 export default function RootLayout({
   children,
