@@ -69,14 +69,23 @@ export const project = defineType({
       type: "url",
     }),
     defineField({
-      name: "featured",
-      title: "Is Featured on Home Page",
-      type: "boolean",
-      initialValue: false,
+      name: "status",
+      title: "Project Status",
+      type: "string",
+      options: {
+        list: [
+          { title: "Operational", value: "Operational" },
+          { title: "In Development", value: "In Development" },
+          { title: "Archived", value: "Archived" },
+        ],
+        layout: "radio",
+      },
+      initialValue: "Operational",
     }),
     defineField({
       name: "priority",
       title: "Homepage Priority Rank (1, 2, 3, 4)",
+      description: "Projects with priority 1–4 are shown on the homepage, in this order. Leave empty to show only in the archive.",
       type: "number",
       options: {
         list: [

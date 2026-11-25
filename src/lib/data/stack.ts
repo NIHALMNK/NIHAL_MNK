@@ -27,7 +27,7 @@ function mapSanityStackToDomain(doc: SanityStackDoc): Technology {
     slug: doc.slug,
     category: doc.category || "Additional Skills",
     icon: {
-      url: doc.iconUrl || `https://res.cloudinary.com/demo/image/upload/v1/portfolio/tech/${doc.slug}.png`,
+      url: doc.iconUrl || "", // empty → TechIcon renders neutral fallback
       alt: `${doc.name} Logo`,
     },
     tagline: doc.tagline,
@@ -115,14 +115,13 @@ export function getTechnologiesByIdsSync(ids: string[]): Technology[] {
 
       if (match) return match;
 
+      const fallbackSlug = techIdOrName.toLowerCase().replace(/[^a-z0-9]/g, "");
       return {
-        id: `tech-${techIdOrName.toLowerCase().replace(/[^a-z0-9]/g, "")}`,
+        id: `tech-${fallbackSlug}`,
         name: techIdOrName,
-        slug: techIdOrName.toLowerCase().replace(/[^a-z0-9]/g, ""),
-        icon: {
-          url: `https://res.cloudinary.com/demo/image/upload/v1/portfolio/tech/${techIdOrName.toLowerCase().replace(/[^a-z0-9]/g, "")}.png`,
-          alt: techIdOrName,
-        },
+        slug: fallbackSlug,
+        // No icon URL → TechIcon renders its neutral fallback icon.
+        icon: { url: "", alt: techIdOrName },
       };
     })
     .filter((t): t is Technology => Boolean(t));

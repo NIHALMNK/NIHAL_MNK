@@ -188,7 +188,7 @@ export const allProjectsQuery = groq`
     features,
     liveUrl,
     githubUrl,
-    featured,
+    status,
     priority,
     publishedAt,
     "technologies": technologies[]-> {
@@ -220,7 +220,7 @@ export const projectBySlugQuery = groq`
     features,
     liveUrl,
     githubUrl,
-    featured,
+    status,
     priority,
     publishedAt,
     "technologies": technologies[]-> {

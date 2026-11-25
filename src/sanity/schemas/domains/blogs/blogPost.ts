@@ -77,7 +77,7 @@ export const blogPost = defineType({
       type: "object",
       fields: [
         defineField({ name: "name", title: "Name", type: "string", initialValue: "Nihal" }),
-        defineField({ name: "role", title: "Role", type: "string", initialValue: "Frontend Architect" }),
+        defineField({ name: "role", title: "Role", type: "string", initialValue: "MERN Stack Developer" }),
       ],
     }),
   ],

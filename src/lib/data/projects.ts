@@ -56,7 +56,7 @@ function mapSanityProjectToDomain(doc: SanityProjectDoc): ResolvedProject {
       slug: t.slug,
       category: t.category || "Additional Skills",
       icon: {
-        url: t.iconUrl || t.icon?.url || `https://res.cloudinary.com/demo/image/upload/v1/portfolio/tech/${t.slug}.png`,
+        url: t.iconUrl || t.icon?.url || "", // empty → TechIcon renders neutral fallback
         alt: `${t.name} Logo`,
       },
       tagline: t.tagline,

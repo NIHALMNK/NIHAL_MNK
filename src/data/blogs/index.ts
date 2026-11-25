@@ -65,7 +65,7 @@ Implementing custom server-side caching decorators ensures data access boundarie
     featured: true,
     author: {
       name: "Nihal",
-      role: "Frontend Architect",
+      role: "MERN Stack Developer",
     },
   },
   {
@@ -120,7 +120,7 @@ Wrapping the application shell with \`next-themes\` injects an inline theme dete
     featured: false,
     author: {
       name: "Nihal",
-      role: "Frontend Architect",
+      role: "MERN Stack Developer",
     },
   },
   {
@@ -176,7 +176,7 @@ Animations should dynamically degrade for users with vestibular disorders or mot
     featured: false,
     author: {
       name: "Nihal",
-      role: "Frontend Architect",
+      role: "MERN Stack Developer",
     },
   },
 ];

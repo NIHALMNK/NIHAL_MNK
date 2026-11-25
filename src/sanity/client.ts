@@ -1,4 +1,4 @@
-import { createClient, type ClientConfig } from "next-sanity";
+import { createClient, type ClientConfig, type SanityClient } from "next-sanity";
 import { projectId, dataset, apiVersion, isSanityConfigured } from "./config";
 
 export { isSanityConfigured };
@@ -10,10 +10,24 @@ const config: ClientConfig = {
   useCdn: process.env.NODE_ENV === "production",
 };
 
+let publicClient: SanityClient | null = null;
+
 /**
  * Public Sanity client for fetching content on the server or client.
+ * Created lazily so that importing this module never throws when Sanity is not
+ * configured (e.g. builds without NEXT_PUBLIC_SANITY_PROJECT_ID fall back to local data).
  */
-export const client = createClient(config);
+export function getClient(): SanityClient {
+  if (!isSanityConfigured()) {
+    throw new Error(
+      "Sanity is not configured. Set NEXT_PUBLIC_SANITY_PROJECT_ID to enable CMS content."
+    );
+  }
+  if (!publicClient) {
+    publicClient = createClient(config);
+  }
+  return publicClient;
+}
 
 /**
  * Server-only authenticated Sanity client for mutations and data migrations.
@@ -25,6 +39,9 @@ export function getAdminClient() {
     throw new Error(
       "Missing SANITY_API_WRITE_TOKEN in environment. Server mutations require an authenticated API token."
     );
+  }
+  if (!isSanityConfigured()) {
+    throw new Error("Sanity is not configured. Set NEXT_PUBLIC_SANITY_PROJECT_ID.");
   }
   return createClient({
     ...config,
@@ -52,7 +69,7 @@ export async function sanityFetch<T>({
   }
 
   try {
-    return await client.fetch<T>(query, params, {
+    return await getClient().fetch<T>(query, params, {
       next: {
         revalidate: revalidate !== false ? revalidate : undefined,
         tags: ["sanity", ...tags],

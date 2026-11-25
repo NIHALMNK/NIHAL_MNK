@@ -43,7 +43,7 @@ function mapSanityBlogPostToDomain(doc: SanityBlogPostDoc): BlogPost {
     featured: doc.featured ?? false,
     author: {
       name: doc.author?.name || "Nihal",
-      role: doc.author?.role || "Frontend Architect",
+      role: doc.author?.role || "MERN Stack Developer",
     },
   };
 }
